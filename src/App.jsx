@@ -1,9 +1,10 @@
 import "./App.css";
+import SidebarComponent from "./components/SidebarComponent";
 
 function App() {
   return (
     <>
-      <div></div>
+      <SidebarComponent />
     </>
   );
 }

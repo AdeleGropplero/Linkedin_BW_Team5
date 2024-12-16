@@ -1,0 +1,9 @@
+.ConnectButton:hover {
+  background-color: #cecece;
+  border-color: #000000;
+  border-width: 3px;
+}
+
+.ShowButton:hover {
+  background-color: #6c757d;
+}
