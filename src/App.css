@@ -18,3 +18,12 @@
   color: #0d6efd !important;
   text-decoration: underline !important;
 }
+
+.ExperienceIcon:hover {
+  background-color: rgba(220, 223, 224, 0.4) !important;
+}
+
+.Experience:hover {
+  color: #0d6efd !important;
+  text-decoration: underline !important;
+}

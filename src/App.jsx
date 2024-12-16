@@ -1,10 +1,10 @@
 import "./App.css";
-import SidebarComponent from "./components/SidebarComponent";
+import Experience from "./components/Experience";
 
 function App() {
   return (
     <>
-      <SidebarComponent />
+      <Experience />
     </>
   );
 }
