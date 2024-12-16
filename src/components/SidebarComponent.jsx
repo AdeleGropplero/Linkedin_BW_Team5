@@ -76,8 +76,8 @@ const SidebarComponent = () => {
               </p>
               <p className="ms-2 ">Sales Engineer at Global Services</p>
               <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span>Connect</span>
+                <i className="bi bi-person-fill-add me-2 ms-0 ps-0"></i>
+                <span className="fw-semibold">Connect</span>
               </Button>
             </div>
           </div>
@@ -95,8 +95,8 @@ const SidebarComponent = () => {
               </p>
               <p className="ms-2 ">Sales Engineer at Global Services</p>
               <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span>Connect</span>
+                <i className="bi bi-person-fill-add me-2"></i>
+                <span className="fw-semibold">Connect</span>
               </Button>
             </div>
           </div>
@@ -126,7 +126,7 @@ const SidebarComponent = () => {
               <p className="ms-2 ">Sales Engineer at Global Services</p>
               <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
                 <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span>Connect</span>
+                <span className="fw-semibold">Connect</span>
               </Button>
             </div>
           </div>
@@ -145,7 +145,7 @@ const SidebarComponent = () => {
               <p className="ms-2 ">Sales Engineer at Global Services</p>
               <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
                 <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span>Connect</span>
+                <span className="fw-semibold">Connect</span>
               </Button>
             </div>
           </div>

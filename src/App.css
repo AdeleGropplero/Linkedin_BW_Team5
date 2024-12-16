@@ -4,15 +4,38 @@ body {
 
 .ConnectButton {
   border: 1.5px solid !important;
-  box-sizing: border-box !important;
 }
 
 .ConnectButton:hover {
   background-color: rgba(200, 207, 212, 0.5) !important;
   border-color: #000000 !important;
-  /* border-width: 2px !important; */
-  box-sizing: border-box !important;
+
   color: black !important;
+}
+
+.ConnectButton {
+  position: relative;
+
+  overflow: hidden;
+}
+
+.ConnectButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  z-index: 1;
+  transition: all 0.1s ease;
+}
+
+.ConnectButton:hover::before {
+  color: black !important;
+  background-color: rgba(235, 235, 235, 0.3) !important;
+  border: 1.3px solid black;
 }
 
 .ShowButton {
