@@ -7,6 +7,7 @@ import SuggestedForYou from "./components/SuggestedForYou";
 import Analytics from "./components/Analytics";
 import NavBar from "./components/NavBar";
 /* import ProfilesList from "./components/ProfileList"; */
+import ProfileSection from "./components/ProfileSection";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <SidebarComponent />
       <SuggestedForYou />
       <Analytics />
+      <ProfileSection />
     </>
   );
 }

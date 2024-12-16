@@ -84,3 +84,52 @@ body {
   border-radius: 50%;
   padding: 2px 5px;
 }
+#main-section-profile {
+  width: 782px;
+  margin-inline: auto;
+  padding: 0;
+  border: 1px solid rgb(192, 190, 190);
+}
+
+#background_image {
+  width: 781px;
+  height: 196px;
+}
+
+#profile_image {
+  background-color: #e1dad1;
+  width: 128px;
+  height: 128px;
+  top: 120px;
+  left: 20px;
+  box-shadow: 0 2px 15px rgb(135, 135, 135);
+}
+
+#cover-button {
+  right: 15px;
+  top: 15px;
+  background-color: #f7c477;
+}
+
+.add {
+  left: 110px;
+  top: 210px;
+}
+#icons {
+  width: 30px;
+  height: 30px;
+  background-color: #e1dad1;
+}
+#text-hover:hover {
+  color: rgb(43, 43, 174) !important;
+  cursor: pointer;
+}
+#button-hover:hover {
+  background-color: rgb(43, 43, 174) !important;
+}
+#text-hover2:hover {
+  color: black !important;
+}
+#edit-profile-area {
+  background-color: #dde7f1;
+}
