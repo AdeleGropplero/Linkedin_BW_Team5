@@ -1,9 +1,10 @@
 import "./App.css";
+import ProfileSection from "./components/ProfileSection";
 
 function App() {
   return (
     <>
-      <div></div>
+      <ProfileSection />
     </>
   );
 }
