@@ -77,8 +77,9 @@ const NavBar = () => {
         {/* RightSide Buttons*/}
         <div className="d-flex align-items-center ms-3 border-start px-1">
           <div className="d-flex flex-column align-items-center">
-            {" "}
-            <i className="bi bi-grid-3x3-gap-fill" style={{ color: "rgb(144, 141, 141)", fontSize: "2rem" }}></i>
+            <Nav.Link href="/" className="text-center mx-2">
+              <i className="bi bi-grid-3x3-gap-fill" style={{ color: "rgb(144, 141, 141)", fontSize: "2rem" }}></i>
+            </Nav.Link>
             <Nav.Link href="/business" className="text-dark">
               For Business
             </Nav.Link>
