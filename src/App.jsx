@@ -5,10 +5,13 @@ import Experience from "./components/Experience";
 import SidebarComponent from "./components/SidebarComponent";
 import SuggestedForYou from "./components/SuggestedForYou";
 import Analytics from "./components/Analytics";
+import NavBar from "./components/NavBar";
+/* import ProfilesList from "./components/ProfileList"; */
 
 function App() {
   return (
     <>
+      <NavBar />
       <Experience />
       <SidebarComponent />
       <SuggestedForYou />

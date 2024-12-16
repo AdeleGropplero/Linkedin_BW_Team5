@@ -30,4 +30,56 @@ body {
 .Experience:hover {
   color: #0d6efd !important;
   text-decoration: underline !important;
+/* NavBar */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* logo */
+.navbar-brand img {
+  width: 35px;
+  height: 35px;
+}
+
+/* searchbar*/
+.form-control {
+  border-radius: 20px;
+  background-color: #eef3f8;
+  border: none;
+  padding: 0.5rem 1rem;
+  width: 280px;
+}
+
+/* Icons */
+.navbar-nav .nav-link {
+  color: #666;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0a66c2;
+}
+
+.navbar-nav .nav-link i {
+  font-size: 1.2rem;
+}
+
+/* red badge*/
+.badge {
+  font-size: 0.7rem;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  background-color: #f00;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 5px;
 }
