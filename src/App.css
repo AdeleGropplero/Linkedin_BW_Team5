@@ -14,8 +14,12 @@ body {
   box-sizing: border-box !important;
   color: black !important;
 }
+
+.ShowButton {
+  background-color: white !important;
+}
 .ShowButton:hover {
-  background-color: rgba(200, 207, 212, 0.3) !important;
+  background-color: rgba(200, 207, 212, 0.5) !important;
 }
 
 .Profile:hover {

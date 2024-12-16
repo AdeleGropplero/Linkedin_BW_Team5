@@ -129,8 +129,8 @@ const SidebarComponent = () => {
           </div>
         </div>
       </div>
-      <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
-        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+      <div className="d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
+        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
       </div>
     </>
   );
