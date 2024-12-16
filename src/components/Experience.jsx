@@ -33,7 +33,7 @@ const Experience = () => {
             </a>
           </div>
           <div className="d-flex flex-column">
-            <h4 className="fs-5 ms-2 mt-2 mb-0 fw-semibold">Consulente SaleForce</h4>
+            <h4 className="fs-5 ms-2 mt-2 mb-0 fw-semibold">Consulente Salesforce</h4>
             <p className="fs-6 ms-2 mt-0 mb-0 ">NTT DATA Italia · A tempo pieno</p>
             <p className="fs-6 ms-2 mt-0 text-muted">ott 2022 - feb 2024 · 1 anno 5 mesi - Roma · Da remoto</p>
             <div className="d-flex ms-2 gap-2 fw-semibold">
