@@ -35,7 +35,7 @@ const Experience = () => {
           <div className="d-flex flex-column">
             <h4 className="fs-5 ms-2 mt-2 mb-0 fw-semibold">Consulente SaleForce</h4>
             <p className="fs-6 ms-2 mt-0 mb-0 ">NTT DATA Italia · A tempo pieno</p>
-            <p className="fs-6 ms-2 mt-0 text-muted">ott 2022 - feb 2024 · 1 anno 5 mesiott 2022 - feb 2024 · 1 anno 5 mesi Roma · Da remoto</p>
+            <p className="fs-6 ms-2 mt-0 text-muted">ott 2022 - feb 2024 · 1 anno 5 mesi - Roma · Da remoto</p>
             <div className="d-flex ms-2 gap-2 fw-semibold">
               <div>
                 <i className="bi bi-gem"></i>
@@ -67,7 +67,7 @@ const Experience = () => {
           <div className="d-flex flex-column">
             <h4 className="fs-5 ms-2 mt-2 mb-0 fw-semibold">Software Engineer</h4>
             <p className="fs-6 ms-2 mt-0 mb-0 ">ICONSULTING · A tempo pieno</p>
-            <p className="fs-6 ms-2 mt-0 text-muted">gen 2022 - feb 2024 · 2 anni 2 mesi - Roma</p>
+            <p className="fs-6 ms-2 mt-0 text-muted">gen 2022 - ott 2022 · 9 mesi - Roma · Da remoto</p>
             <div className="d-flex ms-2 gap-2 fw-semibold">
               <div>
                 <i className="bi bi-gem"></i>
