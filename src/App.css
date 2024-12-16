@@ -1,3 +1,7 @@
+body {
+  background-color: #f4f2ee;
+}
+
 .ConnectButton {
   border: 1.5px solid !important;
   box-sizing: border-box !important;
