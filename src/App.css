@@ -1,3 +1,7 @@
+.ConnectButton {
+  border: 2px solid !important;
+}
+
 .ConnectButton:hover {
   background-color: rgba(200, 207, 212, 0.5) !important;
   border-color: #000000 !important;
