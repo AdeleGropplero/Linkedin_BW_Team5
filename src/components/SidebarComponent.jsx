@@ -53,7 +53,7 @@ const SidebarComponent = () => {
                 <span className="text-muted"> · 3°+</span>
               </p>
               <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary border border-2 border-secondary rounded-pill px-3 py-1" aria-label="Connect">
+              <Button className="ConnectButton bg-white text-secondary border border-dark rounded-pill px-3 py-1" aria-label="Connect">
                 <i className="bi bi-person-fill-add me-2 ms-1"></i>
                 <span className="text-black">Connect</span>
               </Button>
@@ -72,7 +72,7 @@ const SidebarComponent = () => {
                 <span className="text-muted"> · 3°+</span>
               </p>
               <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary border border-1 border-secondary rounded-pill px-3 py-1" aria-label="Connect">
+              <Button className="ConnectButton bg-white text-secondary border  border-dark rounded-pill px-3 py-1" aria-label="Connect">
                 <i className="bi bi-person-fill-add me-2 ms-1"></i>
                 <span className="text-black">Connect</span>
               </Button>
@@ -80,8 +80,8 @@ const SidebarComponent = () => {
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
-        <Button className="ShowButton bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+      <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
+        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
       </div>
     </>
   );
