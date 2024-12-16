@@ -6,3 +6,8 @@
 .ShowButton:hover {
   background-color: rgba(200, 207, 212, 0.5) !important;
 }
+
+.Profile:hover {
+  color: #0d6efd !important;
+  text-decoration: underline !important;
+}
