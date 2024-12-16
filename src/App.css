@@ -1,0 +1,23 @@
+body {
+  background-color: #f4f2ee;
+}
+
+.ConnectButton {
+  border: 1.5px solid !important;
+  box-sizing: border-box !important;
+}
+
+.ConnectButton:hover {
+  background-color: rgba(200, 207, 212, 0.5) !important;
+  border-color: #000000 !important;
+  /* border-width: 2px !important; */
+  box-sizing: border-box !important;
+}
+
+.greyParagraph {
+  color: rgb(90, 88, 88);
+}
+
+.analytics {
+  background-color: white;
+}
