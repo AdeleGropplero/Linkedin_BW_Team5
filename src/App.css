@@ -1,14 +1,17 @@
 .ConnectButton {
-  border: 2px solid !important;
+  border: 1.5px solid !important;
+  box-sizing: border-box !important;
 }
 
 .ConnectButton:hover {
   background-color: rgba(200, 207, 212, 0.5) !important;
   border-color: #000000 !important;
-  border-width: 2px !important;
+  /* border-width: 2px !important; */
+  box-sizing: border-box !important;
+  color: black !important;
 }
 .ShowButton:hover {
-  background-color: rgba(200, 207, 212, 0.5) !important;
+  background-color: rgba(200, 207, 212, 0.3) !important;
 }
 
 .Profile:hover {
