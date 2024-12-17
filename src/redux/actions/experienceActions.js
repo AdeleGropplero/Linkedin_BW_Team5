@@ -1,4 +1,4 @@
-export const experienceActions =
+export const fetchExperiences =
   (userId, expId = "") =>
   async (dispatch) => {
     dispatch({ type: "FETCH_EXPERIENCE_REQUEST" });

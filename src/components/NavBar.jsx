@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
-import { searchProfiles } from "../redux/actions/searchProfiles"; // added serach action
+import { searchProfiles } from "../redux/actions/searchProfiles";
+import { changeUser } from "../redux/actions/changrUser";
 import prime from "../assets/prime.svg";
 
 const NavBar = () => {
@@ -15,14 +16,15 @@ const NavBar = () => {
   const searchResults = useSelector((state) => state.profile.searchResults);
   const searchLoading = useSelector((state) => state.profile.searchLoading);
 
-  // Local state for serach data entry
+  // Local state for search data entry
   const [query, setQuery] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
 
   useEffect(() => {
     dispatch(fetchProfile());
   }, [dispatch]);
 
-  // serachBar handle
+  // SearchBar handle
   const handleSearch = (e) => {
     const value = e.target.value;
     setQuery(value);
@@ -30,6 +32,24 @@ const NavBar = () => {
       dispatch(searchProfiles(value));
     }
   };
+
+  // Handle user selection from search results
+  const handleUserSelect = (userId) => {
+    dispatch(changeUser(userId));
+    setQuery("");
+  };
+
+  useEffect(() => {
+    if (query.trim() !== "" && searchResults) {
+      const filtered = searchResults.filter((result) => {
+        const fullName = `${result.name || ""} ${result.surname || ""}`.toLowerCase();
+        return fullName.includes(query.toLowerCase());
+      });
+      setFilteredResults(filtered);
+    } else {
+      setFilteredResults([]);
+    }
+  }, [query, searchResults]);
 
   return (
     <Navbar bg="white" expand="md" className="border-bottom px-3 px-md-5">
@@ -55,7 +75,7 @@ const NavBar = () => {
               value={query}
               onChange={handleSearch}
             />
-            {/* Search resault*/}
+            {/* Search Results */}
             {query && (
               <div
                 className="position-absolute bg-white shadow rounded"
@@ -69,9 +89,14 @@ const NavBar = () => {
               >
                 {searchLoading ? (
                   <div className="p-2 text-muted">Loading...</div>
-                ) : searchResults && searchResults.length > 0 ? (
-                  searchResults.map((result) => (
-                    <div key={result._id} className="p-2 border-bottom d-flex align-items-center">
+                ) : filteredResults.length > 0 ? (
+                  filteredResults.map((result) => (
+                    <div
+                      key={result._id}
+                      className="p-2 border-bottom d-flex align-items-center"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleUserSelect(result._id)}
+                    >
                       <img
                         src={result.image || "https://via.placeholder.com/35"}
                         alt={result.name}
@@ -135,7 +160,6 @@ const NavBar = () => {
               )}
             </Nav.Link>
           </Nav>
-
           {/* Right Side: Additional Buttons */}
           <div className="d-flex align-items-center ms-3 border-start px-1">
             <div className="d-flex flex-column align-items-center">
