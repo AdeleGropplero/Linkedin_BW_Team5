@@ -7,25 +7,26 @@ import { PiPlusCircle } from "react-icons/pi";
 import { FaPencil } from "react-icons/fa6";
 const ProfileSection = () => {
   return (
-    <Container id="main-section-profile">
-      <div className="position-relative">
-        {/* immagine profilo e sfondo */}
-        <img id="background_image" src={background} alt="background image" />
+    <Container id="main-section-profile" className="position-relative">
+      {/* immagine profilo e sfondo */}
+      <img id="background_image" src={background} alt="background image" />
+      <div className="">
         <img
           id="profile_image"
-          className="bg-color rounded-circle position-absolute border border-5 border-light"
+          className="bg-color mt-lg-5 mt-md-5 rounded-circle position-absolute border border-5 border-light"
           src={profile}
           alt="profile image"
         />
-        <PiPlusCircle className="add fs-1 text-primary bg-light rounded-circle position-absolute" />
-        <Button
-          id="cover-button"
-          className="rounded-pill py-1 text-dark fw-bolder border-none border position-absolute"
-        >
-          <BiCamera className="me-1" />
-          Enhange cover image
-        </Button>
       </div>
+      <PiPlusCircle className="add mt-lg-5 mt-md-5 fs-1 text-primary bg-light rounded-circle position-absolute" />
+      <Button
+        id="cover-button"
+        className="rounded-pill py-1 d-flex align-items-center text-dark fw-bolder border-none border position-absolute"
+      >
+        <BiCamera className="me-lg-2" />
+        <div className="d-none d-lg-block d-xl-block">Enhange cover image</div>
+      </Button>
+
       <div>
         <p className=" text-end me-2 mt-2">
           <FaPencil className="fs-4" />
@@ -36,29 +37,32 @@ const ProfileSection = () => {
           <Col lg={8}>
             <h1 className="fs-4 mb-1">Adele Gropplero di Troppenburg</h1>
             <h5 className="fs-5 fw-normal p-0 mb-1">Assistent Director</h5>
-            <div>
-              <h5 className="fs-6 fw-normal text-secondary d-inline-block pe-2 ">
-                Rome, Latium, Italy
-              </h5>
-              <span className="fs-6 text-secondary">&#183;</span>
-              <a
-                id="text-hover"
-                className="fs-6 text-primary ms-2 text-decoration-none fw-medium"
-              >
-                Contact info
-              </a>
-            </div>
           </Col>
-          <Col lg={4} className="justify-content-center">
-            <div className="align-items-center">
+          <Col lg={4} className="p-0">
+            <div className="d-flex align-items-center">
               <img
+                className="d-none d-lg-block d-xl-block"
                 id="icons"
                 src={icona_lavoro}
                 alt="icona di default del lavoro dell'utente"
               />
-              <h6 className="d-inline-block ms-2">Nucleode SRL</h6>
+              <h6 className="ms-1 ps-2 pt-2">Nucleode SRL</h6>
             </div>
           </Col>
+        </Row>
+        <Row className="ps-4">
+          <div>
+            <h5 className="fs-6 fw-normal text-secondary d-inline-block pe-2 ">
+              Rome, Latium, Italy
+            </h5>
+            <span className="fs-6 text-secondary">&#183;</span>
+            <a
+              id="text-hover"
+              className="fs-6 text-primary ms-2 text-decoration-none fw-medium"
+            >
+              Contact info
+            </a>
+          </div>
         </Row>
       </div>
       <div className="ps-3 mt-3">
