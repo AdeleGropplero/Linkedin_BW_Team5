@@ -1,8 +1,9 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../App.css";
-import { useSelector } from "react-redux";
+
 import FormComponent from "./FormComponent";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Experience = () => {
   const experiences = useSelector((state) => state.experiences2.allExperience);
@@ -17,6 +18,7 @@ const Experience = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 ">
