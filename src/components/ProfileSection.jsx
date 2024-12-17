@@ -1,6 +1,5 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
-import profile from "../assets/images/profile_image.svg";
 import icona_lavoro from "../assets/images/icona_lavoro.svg";
 import { BiCamera } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
