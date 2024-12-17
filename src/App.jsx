@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 /* import ProfilesList from "./components/ProfileList"; */
 import ProfileSection from "./components/ProfileSection";
 import { Col, Container, Row } from "react-bootstrap";
+import FormComponent from "./components/FormComponent";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <SuggestedForYou />
               <Analytics />
               <Experience />
+              <FormComponent />
             </Col>
             <Col lg={3} md={0}>
               <SidebarComponent />
