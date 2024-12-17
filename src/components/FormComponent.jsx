@@ -28,7 +28,7 @@ const FormComponent = ({ isOpen, isClose }) => {
   };
 
   return (
-    <div className="modal show" style={{ display: "block", position: "initial" }}>
+    <div className="modal show">
       <Modal show={isOpen} onHide={isClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Experience</Modal.Title>
