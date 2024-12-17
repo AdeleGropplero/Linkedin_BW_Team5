@@ -111,15 +111,19 @@ body {
   border-radius: 50%;
   padding: 2px 5px;
 }
+
+/* PROFILE SECTION */
 #main-section-profile {
-  width: 782px;
+  /* width: 782px; */
+  max-width: 100%;
   padding: 0;
   border: 1px solid rgb(192, 190, 190);
   object-fit: contain;
 }
 
+/* IMAGES */
 #background_image {
-  max-width: 781px;
+  /* max-width: 781px; */
   max-height: 196px;
   width: 100%;
 }
@@ -163,11 +167,12 @@ body {
 #edit-profile-area {
   background-color: #dde7f1;
 }
+/* MEDIA QUERY ON PROFILE SECTION */
 @media screen and (max-width: 575px) {
   #profile_image {
-    margin-top: 3rem;
+    margin-top: -2rem;
   }
   .add {
-    margin-top: 3rem;
+    margin-top: -2rem;
   }
 }
