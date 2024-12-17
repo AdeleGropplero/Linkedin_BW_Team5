@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import icona_lavoro from "../assets/images/icona_lavoro.svg";
 import { BiCamera } from "react-icons/bi";
@@ -8,10 +8,38 @@ import { FaPencil } from "react-icons/fa6";
 //
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { uploadProfileImage } from "../redux/actions/uploadProfileImage";
+import { deleteProfileImage } from "../redux/actions/deleteProfileImage";
 //
 const ProfileSection = () => {
-  //
+  ///Modal Upload Image
+  const [show, setShow] = useState(false);
+  const loading = useSelector((state) => state.profile.loading);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  //Upload Image
+  const [file, setFile] = useState(null);
+  const userId = useSelector((state) => state.profile.data?._id);
+  // Handle file selection
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUpload = () => {
+    if (file && userId) {
+      dispatch(uploadProfileImage(file, userId));
+    }
+  };
+
+  const handleDelete = () => {
+    if (userId) {
+      dispatch(deleteProfileImage(userId));
+      handleClose();
+    }
+  };
   // Load data from Redux
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.data);
@@ -31,12 +59,38 @@ const ProfileSection = () => {
           alt="profile image"
         />
       </div>
-      <PiPlusCircle className="add mt-lg-5 mt-md-5 fs-1 text-primary bg-light rounded-circle position-absolute" />
+      <PiPlusCircle className="add mt-lg-5 mt-md-5 fs-1 text-primary bg-light rounded-circle position-absolute btn p-0" onClick={handleShow} />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Profile Photo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="container mt-3">
+            <Form>
+              {/* Input field */}
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Upload Image</Form.Label>
+                <Form.Control type="file" accept="image/*" onChange={handleFileChange} className="form-control" />
+              </Form.Group>
+            </Form>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={handleDelete} className="ms-2" disabled={loading}>
+            {loading ? "Deleting..." : "Delete Image"}
+          </Button>
+          <Button variant="primary" onClick={handleUpload} disabled={!file}>
+            Modify
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Button id="cover-button" className="rounded-pill py-1 d-flex align-items-center text-dark fw-bolder border-none border position-absolute">
         <BiCamera className="me-lg-2" />
         <div className="d-none d-lg-block d-xl-block">Enhange cover image</div>
       </Button>
-
       <div>
         <p className=" text-end me-2 mt-2">
           <FaPencil className="fs-4" />

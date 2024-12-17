@@ -38,6 +38,24 @@ export const profileReducer = (state = initialState, action) => {
     case "SEARCH_PROFILES_FAILURE":
       return { ...state, searchLoading: false, searchError: action.payload };
 
+    case "UPLOAD_IMAGE_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "UPLOAD_IMAGE_SUCCESS":
+      return { ...state, loading: false, data: { ...state.data, image: action.payload.image } };
+
+    case "UPLOAD_IMAGE_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
+    case "DELETE_IMAGE_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "DELETE_IMAGE_SUCCESS":
+      return { ...state, loading: false, data: { ...state.data, image: null } };
+
+    case "DELETE_IMAGE_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
