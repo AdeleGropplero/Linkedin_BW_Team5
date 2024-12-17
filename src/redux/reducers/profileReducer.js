@@ -1,4 +1,5 @@
 const initialState = {
+  userId: null,
   data: null,
   loading: false,
   error: null,
@@ -14,6 +15,8 @@ const initialState = {
 
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "CHANGE_USER":
+      return { ...state, userId: action.payload, data: null };
     case "FETCH_PROFILE_REQUEST":
       return { ...state, loading: true, error: null };
     case "FETCH_PROFILE_SUCCESS":

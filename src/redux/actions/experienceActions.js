@@ -1,4 +1,4 @@
-export const experienceActions =
+export const fetchExperiences =
   (userId, expId = "") =>
   async (dispatch) => {
     dispatch({ type: "FETCH_EXPERIENCE_REQUEST" });
@@ -20,7 +20,7 @@ export const experienceActions =
       }
 
       const data = await response.json();
-      dispatch({ type: "FETCH_EXPERIENCE_SUCCESS", payload: data });
+      dispatch({ type: "FETCH_EXPERIENCE_SUCCESS", payload: { userId, experiences: data } });
     } catch (error) {
       console.error("Error fetching experiences:", error.message);
       dispatch({ type: "FETCH_EXPERIENCE_FAILURE", payload: error.message });

@@ -13,11 +13,11 @@ function App() {
   return (
     <>
       <NavBar />
+      <ProfileSection />
       <Experience />
       <SidebarComponent />
       <SuggestedForYou />
       <Analytics />
-      <ProfileSection />
     </>
   );
 }
