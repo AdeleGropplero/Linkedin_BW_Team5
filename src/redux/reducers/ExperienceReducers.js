@@ -19,7 +19,7 @@ export const ExperienceReducer = (state = initialState, action) => {
     case "FETCH_ALL_EXPERIENCES_REQUEST":
       return { ...state, allExperienceLoading: true, allExperienceError: null };
     case "FETCH_ALL_EXPERIENCES_SUCCESS":
-      return { ...state, allExperienceLoading: false, allExperience: action.payload };
+      return { ...state, allExperienceLoading: false, allExperience: [...state.allExperience, action.payload] };
     case "FETCH_ALL_EXPERIENCES_FAILURE":
       return { ...state, allExperienceLoading: false, allExperienceError: action.payload };
 

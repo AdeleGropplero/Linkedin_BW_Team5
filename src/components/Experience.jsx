@@ -54,7 +54,8 @@ const Experience = () => {
               <p className="fs-6 ms-2 mt-0 mb-0 ">{experience.company}</p>
 
               <p className="fs-6 ms-2 mt-0 text-muted">
-                {experience.startDate} · {experience.endDate}? {experience.endDate} : In corso - {experience.area}
+                {new Date(experience.startDate).toISOString().slice(0, 10)} ·{" "}
+                {experience.endDate ? new Date(experience.endDate).toISOString().slice(0, 10) : "In corso"} - {experience.area}
               </p>
               <div className="d-flex ms-2 gap-2 fw-semibold">
                 <div>
@@ -67,9 +68,9 @@ const Experience = () => {
                 </div>
               </div>
             </div>
+            <hr />
           </div>
         ))}
-        <hr />
       </div>
     </>
   );
