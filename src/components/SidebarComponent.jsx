@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 const SidebarComponent = () => {
   return (
     <>
-      <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 mx-5">
+      <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 ">
         <div className=" d-flex mb-2 justify-content-between ">
           <div>
             <h3 className="h5 fw-bold">Profile Language</h3>
@@ -60,13 +60,16 @@ const SidebarComponent = () => {
 
       {/*-----------------------------------------------------------*/}
 
-      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 mx-5">
+      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 ">
         <div className="  mb-4  ">
           <div>
             <h4 className="mt-3  mb-3 fs-5">More profiles for you</h4>
           </div>
           <div className="d-flex">
-            <div className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
                 <a href="#" className="text-decoration-none text-black Profile">
@@ -85,10 +88,16 @@ const SidebarComponent = () => {
         <hr className="my-0" />
         <div className=" mt-3 mb-2  ">
           <div className="d-flex">
-            <div className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black Profile ">
+                <a
+                  href="#"
+                  className="text-decoration-none text-black Profile "
+                >
                   Andrea Ceccarelli
                 </a>
                 <span className="text-muted"> · 3°+</span>
@@ -102,23 +111,31 @@ const SidebarComponent = () => {
           </div>
         </div>
       </div>
-      <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
-        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+      <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
+        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">
+          Show all
+        </Button>
       </div>
 
       {/*-----------------------------------------------------------*/}
 
-      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 mx-5">
+      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 ">
         <div className="  mb-4  ">
           <div>
             <h4 className="mt-3  mb-0 fs-5">People You May Know</h4>
             <p className="text-muted">From your industry</p>
           </div>
           <div className="d-flex">
-            <div className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black mb-0 Profile">
+                <a
+                  href="#"
+                  className="text-decoration-none text-black mb-0 Profile"
+                >
                   Andrea Ceccarelli
                 </a>
                 <span className="text-muted"> · 3°+</span>
@@ -134,7 +151,10 @@ const SidebarComponent = () => {
         <hr className="my-0" />
         <div className=" mt-3 mb-2 ">
           <div className="d-flex">
-            <div className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className=" ms-2 mb-0 fw-semibold ">
                 <a href="#" className="text-decoration-none text-black Profile">
@@ -151,8 +171,10 @@ const SidebarComponent = () => {
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-center mt-0 rounded-bottom border mx-5 mb-4 shadow-sm">
-        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+      <div className="d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
+        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">
+          Show all
+        </Button>
       </div>
     </>
   );

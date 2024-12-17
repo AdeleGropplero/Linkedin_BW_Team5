@@ -7,9 +7,17 @@ import { PiPlusCircle } from "react-icons/pi";
 import { FaPencil } from "react-icons/fa6";
 const ProfileSection = () => {
   return (
-    <Container id="main-section-profile" className="position-relative">
+    <Container
+      id="main-section-profile"
+      className="position-relative mt-5 rounded-2"
+    >
       {/* immagine profilo e sfondo */}
-      <img id="background_image" src={background} alt="background image" />
+      <img
+        id="background_image"
+        src={background}
+        alt="background image"
+        className="rounded-top-2"
+      />
       <div className="">
         <img
           id="profile_image"
