@@ -14,14 +14,6 @@ import FormComponent from "./components/FormComponent";
 function App() {
   return (
     <>
-<<<<<<< HEAD
-      <NavBar />
-      <ProfileSection />
-      <Experience />
-      <SidebarComponent />
-      <SuggestedForYou />
-      <Analytics />
-=======
       <Container fluid className="px-0">
         <NavBar />
         <div className="container-lg">
@@ -39,7 +31,6 @@ function App() {
           </Row>
         </div>
       </Container>
->>>>>>> 4d331284b3573ae67d6d1ef5d0fb0991b7244404
     </>
   );
 }
