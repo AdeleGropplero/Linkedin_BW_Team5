@@ -8,6 +8,7 @@ import Analytics from "./components/Analytics";
 import NavBar from "./components/NavBar";
 /* import ProfilesList from "./components/ProfileList"; */
 import ProfileSection from "./components/ProfileSection";
+import FormComponent from "./components/FormComponent";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <SuggestedForYou />
       <Analytics />
       <ProfileSection />
+      <FormComponent />
     </>
   );
 }
