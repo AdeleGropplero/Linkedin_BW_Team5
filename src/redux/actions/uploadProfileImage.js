@@ -1,5 +1,4 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
-const token = import.meta.env.VITE_AUTH_TOKEN;
 
 export const uploadProfileImage = (file, userId) => async (dispatch) => {
   dispatch({ type: "UPLOAD_IMAGE_REQUEST" });
