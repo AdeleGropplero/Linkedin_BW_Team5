@@ -5,6 +5,7 @@ import FormComponent from "./FormComponent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchExperiences } from "../redux/actions/experienceActions";
+import { BsTrashFill } from "react-icons/bs";
 
 const Experience = () => {
   const experiences = useSelector((state) => state.experiences.experiences);
@@ -91,10 +92,12 @@ const Experience = () => {
                 </div>
               </div>
             </div>
-            <div
-              className="ExperienceIcon d-flex align-items-center justify-content-center p-1 rounded-circle ms-auto me-2"
-              style={{ height: "48px", width: "50px" }}
-            >
+            <div className=" ms-auto mt-3 me-2 rounded-circle" style={{ height: "48px", width: "50px" }}>
+              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                <BsTrashFill size={24} color="red" />
+              </button>
+            </div>
+            <div className="ExperienceIcon d-flex align-items-center justify-content-center p-1 rounded-circle me-2" style={{ height: "48px", width: "50px" }}>
               <a onClick={() => openModalExperience(experience)} className="px-3 text-dark">
                 <svg
                   stroke="currentColor"
