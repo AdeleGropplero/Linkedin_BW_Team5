@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 const Analytics = () => {
   return (
     <>
-      <div className="analytics">
+      <div className="analytics bg-white">
         <div className="p-3 rounded-top border mt-2">
           <h3 className="mb-1 ps-3">Analytics</h3>
           <div className="greyParagraph d-flex align-items-center ps-3 mb-2">
