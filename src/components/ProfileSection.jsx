@@ -100,8 +100,8 @@ const ProfileSection = () => {
               src={profileData?.image || placeholder}
               alt="profile image"
             />
+
             <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle btn p-0" onClick={handleShow} />
-            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" onClick={handleShow} />
           </div>
 
           <Modal show={show} onHide={handleClose}>
