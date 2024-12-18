@@ -74,6 +74,7 @@ const NavBar = () => {
               style={{ width: "280px" }}
               value={query}
               onChange={handleSearch}
+              to="/profile"
             />
             {/* Search Results */}
             {query && (
@@ -120,7 +121,7 @@ const NavBar = () => {
 
           {/* Navigation Links */}
           <Nav className="d-flex ms-auto mb-2 mb-md-0">
-            <Nav.Link href="/home" className=" text-center mx-2">
+            <Nav.Link href="/" className=" text-center mx-2">
               <i className="bi bi-house-fill"></i>
               <div className="small">Home</div>
             </Nav.Link>
