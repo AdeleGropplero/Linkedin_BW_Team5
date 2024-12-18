@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postExperience } from "../redux/actions/postExperience";
 
 const FormComponent = ({ isOpen, isClose }) => {
@@ -12,11 +12,17 @@ const FormComponent = ({ isOpen, isClose }) => {
     const value = event.target.value;
     setFormData({ ...formData, [name]: value });
   };
+  const userId = useSelector((state) => state.profile.data?._id);
+  console.error("Error: userId is missing!");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form inviato:", formData);
-    dispatch(postExperience(formData));
+    if (!userId) {
+      console.error("Error: userId is missing!");
+      return;
+    }
+    dispatch(postExperience(formData, userId));
     setFormData({
       role: "",
       company: "",

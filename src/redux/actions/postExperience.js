@@ -1,8 +1,8 @@
-export const postExperience = (allExperience) => async (dispatch) => {
+export const postExperience = (allExperience, userId) => async (dispatch) => {
   dispatch({ type: "FETCH_ALL_EXPERIENCES_REQUEST" });
 
   try {
-    const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/675feda70ea286001528b939/experiences", {
+    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

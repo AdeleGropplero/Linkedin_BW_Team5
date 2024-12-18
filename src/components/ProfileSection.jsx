@@ -77,7 +77,7 @@ const ProfileSection = () => {
       {/* div completo */}
       <div>
         <div className="d-flex justify-content-between h-50">
-          <Button className="bg-transparent border-0 border">
+          {/* <Button className="bg-transparent border-0 border">
             <div>
               <img
                 id="profile_image"
@@ -87,7 +87,17 @@ const ProfileSection = () => {
               />
               <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" onClick={handleShow} />
             </div>
-          </Button>
+          </Button> */}
+          <div className="">
+            <img
+              id="profile_image"
+              className="w-100 h-100 align-bottom z-10 shadow object-fit-contain bg-color mt-lg-5 mt-md-5 rounded-circle border border-5 border-light"
+              src={profileData?.image || "https://via.placeholder.com/35"}
+              alt="profile image"
+            />
+            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" onClick={handleShow} />
+          </div>
+
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Profile Photo</Modal.Title>
