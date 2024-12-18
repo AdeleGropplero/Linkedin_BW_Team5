@@ -38,6 +38,14 @@ body {
   border: 1.3px solid black;
 }
 
+#main-section-profile {
+  background-color: white;
+}
+
+.analytics {
+  background-color: white;
+}
+
 .ShowButton {
   background-color: white !important;
 }
