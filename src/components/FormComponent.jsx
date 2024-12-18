@@ -25,6 +25,7 @@ const FormComponent = ({ isOpen, isClose }) => {
       description: "",
       area: ""
     });
+    isClose();
   };
 
   return (

@@ -16,16 +16,22 @@ function App() {
     <>
       <Container fluid className="px-0">
         <NavBar />
-        <div className="container-lg">
-          <Row className="mx-auto mx-0 ">
-            <Col className="mx-md-4 px-0">
+        <div className="container-xl mx-md-auto p-0">
+          <Row className="ms-lg-auto mx-md-5">
+            <Col
+              lg={8}
+              md={12}
+              sm={11}
+              xs={12}
+              className="ms-md-auto ms-lg-auto ms-sm-4 ms-xs-3 px-0"
+            >
               <ProfileSection />
               <SuggestedForYou />
               <Analytics />
               <Experience />
               <FormComponent />
             </Col>
-            <Col lg={3} md={0}>
+            <Col lg={3} md={12} sm={12} xs={12}>
               <SidebarComponent />
             </Col>
           </Row>
