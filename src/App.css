@@ -135,11 +135,12 @@ body {
 }
 
 #profile_image {
-  min-width: 130px;
-  min-height: 130px;
   max-width: 130px;
   max-height: 130px;
-  margin-top: -65px;
+  min-width: 130px;
+  min-height: 130px;
+  margin-top: -75px;
+  margin-left: 15px;
 }
 .plus-circle-icon {
   margin-left: -40px;

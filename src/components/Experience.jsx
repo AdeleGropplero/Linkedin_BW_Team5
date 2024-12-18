@@ -19,6 +19,18 @@ const Experience = () => {
     setIsModalOpen(false);
   };
 
+  const [selectedExperience, setSelectedExperience] = useState(null);
+
+  const openModalExperience = (experience) => {
+    setSelectedExperience(experience);
+    setIsModalOpen(true);
+  };
+
+  /*  const closeModalExperiense = () => {
+    setIsModalOpen(false);
+    setSelectedExperience(null);
+  }; */
+
   return (
     <>
       <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 ">
@@ -70,7 +82,7 @@ const Experience = () => {
               className="ExperienceIcon d-flex align-items-center justify-content-center p-1 rounded-circle ms-auto me-2"
               style={{ height: "48px", width: "50px" }}
             >
-              <a href="#" className="px-3 text-dark">
+              <a onClick={() => openModalExperience(experience)} className="px-3 text-dark">
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
@@ -88,7 +100,7 @@ const Experience = () => {
           </div>
         ))}
       </div>
-      <FormComponent isOpen={isModalOpen} isClose={closeModal} />
+      <FormComponent isOpen={isModalOpen} isClose={closeModal} experienceData={selectedExperience} />
     </>
   );
 };

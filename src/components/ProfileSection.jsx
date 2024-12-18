@@ -32,6 +32,7 @@ const ProfileSection = () => {
 
   const handleUpload = () => {
     if (file && userId) {
+      console.log("UserId: ", userId);
       dispatch(uploadProfileImage(file, userId));
     }
   };
@@ -91,7 +92,7 @@ const ProfileSection = () => {
           <div className="">
             <img
               id="profile_image"
-              className="w-100 h-100 align-bottom z-10 shadow object-fit-contain bg-color mt-lg-5 mt-md-5 rounded-circle border border-5 border-light"
+              className="w-100 h-100 align-bottom z-10 shadow object-fit-contain  rounded-circle"
               src={profileData?.image || "https://via.placeholder.com/35"}
               alt="profile image"
             />
