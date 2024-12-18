@@ -1,5 +1,4 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
-
 import { fetchExperiences } from "./experienceActions";
 export const changeUser = (userId) => async (dispatch) => {
   dispatch({ type: "CHANGE_USER", payload: userId });
@@ -15,7 +14,7 @@ export const fetchProfile = (userId) => async (dispatch) => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    });
+    );
     const data = await response.json();
     dispatch({ type: "FETCH_PROFILE_SUCCESS", payload: data });
   } catch (error) {

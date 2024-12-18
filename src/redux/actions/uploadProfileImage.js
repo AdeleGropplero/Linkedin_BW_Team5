@@ -1,4 +1,5 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
+const token = import.meta.env.VITE_AUTH_TOKEN;
 
 export const uploadProfileImage = (file, userId) => async (dispatch) => {
   dispatch({ type: "UPLOAD_IMAGE_REQUEST" });
@@ -7,14 +8,20 @@ export const uploadProfileImage = (file, userId) => async (dispatch) => {
     const formData = new FormData();
     formData.append("profile", file);
     const currentUserId = userId;
-    console.log("API URL: ", `https://striveschool-api.herokuapp.com/api/profile/${currentUserId}/picture`);
-    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${currentUserId}/picture`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData
-    });
+    console.log(
+      "API URL: ",
+      `https://striveschool-api.herokuapp.com/api/profile/${currentUserId}/picture`
+    );
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/profile/${currentUserId}/picture`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to upload image");
