@@ -31,15 +31,6 @@ const Experience = () => {
     }
   }, [dispatch, userId]);
 
-  const expId = useSelector((state) => state.experiences.experiences._id);
-
-  const handleModify = () => {
-    if (userId && expId) {
-      dispatch(fetchExperiences(userId, expId));
-      console.log("Exp ID: ", expId);
-    }
-  };
-
   return (
     <>
       <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 ">
@@ -93,7 +84,6 @@ const Experience = () => {
             >
               <div className="px-3 text-dark">
                 <svg
-                  onClick={handleModify}
                   stroke="currentColor"
                   fill="currentColor"
                   strokeWidth="0"
