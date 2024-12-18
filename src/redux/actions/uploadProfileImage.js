@@ -8,7 +8,7 @@ export const uploadProfileImage = (file, userId) => async (dispatch) => {
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI`
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYyOThjZDUzMDRhNzAwMTUxNDhiYTYiLCJpYXQiOjE3MzQ1MTQ4OTMsImV4cCI6MTczNTcyNDQ5M30.W5pw7kwzkkIj0vjXYWwmT8lHsoMAejLE2Lp6BTWLbYo`
       },
       body: formData
     });
