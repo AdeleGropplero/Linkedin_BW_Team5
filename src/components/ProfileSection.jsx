@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import icona_lavoro from "../assets/images/icona_lavoro.svg";
 import { BiCamera } from "react-icons/bi";
@@ -10,10 +10,39 @@ import Slider from "react-slick";
 //
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { uploadProfileImage } from "../redux/actions/uploadProfileImage";
+import { deleteProfileImage } from "../redux/actions/deleteProfileImage";
 //
 const ProfileSection = () => {
-  //
+  ///Modal Upload Image
+  const [show, setShow] = useState(false);
+  const loading = useSelector((state) => state.profile.loading);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  //Upload Image
+  const [file, setFile] = useState(null);
+  const userId = useSelector((state) => state.profile.data?._id);
+  // Handle file selection
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUpload = () => {
+    if (file && userId) {
+      dispatch(uploadProfileImage(file, userId));
+    }
+  };
+
+  const handleDelete = () => {
+    if (userId) {
+      dispatch(deleteProfileImage(userId));
+      handleClose();
+    }
+  };
+
   // Load data from Redux
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.data);
@@ -59,9 +88,49 @@ const ProfileSection = () => {
                 src={profileData?.image || "https://via.placeholder.com/35"}
                 alt="profile image"
               />
-              <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" />
+              <PiPlusCircle
+                className="fs-1 plus-circle-icon text-primary bg-light rounded-circle"
+                onClick={handleShow}
+              />
             </div>
           </Button>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Profile Photo</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="container mt-3">
+                <Form>
+                  {/* Input field */}
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>Upload Image</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="form-control"
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button
+                variant="danger"
+                onClick={handleDelete}
+                className="ms-2"
+                disabled={loading}
+              >
+                {loading ? "Deleting..." : "Delete Image"}
+              </Button>
+              <Button variant="primary" onClick={handleUpload} disabled={!file}>
+                Modify
+              </Button>
+            </Modal.Footer>
+          </Modal>
           <div>
             <Button className="bg-transparent border-transparent border border-0 text-end me-2 mt-2">
               <FaPencil className="fs-4 text-black" />
@@ -141,75 +210,73 @@ const ProfileSection = () => {
       {/* some area to edit and upload things to your profile */}
       <div className="slider-container my-3 mb-4 mx-auto">
         <Slider {...settings}>
-          <div>
-            <Row
-              id="edit-profile-area"
-              className="rounded-3 ms-2 py-2 d-flex justify-content-between "
-            >
-              <Col xl={9} lg={9} md={9} sm={9} xs={9}>
-                <p className="m-0 fw-semibold">Open to work</p>
-                <p className="m-0">Full Stack Engineer roles</p>
-                <p id="text-hover" className="m-0 fw-semibold text-primary">
-                  Show details
-                </p>
-              </Col>
-              <Col xl={2} lg={2} md={2} sm={2} xs={2}>
-                <Button className="bg-transparent border-transparent border border-0 text-end">
-                  <FaPencil className=" text-black" />
-                </Button>
-              </Col>
-            </Row>
-          </div>
-          <div>
-            <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex">
-              <Col xl={9} lg={9} md={9} sm={9} xs={9}>
-                <p className="m-0">
-                  Share that you re hiring
-                  <br /> and attract qualified candidates.
-                </p>
-                <p id="text-hover" className="m-0 fw-semibold text-primary">
-                  Get started
-                </p>
-              </Col>
-              <Col xl={1} lg={1} md={1} sm={1} xs={2} className="ps-4">
-                <Button className="bg-transparent border-transparent border border-0 text-end">
-                  <FaPencil className=" text-black" />
-                </Button>
-              </Col>
-            </Row>
-          </div>
-          <div>
-            <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex">
-              <Col xl={9} lg={9} md={9} sm={9} xs={9}>
-                <p className="m-0 fw-semibold">Open to work</p>
-                <p className="m-0">Full Stack Engineer roles</p>
-                <p id="text-hover" className="m-0 fw-semibold text-primary">
-                  Show details
-                </p>
-              </Col>
-              <Col xl={2} lg={2} md={2} sm={2} xs={2} className="ps-5">
-                <Button className="bg-transparent border-transparent border border-0 text-end">
-                  <FaPencil className=" text-black" />
-                </Button>
-              </Col>
-            </Row>
-          </div>
-          <div>
-            <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex">
-              <Col xl={9} lg={9} md={9} sm={5} xs={9}>
-                <p className="m-0 fw-semibold">Open to work</p>
-                <p className="m-0">Full Stack Engineer roles</p>
-                <p id="text-hover" className="m-0 fw-semibold text-primary">
-                  Show details
-                </p>
-              </Col>
-              <Col xl={2} lg={2} md={2} sm={2} xs={2} className="ps-5">
-                <Button className="bg-transparent border-transparent border border-0 text-end">
-                  <FaPencil className=" text-black" />
-                </Button>
-              </Col>
-            </Row>
-          </div>
+          <Row
+            id="edit-profile-area"
+            className="rounded-3 ms-2 py-2 d-flex justify-content-between "
+          >
+            <Col xl={9} lg={9} md={9} sm={9} xs={9}>
+              <p className="m-0 fw-semibold">Open to work</p>
+              <p className="m-0">Full Stack Engineer roles</p>
+              <p id="text-hover" className="m-0 fw-semibold text-primary">
+                Show details
+              </p>
+            </Col>
+            <Col xl={2} lg={2} md={2} sm={2} xs={2}>
+              <Button className="bg-transparent border-transparent border border-0 text-end">
+                <FaPencil className=" text-black" />
+              </Button>
+            </Col>
+          </Row>
+
+          <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex">
+            <Col xl={9} lg={9} md={9} sm={9} xs={9}>
+              <p className="m-0 text-truncate">
+                Share that you re hiring
+                <br /> and attract qualified candidates.
+              </p>
+              <p id="text-hover" className="m-0 fw-semibold text-primary">
+                Get started
+              </p>
+            </Col>
+            <Col xl={1} lg={1} md={1} sm={1} xs={2} className="ps-4">
+              <Button className="bg-transparent border-transparent border border-0 text-end">
+                <FaPencil className=" text-black" />
+              </Button>
+            </Col>
+          </Row>
+
+          <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex">
+            <Col xl={9} lg={9} md={9} sm={9} xs={9}>
+              <p className="m-0 fw-semibold">Open to work</p>
+              <p className="m-0">Full Stack Engineer roles</p>
+              <p id="text-hover" className="m-0 fw-semibold text-primary">
+                Show details
+              </p>
+            </Col>
+            <Col xl={2} lg={2} md={2} sm={2} xs={2} className="ps-lg-2 ps-5">
+              <Button className="bg-transparent border-transparent border border-0 ">
+                <FaPencil className=" text-black" />
+              </Button>
+            </Col>
+          </Row>
+
+          <Row
+            id="edit-profile-area"
+            className="rounded-3 mx-2 py-2 d-flex justify-content-between"
+          >
+            <Col xl={9} lg={9} md={9} sm={7} xs={9}>
+              <p className="m-0 fw-semibold ">Open to work</p>
+              <p className="m-0">Full Stack Engineer roles</p>
+              <p id="text-hover" className="m-0 fw-semibold text-primary">
+                Show details
+              </p>
+            </Col>
+            <Col xl={2} lg={1} md={2} sm={2} xs={2} className="ps-lg-1">
+              <Button className="bg-transparent border-transparent border border-0 ">
+                <FaPencil className="text-black" />
+              </Button>
+            </Col>
+          </Row>
         </Slider>
       </div>
     </Container>
