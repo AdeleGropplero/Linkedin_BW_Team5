@@ -35,6 +35,7 @@ const Experience = () => {
   const openModalExperience = (experience) => {
     setSelectedExperience(experience);
     setIsModalOpen(true);
+    dispatch(fetchExperiences(userId));
   };
 
   /*  const closeModalExperiense = () => {

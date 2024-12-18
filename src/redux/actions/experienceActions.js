@@ -70,7 +70,7 @@ export const updateExperience = (userId, expId, updatedData) => async (dispatch)
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`, {
       method: "PUT",
       headers: {
-        /*  "Content-Type": "application/json", */
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedData)

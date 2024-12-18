@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postExperience } from "../redux/actions/postExperience";
-import { fetchExperiences, updateExperience } from "../redux/actions/experienceActions";
+import { updateExperience } from "../redux/actions/experienceActions";
 
 const FormComponent = ({ isOpen, isClose, experienceData }) => {
   const [formData, setFormData] = useState({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
@@ -31,17 +31,20 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
 
   /* console.error("Error: userId is missing!"); */
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (experienceData) {
-      dispatch(updateExperience(userId, experienceData._id, formData));
-    } else {
-      dispatch(postExperience(formData, userId));
-    }
+    try {
+      if (experienceData) {
+        await dispatch(updateExperience(userId, experienceData._id, formData));
+      } else {
+        await dispatch(postExperience(formData, userId));
+      }
 
-    isClose();
-    dispatch(fetchExperiences(userId));
+      isClose();
+    } catch (error) {
+      console.error("Error in submitting form:", error.message);
+    }
   };
 
   return (

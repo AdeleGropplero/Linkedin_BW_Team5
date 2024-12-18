@@ -22,6 +22,29 @@ export const experienceReducer = (state = initialState, action) => {
     case "UPLOAD_IMAGE_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
+    case "UPDATE_EXPERIENCE_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "UPDATE_EXPERIENCE_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+
+        experiences: state.experiences.map((experience) => (experience._id === action.payload._id ? action.payload : experience))
+      };
+
+    case "UPDATE_EXPERIENCE_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_EXPERIENCES_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "FETCH_EXPERIENCES_SUCCESS":
+      return { ...state, loading: false, experiences: action.payload };
+
+    case "FETCH_EXPERIENCES_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
