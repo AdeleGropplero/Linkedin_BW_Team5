@@ -116,7 +116,6 @@ body {
 #main-section-profile {
   max-width: 100%;
   padding: 0;
-  border: 1px solid rgb(192, 190, 190);
   object-fit: contain;
 }
 
@@ -129,7 +128,10 @@ body {
 #profile_image {
   max-width: 130px;
   max-height: 130px;
-  margin-top: -65px;
+  min-width: 130px;
+  min-height: 130px;
+  margin-top: -75px;
+  margin-left: 15px;
 }
 .plus-circle-icon {
   margin-left: -40px;
@@ -166,6 +168,17 @@ slick-dots li button:before,
   background-color: #dde7f1;
   border-radius: 15px;
   max-width: 370px;
+}
+
+/* HOME PAGE */
+#profile_image-home {
+  max-width: 130px;
+  max-height: 130px;
+  margin-top: -65px;
+}
+#post_image-home-center {
+  max-width: 65px;
+  max-height: 65px;
 }
 /* MEDIA QUERY ON PROFILE SECTION */
 @media screen and (min-width: 992px) and (max-width: 1400px) {

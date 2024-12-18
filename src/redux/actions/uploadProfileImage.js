@@ -1,3 +1,4 @@
+const token = import.meta.env.VITE_AUTH_TOKEN;
 export const uploadProfileImage = (file, userId) => async (dispatch) => {
   dispatch({ type: "UPLOAD_IMAGE_REQUEST" });
 
@@ -10,7 +11,7 @@ export const uploadProfileImage = (file, userId) => async (dispatch) => {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYyOThlZjUzMDRhNzAwMTUxNDhiYTciLCJpYXQiOjE3MzQ1MTQ5MjcsImV4cCI6MTczNTcyNDUyN30.iI41tobOMoRKrWFV8ObpzJOlp4_CqQtmcGAvtRVUTTs`
+          Authorization: `Bearer ${token}`
         },
         body: formData
       }

@@ -80,6 +80,7 @@ const NavBar = () => {
                 aria-label="Search"
                 style={{ width: "280px" }}
                 value={query}
+                to="/home"
                 onChange={handleSearch}
               />
               {/* Search Results */}

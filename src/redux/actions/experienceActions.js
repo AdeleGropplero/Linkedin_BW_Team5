@@ -1,3 +1,4 @@
+const token = import.meta.env.VITE_AUTH_TOKEN;
 export const fetchExperiences =
   (userId, expId = "") =>
   async (dispatch) => {
@@ -10,8 +11,7 @@ export const fetchExperiences =
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI"
+          Authorization: `Bearer ${token}`
         }
       });
 
@@ -20,7 +20,10 @@ export const fetchExperiences =
       }
 
       const data = await response.json();
-      dispatch({ type: "FETCH_EXPERIENCE_SUCCESS", payload: { userId, experiences: data } });
+      dispatch({
+        type: "FETCH_EXPERIENCE_SUCCESS",
+        payload: { userId, experiences: data }
+      });
     } catch (error) {
       console.error("Error fetching experiences:", error.message);
       dispatch({ type: "FETCH_EXPERIENCE_FAILURE", payload: error.message });

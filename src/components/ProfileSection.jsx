@@ -33,6 +33,7 @@ const ProfileSection = () => {
   const handleUpload = () => {
     if (file && userId) {
       dispatch(uploadProfileImage(file, userId));
+      dispatch(fetchProfile);
     }
   };
 
@@ -40,6 +41,7 @@ const ProfileSection = () => {
     if (userId) {
       dispatch(deleteProfileImage(userId));
       handleClose();
+      dispatch(fetchProfile());
     }
   };
 
@@ -73,7 +75,7 @@ const ProfileSection = () => {
   return (
     <Container
       id="main-section-profile"
-      className="position-relative mt-3 bg-white"
+      className="position-relative border border-2 mt-3 bg-white"
     >
       {/* immagine profilo e sfondo */}
       <img id="background_image" src={background} alt="background image" />
