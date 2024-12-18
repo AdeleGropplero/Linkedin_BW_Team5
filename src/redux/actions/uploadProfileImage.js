@@ -5,13 +5,16 @@ export const uploadProfileImage = (file, userId) => async (dispatch) => {
     const formData = new FormData();
     formData.append("profile", file);
 
-    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI`
-      },
-      body: formData
-    });
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYyOThlZjUzMDRhNzAwMTUxNDhiYTciLCJpYXQiOjE3MzQ1MTQ5MjcsImV4cCI6MTczNTcyNDUyN30.iI41tobOMoRKrWFV8ObpzJOlp4_CqQtmcGAvtRVUTTs`
+        },
+        body: formData
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to upload image");
