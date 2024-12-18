@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postExperience } from "../redux/actions/postExperience";
-import { updateExperience } from "../redux/actions/experienceActions";
+import { fetchExperiences, updateExperience } from "../redux/actions/experienceActions";
 
 const FormComponent = ({ isOpen, isClose, experienceData }) => {
   const [formData, setFormData] = useState({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
@@ -42,6 +42,7 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
       }
 
       isClose();
+      dispatch(fetchExperiences(userId));
     } catch (error) {
       console.error("Error in submitting form:", error.message);
     }

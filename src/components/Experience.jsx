@@ -30,6 +30,7 @@ const Experience = () => {
       dispatch(fetchExperiences(userId));
     }
   }, [dispatch, userId]);
+
   const [selectedExperience, setSelectedExperience] = useState(null);
 
   const openModalExperience = (experience) => {
