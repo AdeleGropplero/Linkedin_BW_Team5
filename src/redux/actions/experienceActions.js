@@ -1,3 +1,4 @@
+const token = import.meta.env.VITE_AUTH_TOKEN;
 export const fetchExperiences =
   (userId, expId = "") =>
   async (dispatch) => {
@@ -10,8 +11,7 @@ export const fetchExperiences =
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI"
+          Authorization: `Bearer ${token}`
         }
       });
 
@@ -46,8 +46,7 @@ export const uploadImage =
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI"
+          Authorization: `Bearer ${token}`
         },
         body: formData
       });
@@ -62,3 +61,28 @@ export const uploadImage =
       dispatch({ type: "UPLOAD_IMAGE_FAILURE", payload: error.message });
     }
   };
+
+//////////////////////
+export const updateExperience = (userId, expId, updatedData) => async (dispatch) => {
+  dispatch({ type: "UPDATE_EXPERIENCE_REQUEST" });
+
+  try {
+    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`, {
+      method: "PUT",
+      headers: {
+        /*  "Content-Type": "application/json", */
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update experience");
+    }
+
+    const data = await response.json();
+    dispatch({ type: "UPDATE_EXPERIENCE_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({ type: "UPDATE_EXPERIENCE_FAILURE", payload: error.message });
+  }
+};

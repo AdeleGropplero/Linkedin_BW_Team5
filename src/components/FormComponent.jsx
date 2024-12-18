@@ -1,40 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postExperience } from "../redux/actions/postExperience";
-import { fetchExperiences } from "../redux/actions/experienceActions";
+import { fetchExperiences, updateExperience } from "../redux/actions/experienceActions";
 
-const FormComponent = ({ isOpen, isClose }) => {
+const FormComponent = ({ isOpen, isClose, experienceData }) => {
   const [formData, setFormData] = useState({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.profile.data?._id);
+  useEffect(() => {
+    if (experienceData) {
+      setFormData({
+        role: experienceData.role || "",
+        company: experienceData.company || "",
+        startDate: experienceData.startDate || "",
+        endDate: experienceData.endDate || "",
+        description: experienceData.description || "",
+        area: experienceData.area || ""
+      });
+    }
+  }, [experienceData]);
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setFormData({ ...formData, [name]: value });
   };
-  const userId = useSelector((state) => state.profile.data?._id);
+
   console.log("userIdd: ", userId);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form inviato:", formData);
+  /* console.error("Error: userId is missing!"); */
 
-    if (!userId) {
-      console.error("Error: userId is missing!");
-      return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (experienceData) {
+      dispatch(updateExperience(userId, experienceData._id, formData));
+    } else {
+      dispatch(postExperience(formData, userId));
     }
 
-    dispatch(postExperience(formData, userId));
-
-    setFormData({
-      role: "",
-      company: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-      area: ""
-    });
     isClose();
     dispatch(fetchExperiences(userId));
   };
@@ -43,53 +48,45 @@ const FormComponent = ({ isOpen, isClose }) => {
     <div className="modal show">
       <Modal show={isOpen} onHide={isClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Experience</Modal.Title>
+          <Modal.Title>{experienceData ? "Edit Experience" : "Add Experience"}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <div className=" d-flex justify-content-center mx-5 mb-3  bg-white">
-            <Form onSubmit={handleSubmit} className="mt-3 ">
-              <Form.Group className="mt-3 mb-3" controlId="role">
-                <Form.Label>Role:</Form.Label>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="role">
+              <Form.Label>Role</Form.Label>
+              <Form.Control type="text" name="role" value={formData.role} onChange={handleChange} required />
+            </Form.Group>
 
-                <Form.Control type="text" name="role" value={formData.role} onChange={handleChange} required />
-              </Form.Group>
+            <Form.Group controlId="company">
+              <Form.Label>Company</Form.Label>
+              <Form.Control type="text" name="company" value={formData.company} onChange={handleChange} required />
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="company">
-                <Form.Label>Company:</Form.Label>
+            <Form.Group controlId="startDate">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
+            </Form.Group>
 
-                <Form.Control type="text" name="company" value={formData.company} onChange={handleChange} required />
-              </Form.Group>
+            <Form.Group controlId="endDate">
+              <Form.Label>End Date</Form.Label>
+              <Form.Control type="date" name="endDate" value={formData.endDate} onChange={handleChange} />
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="startDate">
-                <Form.Label>Start Date:</Form.Label>
+            <Form.Group controlId="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} />
+            </Form.Group>
 
-                <Form.Control type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
-              </Form.Group>
+            <Form.Group controlId="area">
+              <Form.Label>Area</Form.Label>
+              <Form.Control type="text" name="area" value={formData.area} onChange={handleChange} required />
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="endDate">
-                <Form.Label>End Date:</Form.Label>
-
-                <Form.Control type="date" name="endDate" value={formData.endDate} onChange={handleChange} />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="description">
-                <Form.Label>Description:</Form.Label>
-
-                <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} required />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="area">
-                <Form.Label>Area:</Form.Label>
-
-                <Form.Control type="text" name="area" value={formData.area} onChange={handleChange} required />
-              </Form.Group>
-
-              <Button type="submit" variant="primary" className="mb-3">
-                Submit
-              </Button>
-            </Form>
-          </div>
+            <Button variant="primary" type="submit" className="mt-3">
+              {experienceData ? "Update" : "Submit"}
+            </Button>
+          </Form>
         </Modal.Body>
       </Modal>
     </div>
