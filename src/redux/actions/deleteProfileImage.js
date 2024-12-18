@@ -1,4 +1,5 @@
 import placeholderImage from "../../assets/images/placeholder.jpg";
+const token = import.meta.env.VITE_AUTH_TOKEN;
 
 export const deleteProfileImage = (userId) => async (dispatch) => {
   dispatch({ type: "DELETE_IMAGE_REQUEST" });
@@ -15,7 +16,7 @@ export const deleteProfileImage = (userId) => async (dispatch) => {
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWE2OTBlYTI4NjAwMTUyOGI5MmYiLCJpYXQiOjE3MzQzNTY0NTUsImV4cCI6MTczNTU2NjA1NX0.X61mMDeti0CulgtJD66RJBppasMKOd6Dc4bExnJ7YGI`
+        Authorization: `Bearer ${token}`
       },
       body: formData
     });

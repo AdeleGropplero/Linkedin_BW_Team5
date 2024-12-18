@@ -1,5 +1,6 @@
 const initialState = {
   userId: null,
+  expId: null,
   experiences: [],
   loading: false,
   error: null

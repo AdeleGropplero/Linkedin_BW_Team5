@@ -19,6 +19,7 @@ const FormComponent = ({ isOpen, isClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form inviato:", formData);
+
     if (!userId) {
       console.error("Error: userId is missing!");
       return;

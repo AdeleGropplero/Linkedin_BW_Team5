@@ -1,3 +1,5 @@
+const token = import.meta.env.VITE_AUTH_TOKEN;
+
 export const uploadProfileImage = (file, userId) => async (dispatch) => {
   dispatch({ type: "UPLOAD_IMAGE_REQUEST" });
 
@@ -8,7 +10,7 @@ export const uploadProfileImage = (file, userId) => async (dispatch) => {
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYyOThjZDUzMDRhNzAwMTUxNDhiYTYiLCJpYXQiOjE3MzQ1MTQ4OTMsImV4cCI6MTczNTcyNDQ5M30.W5pw7kwzkkIj0vjXYWwmT8lHsoMAejLE2Lp6BTWLbYo`
+        Authorization: `Bearer ${token}`
       },
       body: formData
     });
