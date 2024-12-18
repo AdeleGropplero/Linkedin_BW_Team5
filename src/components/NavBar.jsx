@@ -54,9 +54,9 @@ const NavBar = () => {
   }, [query, searchResults]);
 
   return (
-    <Container fluid className="p-0 m-0">
+    <Container className="p-0 m-0">
       <Navbar bg="white" expand="md" className=" border-bottom px-md-5">
-        <Container fluid>
+        <Container>
           {/* Logo */}
           <Navbar.Brand href="/">
             <img
