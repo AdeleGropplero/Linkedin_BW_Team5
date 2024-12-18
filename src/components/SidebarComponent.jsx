@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 const SidebarComponent = () => {
   return (
     <>
-      <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-5 ">
+      <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-3 ">
         <div className=" d-flex mb-2 justify-content-between ">
           <div>
             <h3 className="h5 fw-bold">Profile Language</h3>
