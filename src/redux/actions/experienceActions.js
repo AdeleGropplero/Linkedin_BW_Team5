@@ -20,6 +20,7 @@ export const fetchExperiences =
       }
 
       const data = await response.json();
+      console.log("Fetched experiences: ", data);
       dispatch({ type: "FETCH_EXPERIENCE_SUCCESS", payload: { userId, experiences: data } });
     } catch (error) {
       console.error("Error fetching experiences:", error.message);

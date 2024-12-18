@@ -1,13 +1,13 @@
-export const postExperience = (allExperience) => async (dispatch) => {
+export const postExperience = (allExperience, userId) => async (dispatch) => {
   dispatch({ type: "FETCH_ALL_EXPERIENCES_REQUEST" });
 
   try {
-    const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/675feda70ea286001528b939/experiences", {
+    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVmZWRhNzBlYTI4NjAwMTUyOGI5MzkiLCJpYXQiOjE3MzQzNDAwMDcsImV4cCI6MTczNTU0OTYwN30.czwRiUpBWc8RNbp0IJB5HRQtnvbfJuSHgPTqSuP3VFM"
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYyOThjZDUzMDRhNzAwMTUxNDhiYTYiLCJpYXQiOjE3MzQ1MTQ4OTMsImV4cCI6MTczNTcyNDQ5M30.W5pw7kwzkkIj0vjXYWwmT8lHsoMAejLE2Lp6BTWLbYo"
       },
       body: JSON.stringify(allExperience)
     });
