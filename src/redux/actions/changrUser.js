@@ -13,8 +13,14 @@ export const fetchProfile = (userId) => async (dispatch) => {
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/profile/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    });
+    );
     const data = await response.json();
     dispatch({ type: "FETCH_PROFILE_SUCCESS", payload: data });
   } catch (error) {

@@ -6,7 +6,7 @@ export const fetchExperience = () => async (dispatch) => {
     const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/675feda70ea286001528b939/experience", {
       method: "GET",
       headers: {
-        Authorization: `Bearer${token}`
+        Authorization: `Bearer ${token}`
       }
     });
 

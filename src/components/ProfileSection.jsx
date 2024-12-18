@@ -35,6 +35,7 @@ const ProfileSection = () => {
     if (file && userId) {
       console.log("UserId: ", userId);
       dispatch(uploadProfileImage(file, userId));
+      dispatch(fetchProfile);
     }
     handleClose();
   };
@@ -43,6 +44,7 @@ const ProfileSection = () => {
     if (userId) {
       dispatch(deleteProfileImage(userId));
       handleClose();
+      dispatch(fetchProfile());
     }
   };
 
@@ -74,7 +76,7 @@ const ProfileSection = () => {
   }, [dispatch]);
   //
   return (
-    <Container id="main-section-profile" className="position-relative mt-3 bg-white">
+    <Container id="main-section-profile" className="position-relative border border-2 mt-3 bg-white">
       {/* immagine profilo e sfondo */}
       <img id="background_image" src={background} alt="background image" />
       {/* div completo */}
@@ -99,6 +101,7 @@ const ProfileSection = () => {
               alt="profile image"
             />
             <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle btn p-0" onClick={handleShow} />
+            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" onClick={handleShow} />
           </div>
 
           <Modal show={show} onHide={handleClose}>

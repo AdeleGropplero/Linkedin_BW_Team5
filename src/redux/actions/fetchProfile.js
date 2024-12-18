@@ -1,4 +1,5 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
+
 export const fetchProfile = (userId) => async (dispatch) => {
   dispatch({ type: "FETCH_PROFILE_REQUEST" });
 

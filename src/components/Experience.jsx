@@ -2,12 +2,13 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../App.css";
 
 import FormComponent from "./FormComponent";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchExperiences } from "../redux/actions/experienceActions";
 
 const Experience = () => {
-  const experiences = useSelector((state) => state.experiences2.allExperience);
-  console.log(experiences);
+  const experiences = useSelector((state) => state.experiences.experiences);
+  console.log("Experiences: ", experiences);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,11 +20,23 @@ const Experience = () => {
     setIsModalOpen(false);
   };
 
+  const dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.profile.data?._id);
+  console.log("userId: ", userId);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchExperiences(userId));
+    }
+  }, [dispatch, userId]);
+
   const [selectedExperience, setSelectedExperience] = useState(null);
 
   const openModalExperience = (experience) => {
     setSelectedExperience(experience);
     setIsModalOpen(true);
+    dispatch(fetchExperiences(userId));
   };
 
   /*  const closeModalExperiense = () => {
@@ -44,7 +57,7 @@ const Experience = () => {
             </div>
           </div>
         </div>
-        {experiences.map((experience) => (
+        {experiences.experiences?.map((experience) => (
           <div key={experience._id} className="d-flex">
             <div className=" ms-2 mt-2" style={{ height: "48px", width: "48px" }}>
               <a href="#">

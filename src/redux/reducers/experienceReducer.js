@@ -1,8 +1,12 @@
 const initialState = {
   userId: null,
+  expId: null,
   experiences: [],
   loading: false,
-  error: null
+  error: null,
+  allExperience: [],
+  allExperienceLoading: false,
+  allExperienceError: null
 };
 
 export const experienceReducer = (state = initialState, action) => {
@@ -43,6 +47,13 @@ export const experienceReducer = (state = initialState, action) => {
 
     case "FETCH_EXPERIENCES_FAILURE":
       return { ...state, loading: false, error: action.payload };
+
+    case "FETCH_ALL_EXPERIENCES_REQUEST":
+      return { ...state, allExperienceLoading: true, allExperienceError: null };
+    case "FETCH_ALL_EXPERIENCES_SUCCESS":
+      return { ...state, allExperienceLoading: false, allExperience: [...state.allExperience, action.payload] };
+    case "FETCH_ALL_EXPERIENCES_FAILURE":
+      return { ...state, allExperienceLoading: false, allExperienceError: action.payload };
 
     default:
       return state;
