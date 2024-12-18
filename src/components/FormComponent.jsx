@@ -29,16 +29,20 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
 
   /* console.error("Error: userId is missing!"); */
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (experienceData) {
-      dispatch(updateExperience(userId, experienceData._id, formData));
-    } else {
-      dispatch(postExperience(formData, userId));
-    }
+    try {
+      if (experienceData) {
+        await dispatch(updateExperience(userId, experienceData._id, formData));
+      } else {
+        await dispatch(postExperience(formData, userId));
+      }
 
-    isClose();
+      isClose();
+    } catch (error) {
+      console.error("Error in submitting form:", error.message);
+    }
   };
 
   return (

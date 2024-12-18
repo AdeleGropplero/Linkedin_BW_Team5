@@ -135,6 +135,7 @@ body {
 }
 
 #profile_image {
+  background-color: white;
   max-width: 130px;
   max-height: 130px;
   min-width: 130px;

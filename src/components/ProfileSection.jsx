@@ -4,6 +4,7 @@ import icona_lavoro from "../assets/images/icona_lavoro.svg";
 import { BiCamera } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
 import { FaPencil } from "react-icons/fa6";
+import placeholder from "../assets/images/placeholder.jpg";
 // import React from "react";
 import Slider from "react-slick";
 
@@ -35,6 +36,7 @@ const ProfileSection = () => {
       console.log("UserId: ", userId);
       dispatch(uploadProfileImage(file, userId));
     }
+    handleClose();
   };
 
   const handleDelete = () => {
@@ -93,10 +95,10 @@ const ProfileSection = () => {
             <img
               id="profile_image"
               className="w-100 h-100 align-bottom z-10 shadow object-fit-contain  rounded-circle"
-              src={profileData?.image || "https://via.placeholder.com/35"}
+              src={profileData?.image || placeholder}
               alt="profile image"
             />
-            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle" onClick={handleShow} />
+            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle btn p-0" onClick={handleShow} />
           </div>
 
           <Modal show={show} onHide={handleClose}>
