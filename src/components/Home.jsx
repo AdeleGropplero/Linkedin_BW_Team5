@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import prime from "../assets/prime.svg";
-import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
   BsBookmarkFill,
@@ -27,6 +26,7 @@ import {
   BsRepeat,
   BsSendFill
 } from "react-icons/bs";
+import FormHomeComponent from "./FormHomeComponent";
 
 const Home = () => {
   // Load data from Redux
@@ -34,6 +34,19 @@ const Home = () => {
 
   const profileData = useSelector((state) => state.profile.data);
   const allPosts = useSelector((state) => state.posts.allPosts[0]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const openModal = () => {
+    setSelectedPost(null);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
 
   console.log("allPosts", allPosts);
 
@@ -44,12 +57,6 @@ const Home = () => {
 
   const [postText, setPostText] = useState("");
 
-  const handlePost = () => {
-    if (postText !== "") {
-      dispatch(newPost(postText));
-      setPostText("");
-    }
-  };
   //
   return (
     <Container>
@@ -131,7 +138,7 @@ const Home = () => {
                   <div>
                     <img
                       id="post_image-home-center"
-                      className="w-70 h-70 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                      className="align-bottom z-10 shadow object-fit-contain rounded-circle"
                       src={
                         profileData?.image || "https://via.placeholder.com/35"
                       }
@@ -144,31 +151,39 @@ const Home = () => {
                 <FormControl
                   type="search"
                   placeholder="Start a post, try writing with AI"
-                  className="me-2 h-100m d-fklex rounded-pill border border-2"
+                  className="me-2 h-100m d-flex rounded-pill border border-2"
                   aria-label="Search"
                   style={{ width: "100%" }}
                   value={postText}
                   onChange={(e) => setPostText(e.target.value)}
                 />
               </Form>
+              <div className="ms-4">
+                <Button
+                  className="btn btn-ptimary rounded-pill px-4 py-2"
+                  onClick={openModal}
+                >
+                  Publish a text
+                </Button>
+                <FormHomeComponent
+                  isOpen={isModalOpen}
+                  isClose={closeModal}
+                  experienceData={selectedPost}
+                />
+              </div>
             </div>
             <Row className="mt-3">
               <Col className="d-flex align-items-center ms-4 p-0">
                 <BsImageFill className="text-primary fs-5" />
                 <span className="ms-2">Media</span>
               </Col>
-              <Col className="d-flex align-items-center p-0  pe-5 m-0">
-                <BsChatRightText className="fs-5 fw-semibold text-warning" />
+              <Col className="d-flex align-items-center p-0 m-0">
+                <BsChatRightText className="fs-6 fw-semibold text-warning" />
                 <span className="ms-2">Contribute expertise</span>
               </Col>
               <Col className="d-flex align-items-center ps-5">
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
-              </Col>
-              <Col>
-                <Button className="btn btn-ptimary " onClick={handlePost}>
-                  Pubblica
-                </Button>
               </Col>
             </Row>
           </div>
