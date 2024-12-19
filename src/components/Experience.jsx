@@ -44,7 +44,9 @@ const Experience = () => {
 
   const handleDelete = (e) => {
     dispatch(deleteExperience(userId, e._id));
-    dispatch(fetchExperiences(userId));
+    setTimeout(() => {
+      dispatch(fetchExperiences(userId));
+    }, 100);
   };
 
   return (
@@ -66,7 +68,10 @@ const Experience = () => {
               <a href="#">
                 <img
                   width="48"
-                  src="https://media.licdn.com/dms/image/v2/D4D0BAQHuvou30YRddw/company-logo_100_100/company-logo_100_100/0/1720712553131/ntt_data_europe_latam_logo?e=1742428800&amp;v=beta&amp;t=JrE9R7EtrEZxMjyudIFvLHKbgVenJp9csWWeyyaaIWk"
+                  src={
+                    experience?.image ||
+                    "https://media.licdn.com/dms/image/v2/D4D0BAQHuvou30YRddw/company-logo_100_100/company-logo_100_100/0/1720712553131/ntt_data_europe_latam_logo?e=1742428800&amp;v=beta&amp;t=JrE9R7EtrEZxMjyudIFvLHKbgVenJp9csWWeyyaaIWk"
+                  }
                   loading="lazy"
                   height="48"
                   alt="Logo di NTT DATA Europe &amp; Latam"

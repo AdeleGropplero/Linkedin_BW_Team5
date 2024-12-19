@@ -59,7 +59,11 @@ export const experienceReducer = (state = initialState, action) => {
     case "FETCH_ALL_EXPERIENCES_REQUEST":
       return { ...state, allExperienceLoading: true, allExperienceError: null };
     case "FETCH_ALL_EXPERIENCES_SUCCESS":
-      return { ...state, allExperienceLoading: false, allExperience: [...state.allExperience, action.payload] };
+      console.log("FETCH_ALL_EXPERIENCES_SUCCESS - payload:", action.payload);
+      return {
+        ...state,
+        allExperience: Array.isArray(action.payload) ? action.payload : []
+      };
     case "FETCH_ALL_EXPERIENCES_FAILURE":
       return { ...state, allExperienceLoading: false, allExperienceError: action.payload };
 
@@ -71,13 +75,35 @@ export const experienceReducer = (state = initialState, action) => {
     case "DELETE_EXPERIENCE_SUCCESS":
       return {
         ...state,
-        loading: false,
-
-        allExperience: state.allExperience.filter((experience) => experience._id !== action.payload._id)
+        allExperience: Array.isArray(state.allExperience) ? state.allExperience.filter((experience) => experience._id !== action.payload._id) : []
       };
 
     case "DELETE_EXPERIENCE_FAILURE":
       return { ...state, loading: false, error: action.payload };
+
+    //////////////////////////////////////////////
+
+    case "POST_EXPERIENCE_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+
+    case "POST_EXPERIENCE_SUCCESS":
+      console.log("POST_EXPERIENCE_SUCCESS - allExperience before update:", state.allExperience);
+      console.log("POST_EXPERIENCE_SUCCESS - payload:", action.payload);
+      return {
+        ...state,
+        allExperience: Array.isArray(state.allExperience) ? [...state.allExperience, action.payload] : [action.payload]
+      };
+
+    case "POST_EXPERIENCE_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
 
     default:
       return state;
