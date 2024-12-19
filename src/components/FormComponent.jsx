@@ -45,6 +45,7 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
         await dispatch(updateExperience(userId, experienceData._id, formData));
       } else {
         await dispatch(postExperience(formData, userId));
+        dispatch(fetchExperiences(userId));
       }
 
       experienceData = { role: "", company: "", startDate: "", endDate: "", description: "", area: "" };
