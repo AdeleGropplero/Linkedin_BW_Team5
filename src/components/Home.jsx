@@ -1,3 +1,6 @@
+const token = import.meta.env.VITE_AUTH_TOKEN;
+const token_comment = import.meta.env.VITE_AUTH_TOKEN_2;
+
 import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
@@ -20,6 +23,7 @@ import {
   BsRepeat,
   BsSendFill
 } from "react-icons/bs";
+import { addComment, fetchAllComments } from "../redux/actions/commentsActions";
 
 const Home = () => {
   // Load data from Redux
@@ -45,6 +49,37 @@ const Home = () => {
     }
   };
   //
+
+  ///////////Comment Section By Mahdi ////////////
+  useEffect(() => {
+    dispatch(fetchAllComments(token));
+  }, [dispatch, token]);
+  const allComments = useSelector((state) => state.comment?.allComments || []);
+  console.log("All Comments:", allComments);
+
+  const [commentText, setCommentText] = useState({});
+
+  const handleCommentChange = (postId, text) => {
+    setCommentText((prev) => ({
+      ...prev,
+      [postId]: text
+    }));
+  };
+
+  const handleCommentSubmit = (postId) => {
+    if (commentText[postId]?.trim()) {
+      dispatch(addComment(commentText[postId], postId, token_comment));
+      setCommentText((prev) => ({
+        ...prev,
+        [postId]: ""
+      }));
+    }
+  };
+
+  /* const handleFetchComments = (postId) => {
+    console.log(postId);
+    dispatch(fetchComments(postId, token_comment));
+  }; */
   return (
     <Container>
       <Row>
@@ -152,67 +187,95 @@ const Home = () => {
           </div>
 
           {/* ****************POST AREA **************************** */}
+          {allPosts?.slice(-10).map((post) => {
+            const postComments = allComments.filter((comment) => comment.elementId === post._id);
 
-          {allPosts?.slice(-10).map((post) => (
-            <div key={post._id} className=" border border-2 rounded-3 bg-white mb-3">
-              <div className="d-flex align-items-center">
-                {/* immagine profilo utente che pubblica */}
-                <Button className="bg-transparent py-0 border-0 border mt-3">
-                  <div>
-                    <img
-                      id="post_image-home-center"
-                      className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={post.user?.image || "https://via.placeholder.com/35"}
-                      alt="profile image"
-                    />
-                  </div>
-                </Button>
-                {/* nome  e cognome dell'utente */}
-                <div>
-                  <h1 className="fs-6 mb-1">{post.username}</h1>
-                  <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
-                    {post.user?.title || "title"}
-                  </h5>
-                </div>
-              </div>
-              <p className="ms-3">{post.text}</p>
-              <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+            return (
+              <div key={post._id} className="border border-2 rounded-3 bg-white mb-3">
                 <div className="d-flex align-items-center">
+                  {/* immagine profilo utente che pubblica */}
+                  <Button className="bg-transparent py-0 border-0 border mt-3">
+                    <div>
+                      <img
+                        id="post_image-home-center"
+                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                        src={post.user?.image || "https://via.placeholder.com/35"}
+                        alt="profile image"
+                      />
+                    </div>
+                  </Button>
+                  {/* nome  e cognome dell'utente */}
                   <div>
-                    <h1 className="fs-6 mb-1">
-                      {post.user?.name || "name"} {post.user?.surname || "surname"}
-                    </h1>
-                    <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
+                    <h1 className="fs-6 mb-1">{post.username}</h1>
+                    <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
                       {post.user?.title || "title"}
                     </h5>
                   </div>
                 </div>
-                <p className="ms-3">{post.user?.bio || "bio"}</p>
+                <p className="ms-3">{post.text}</p>
+
+                {/* Comment Submit*/}
+                <div className="mt-2">
+                  <Form>
+                    <FormControl
+                      type="text"
+                      placeholder="Write a comment..."
+                      value={commentText[post._id] || ""}
+                      onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                    />
+                    <Button className="mt-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                      Submit
+                    </Button>
+                  </Form>
+                </div>
+
+                {/* Comment Show*/}
+                <div className="mt-3">
+                  {postComments.map((comment) => (
+                    <div key={comment._id} className="border-bottom py-2">
+                      <p>{comment.comment}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+                  <div className="d-flex align-items-center">
+                    <div>
+                      <h1 className="fs-6 mb-1">
+                        {post.user?.name || "name"} {post.user?.surname || "surname"}
+                      </h1>
+                      <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
+                        {post.user?.title || "title"}
+                      </h5>
+                    </div>
+                  </div>
+                  <p className="ms-3">{post.user?.bio || "bio"}</p>
+                </div>
+                <div className="d-flex align-items-center mt-2">
+                  <BsHandThumbsUp className="ms-3" />
+                  <span className="text-secondary">1</span>
+                </div>
+                <Row className="mt-2">
+                  <Col className="d-flex align-items-center">
+                    <BsHandThumbsUp className="ms-5" />
+                    <span className="ms-2 me-0 pe-0">Like</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsChatRightDots className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Comment</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsRepeat className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Repost</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsSendFill className="ms-3" />
+                    <span className="ms-2 me-5">Send</span>
+                  </Col>
+                </Row>
               </div>
-              <div className="d-flex align-items-center mt-2">
-                <BsHandThumbsUp className="ms-3" />
-                <span className="text-secondary">1</span>
-              </div>
-              <Row className="mt-2">
-                <Col className="d-flex align-items-center">
-                  <BsHandThumbsUp className="ms-5" />
-                  <span className="ms-2 me-0 pe-0">Like</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsChatRightDots className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Comment</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsRepeat className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Repost</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsSendFill className="ms-3" />
-                  <span className="ms-2 me-5">Send</span>
-                </Col>
-              </Row>
-            </div>
-          ))}
+            );
+          })}
         </Col>
         <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
           <Row className="border border-2 rounded-3 ps-2 pt-2 m-0 bg-white">
