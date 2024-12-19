@@ -29,7 +29,7 @@ const Home = () => {
 
   const profileData = useSelector((state) => state.profile.data);
   const allPosts = useSelector((state) => state.posts.allPosts);
-
+  const userId = useSelector((state) => state.profile.data?._id);
   console.log("allPosts", allPosts);
 
   useEffect(() => {
@@ -218,9 +218,11 @@ const Home = () => {
                   <span className="ms-2 me-5">Send</span>
                 </Col>
                 <Col className="d-flex align-items-center">
-                  <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                    <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} /> Delete
-                  </button>
+                  {userId === post.user._id && (
+                    <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                      <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} /> Delete
+                    </button>
+                  )}
                 </Col>
               </Row>
             </div>
