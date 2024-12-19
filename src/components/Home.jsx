@@ -1,11 +1,4 @@
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  FormControl,
-  Row
-} from "react-bootstrap";
+import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
 import { useEffect } from "react";
@@ -31,7 +24,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.profile.data);
-  const allPosts = useSelector((state) => state.posts.allPosts);
+  const allPosts = useSelector((state) => state.posts.allPosts[0]);
 
   console.log("allPosts", allPosts);
 
@@ -44,17 +37,9 @@ const Home = () => {
     <Container>
       <Row>
         <Col lg={3}>
-          <Container
-            id="main-section-profile"
-            className="mt-3 bg-white border border-2 rounded-3"
-          >
+          <Container id="main-section-profile" className="mt-3 bg-white border border-2 rounded-3">
             {/* immagine profilo e sfondo */}
-            <img
-              className="rounded-top-3"
-              id="background_image"
-              src={background}
-              alt="background image"
-            />
+            <img className="rounded-top-3" id="background_image" src={background} alt="background image" />
             {/* div completo */}
             <div>
               <div className="d-flex justify-content-center h-50">
@@ -63,9 +48,7 @@ const Home = () => {
                     <img
                       id="profile_image-home"
                       className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={
-                        profileData?.image || "https://via.placeholder.com/35"
-                      }
+                      src={profileData?.image || "https://via.placeholder.com/35"}
                       alt="profile image"
                     />
                   </div>
@@ -76,9 +59,7 @@ const Home = () => {
                 <h1 className="fs-5 mb-1">
                   {profileData?.name || "Me"} {profileData?.surname || "Me"}
                 </h1>
-                <h5 className="fs-6 lead fw-normal p-0 mb-1">
-                  {profileData?.title || "Me"}
-                </h5>
+                <h5 className="fs-6 lead fw-normal p-0 mb-1">{profileData?.title || "Me"}</h5>
               </div>
             </div>
             <Row>
@@ -91,23 +72,14 @@ const Home = () => {
               </Col>
             </Row>
             <div>
-              <p className="m-0 ps-2 pt-4 fw-light text-secondary">
-                Boost your career with exclusive tools
-              </p>
+              <p className="m-0 ps-2 pt-4 fw-light text-secondary">Boost your career with exclusive tools</p>
               <p className="m-0 ps-2 fw-medium d-flex align-items-center ">
-                <img
-                  src={prime}
-                  alt=""
-                  style={{ width: "25px", height: "20px" }}
-                  className="my-1 mb-1"
-                />
+                <img src={prime} alt="" style={{ width: "25px", height: "20px" }} className="my-1 mb-1" />
                 Try Premium for $0
               </p>
               <p className="m-0 ps-2 py-4 fw-medium d-flex align-items-center ">
                 <BsBookmarkFill className="text-secondary fs-5" />
-                <span className="ps-2 text-secondary-emphasis">
-                  Saved items
-                </span>
+                <span className="ps-2 text-secondary-emphasis">Saved items</span>
               </p>
             </div>
           </Container>
@@ -121,9 +93,7 @@ const Home = () => {
                     <img
                       id="post_image-home-center"
                       className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={
-                        profileData?.image || "https://via.placeholder.com/35"
-                      }
+                      src={profileData?.image || "https://via.placeholder.com/35"}
                       alt="profile image"
                     />
                   </div>
@@ -163,7 +133,7 @@ const Home = () => {
           </div>
           {/* ****************POST AREA **************************** */}
 
-          {allPosts.map((post) => (
+          {allPosts.slice(0, 20).map((post) => (
             <div key={post._id} className=" border border-2 rounded-3">
               <div className="d-flex align-items-center">
                 {/* immagine profilo utente che pubblica */}
@@ -180,41 +150,29 @@ const Home = () => {
                 {/* nome  e cognome dell'utente */}
                 <div>
                   <h1 className="fs-6 mb-1">{post.username}</h1>
-                  <h5
-                    className=" lead fw-normal text-secondary p-0 mb-1"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
                     {post.user?.title || "title"}
                   </h5>
                 </div>
               </div>
               <p className="ms-3">{post.text}</p>
-              <div
-                className="border border-2 justify-content-center"
-                style={{ width: "95%", marginInline: "auto" }}
-              >
+              <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                 <div className="d-flex align-items-center">
                   <Button className="bg-transparent py-0 border-0 border mt-3">
                     <div>
                       <img
                         id="allPosts_image-home-center"
                         className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                        src={
-                          post.user?.image || "https://via.placeholder.com/35"
-                        }
+                        src={post.user?.image || "https://via.placeholder.com/35"}
                         alt="profile image"
                       />
                     </div>
                   </Button>
                   <div>
                     <h1 className="fs-6 mb-1">
-                      {post.user?.name || "name"}{" "}
-                      {post.user?.surname || "surname"}
+                      {post.user?.name || "name"} {post.user?.surname || "surname"}
                     </h1>
-                    <h5
-                      className=" lead fw-normal text-secondary p-0 mb-1"
-                      style={{ fontSize: "12px" }}
-                    >
+                    <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
                       {post.user?.title || "title"}
                     </h5>
                   </div>
@@ -250,17 +208,10 @@ const Home = () => {
           <Row className="border border-2 rounded-3 ps-2 pt-2">
             <h5>Add to your feed</h5>
             <Row className="d-flex   py-2  mb-2">
-              <Col
-                lg={2}
-                className="rounded-circle bg-black"
-                style={{ height: "48px", width: "48px" }}
-              ></Col>
+              <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
               <Col lg={10}>
                 <p className="ms-2 mb-0 fw-semibold">
-                  <a
-                    href="#"
-                    className="text-decoration-none text-black Profile"
-                  >
+                  <a href="#" className="text-decoration-none text-black Profile">
                     Festival de Cannes
                   </a>
                 </p>
@@ -274,17 +225,10 @@ const Home = () => {
               </Col>
             </Row>
             <Row className="d-flex  py-2 mb-2">
-              <Col
-                lg={2}
-                className="rounded-circle bg-black"
-                style={{ height: "48px", width: "48px" }}
-              ></Col>
+              <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
               <Col lg={10}>
                 <p className="ms-2 mb-0 fw-semibold">
-                  <a
-                    href="#"
-                    className="text-decoration-none text-black Profile"
-                  >
+                  <a href="#" className="text-decoration-none text-black Profile">
                     Charles Icay
                   </a>
                 </p>
@@ -298,17 +242,10 @@ const Home = () => {
               </Col>
             </Row>
             <Row className="d-flex  py-2 ">
-              <Col
-                lg={2}
-                className="rounded-circle bg-black"
-                style={{ height: "48px", width: "48px" }}
-              ></Col>
+              <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
               <Col lg={10}>
                 <p className="ms-2 mb-0 fw-semibold">
-                  <a
-                    href="#"
-                    className="text-decoration-none text-black Profile"
-                  >
+                  <a href="#" className="text-decoration-none text-black Profile">
                     Hoorakhsh Studios
                   </a>
                 </p>
@@ -327,21 +264,15 @@ const Home = () => {
             </p>
           </Row>
           <Row className="border border-2 rounded-3 mt-3">
-            <p className="my-2 fw-medium text-secondary">
-              Try LinkedIn on the Windows App
-            </p>
+            <p className="my-2 fw-medium text-secondary">Try LinkedIn on the Windows App</p>
           </Row>
-          <div
-            className="d-flex flex-wrap justify-content-center text-secondary mt-3"
-            style={{ fontSize: "90%" }}
-          >
+          <div className="d-flex flex-wrap justify-content-center text-secondary mt-3" style={{ fontSize: "90%" }}>
             <span className="me-3 mb-1">About</span>
             <span className="me-3 mb-1">Accessibility</span>
             <span className="me-2 mb-1">Help Center</span>
 
             <span className="me-3 mb-1">
-              Privacy &amp; Terms{" "}
-              <BsCaretDownFill style={{ fontSize: "90%" }} />
+              Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
             </span>
             <span className="me-4 mb-1">Ad Choices</span>
 
@@ -353,11 +284,7 @@ const Home = () => {
             <span className="me-3 mb-1">Get the LinkedIn app</span>
             <span className="me-2 mb-1">More</span>
             <span className=" d-flex mt-2 text-dark justify-content-center align-items-center">
-              <img
-                src={linkedin}
-                alt="linkedin logo"
-                style={{ width: "20%", height: "80%" }}
-              />
+              <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
               LinkedIn Corporation &copy; 2024
             </span>
           </div>
