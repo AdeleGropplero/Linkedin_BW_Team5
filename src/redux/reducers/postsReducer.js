@@ -16,7 +16,7 @@ export const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         allPostsLoading: false,
-        allPosts: [...state.allPosts, action.payload]
+        allPosts: action.payload
       };
     case "FETCH_ALL_POSTS_FAILURE":
       return {
@@ -30,6 +30,7 @@ export const postsReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
 
     case "NEW_POST_SUCCESS":
+      console.log("Data", action.payload);
       return {
         ...state,
         loading: false,

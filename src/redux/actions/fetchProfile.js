@@ -2,6 +2,7 @@ const token = import.meta.env.VITE_AUTH_TOKEN;
 
 export const fetchProfile = (userId) => async (dispatch) => {
   dispatch({ type: "FETCH_PROFILE_REQUEST" });
+  console.log("Andrea");
 
   try {
     const url = userId ? `https://striveschool-api.herokuapp.com/api/profile/${userId}` : "https://striveschool-api.herokuapp.com/api/profile/me";
