@@ -92,6 +92,7 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
       if (file && newExperienceId) {
         await uploadImageLocally(file, userId, newExperienceId); // local function
         console.log("Image uploaded successfully");
+        dispatch(fetchExperiences(userId));
       }
 
       experienceData = { role: "", company: "", startDate: "", endDate: "", description: "", area: "" };
