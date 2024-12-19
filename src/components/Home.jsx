@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
@@ -26,7 +26,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.profile.data);
-  const allPosts = useSelector((state) => state.posts.allPosts[1]);
+  const allPosts = useSelector((state) => state.posts.allPosts[0]);
 
   console.log("allPosts", allPosts);
 
@@ -35,8 +35,13 @@ const Home = () => {
     dispatch(fetchAllPosts());
   }, [dispatch]);
 
+  const [postText, setPostText] = useState("");
+
   const handlePost = () => {
-    dispatch(newPost());
+    if (postText !== "") {
+      dispatch(newPost(postText));
+      setPostText("");
+    }
   };
   //
   return (
@@ -112,6 +117,8 @@ const Home = () => {
                   className="me-2 h-100 rounded-pill border border-2"
                   aria-label="Search"
                   style={{ width: "520px" }}
+                  value={postText}
+                  onChange={(e) => setPostText(e.target.value)}
                 />
               </Form>
             </div>
@@ -144,66 +151,69 @@ const Home = () => {
           </div>
           {/* ****************POST AREA **************************** */}
 
-          {allPosts.slice(0, 20).map((post) => (
-            <div key={post._id} className=" border border-2 rounded-3">
-              <div className="d-flex align-items-center">
-                {/* immagine profilo utente che pubblica */}
-                <Button className="bg-transparent py-0 border-0 border mt-3">
-                  <div>
-                    <img
-                      id="post_image-home-center"
-                      className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={post.user?.image || "https://via.placeholder.com/35"}
-                      alt="profile image"
-                    />
-                  </div>
-                </Button>
-                {/* nome  e cognome dell'utente */}
-                <div>
-                  <h1 className="fs-6 mb-1">{post.username}</h1>
-                  <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
-                    {post.user?.title || "title"}
-                  </h5>
-                </div>
-              </div>
-              <p className="ms-3">{post.text}</p>
-              <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+          {allPosts
+            .slice(0, 5)
+            // .filter((post) => post._id !== "6764272d9906100015b678ab")
+            .map((post) => (
+              <div key={post._id} className=" border border-2 rounded-3">
                 <div className="d-flex align-items-center">
+                  {/* immagine profilo utente che pubblica */}
+                  <Button className="bg-transparent py-0 border-0 border mt-3">
+                    <div>
+                      <img
+                        id="post_image-home-center"
+                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                        src={post.user?.image || "https://via.placeholder.com/35"}
+                        alt="profile image"
+                      />
+                    </div>
+                  </Button>
+                  {/* nome  e cognome dell'utente */}
                   <div>
-                    <h1 className="fs-6 mb-1">
-                      {post.user?.name || "name"} {post.user?.surname || "surname"}
-                    </h1>
+                    <h1 className="fs-6 mb-1">{post.username}</h1>
                     <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
                       {post.user?.title || "title"}
                     </h5>
                   </div>
                 </div>
-                <p className="ms-3">{post.user?.bio || "bio"}</p>
+                <p className="ms-3">{post.text}</p>
+                <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+                  <div className="d-flex align-items-center">
+                    <div>
+                      <h1 className="fs-6 mb-1">
+                        {post.user?.name || "name"} {post.user?.surname || "surname"}
+                      </h1>
+                      <h5 className=" lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
+                        {post.user?.title || "title"}
+                      </h5>
+                    </div>
+                  </div>
+                  <p className="ms-3">{post.user?.bio || "bio"}</p>
+                </div>
+                <div className="d-flex align-items-center mt-2">
+                  <BsHandThumbsUp className="ms-3" />
+                  <span className="text-secondary">1</span>
+                </div>
+                <Row className="mt-2">
+                  <Col className="d-flex align-items-center">
+                    <BsHandThumbsUp className="ms-5" />
+                    <span className="ms-2 me-0 pe-0">Like</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsChatRightDots className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Comment</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsRepeat className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Repost</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsSendFill className="ms-3" />
+                    <span className="ms-2 me-5">Send</span>
+                  </Col>
+                </Row>
               </div>
-              <div className="d-flex align-items-center mt-2">
-                <BsHandThumbsUp className="ms-3" />
-                <span className="text-secondary">1</span>
-              </div>
-              <Row className="mt-2">
-                <Col className="d-flex align-items-center">
-                  <BsHandThumbsUp className="ms-5" />
-                  <span className="ms-2 me-0 pe-0">Like</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsChatRightDots className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Comment</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsRepeat className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Repost</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsSendFill className="ms-3" />
-                  <span className="ms-2 me-5">Send</span>
-                </Col>
-              </Row>
-            </div>
-          ))}
+            ))}
         </Col>
         <Col lg={3} className="mt-3">
           <Row className="border border-2 rounded-3 ps-2 pt-2">

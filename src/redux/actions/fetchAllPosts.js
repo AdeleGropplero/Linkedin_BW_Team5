@@ -3,15 +3,12 @@ export const fetchAllPosts = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: "FETCH_ALL_POSTS_REQUEST" });
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

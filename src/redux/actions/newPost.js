@@ -1,11 +1,11 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
 
-export const newPost = () => async (dispatch) => {
+export const newPost = (postText) => async (dispatch) => {
   dispatch({ type: "NEW_POST_REQUEST" });
 
   try {
     const newPost = {
-      text: "Nuovo post"
+      text: postText
     };
     const response = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
       method: "POST",
