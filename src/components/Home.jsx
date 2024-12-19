@@ -1,11 +1,12 @@
 import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import prime from "../assets/prime.svg";
+import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
   BsBookmarkFill,
@@ -19,6 +20,7 @@ import {
   BsRepeat,
   BsSendFill
 } from "react-icons/bs";
+
 const Home = () => {
   // Load data from Redux
   const dispatch = useDispatch();
@@ -32,11 +34,21 @@ const Home = () => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
   }, [dispatch]);
+
+  const [postText, setPostText] = useState("");
+
+  const handlePost = () => {
+    if (postText !== "") {
+      dispatch(newPost(postText));
+      dispatch(fetchAllPosts());
+      setPostText("");
+    }
+  };
   //
   return (
     <Container>
       <Row>
-        <Col lg={3}>
+        <Col lg={3} className="d-none d-lg-block d-xl-block">
           <Container id="main-section-profile" className="mt-3 bg-white border border-2 rounded-3">
             {/* immagine profilo e sfondo */}
             <img className="rounded-top-3" id="background_image" src={background} alt="background image" />
@@ -84,28 +96,30 @@ const Home = () => {
             </div>
           </Container>
         </Col>
-        <Col lg={6} className="mt-3 bg-white">
-          <div className="border border-2 rounded-3  py-3">
-            <div className="d-flex mt-2  align-content-center">
+        <Col id="main-col-home" lg={6} md={12} className=" mt-3 p-0 ">
+          <div className="border border-2 rounded-3 bg-white  py-3">
+            <div className="d-flex mt-2 align-items-center">
               <div className="d-flex justify-content-start h-50">
                 <Button className="bg-transparent py-0 border-0 border">
                   <div>
                     <img
                       id="post_image-home-center"
-                      className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                      className="w-70 h-70 align-bottom z-10 shadow object-fit-contain rounded-circle"
                       src={profileData?.image || "https://via.placeholder.com/35"}
                       alt="profile image"
                     />
                   </div>
                 </Button>
               </div>
-              <Form className="d-flex">
+              <Form>
                 <FormControl
                   type="search"
                   placeholder="Start a post, try writing with AI"
-                  className="me-2 h-100 rounded-pill border border-2"
+                  className="me-2 h-100m d-fklex rounded-pill border border-2"
                   aria-label="Search"
-                  style={{ width: "520px" }}
+                  style={{ width: "100%" }}
+                  value={postText}
+                  onChange={(e) => setPostText(e.target.value)}
                 />
               </Form>
             </div>
@@ -122,6 +136,11 @@ const Home = () => {
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
               </Col>
+              <Col>
+                <Button className="btn btn-ptimary " onClick={handlePost}>
+                  Pubblica
+                </Button>
+              </Col>
             </Row>
           </div>
           <div className="d-flex justify-content-between">
@@ -131,10 +150,11 @@ const Home = () => {
               <BsCaretDownFill className="text-black" />
             </p>
           </div>
+
           {/* ****************POST AREA **************************** */}
 
-          {allPosts[0].slice(-20).map((post) => (
-            <div key={post._id} className=" border border-2 rounded-3">
+          {allPosts?.slice(-10).map((post) => (
+            <div key={post._id} className=" border border-2 rounded-3 bg-white mb-3">
               <div className="d-flex align-items-center">
                 {/* immagine profilo utente che pubblica */}
                 <Button className="bg-transparent py-0 border-0 border mt-3">
@@ -158,16 +178,6 @@ const Home = () => {
               <p className="ms-3">{post.text}</p>
               <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                 <div className="d-flex align-items-center">
-                  <Button className="bg-transparent py-0 border-0 border mt-3">
-                    <div>
-                      <img
-                        id="allPosts_image-home-center"
-                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                        src={post.user?.image || "https://via.placeholder.com/35"}
-                        alt="profile image"
-                      />
-                    </div>
-                  </Button>
                   <div>
                     <h1 className="fs-6 mb-1">
                       {post.user?.name || "name"} {post.user?.surname || "surname"}
@@ -204,12 +214,12 @@ const Home = () => {
             </div>
           ))}
         </Col>
-        <Col lg={3} className="mt-3">
-          <Row className="border border-2 rounded-3 ps-2 pt-2">
+        <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
+          <Row className="border border-2 rounded-3 ps-2 pt-2 m-0 bg-white">
             <h5>Add to your feed</h5>
             <Row className="d-flex   py-2  mb-2">
               <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
-              <Col lg={10}>
+              <Col lg={8}>
                 <p className="ms-2 mb-0 fw-semibold">
                   <a href="#" className="text-decoration-none text-black Profile">
                     Festival de Cannes
@@ -219,14 +229,14 @@ const Home = () => {
                   Company &#x2022; Movies and Sound Recording
                 </p>
                 <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                  <BsPlusLg className="me-2 fw-bold text-black" />
+                  <BsPlusLg className=" fw-bold text-black" />
                   <span className="fw-semibold">Follow</span>
                 </Button>
               </Col>
             </Row>
             <Row className="d-flex  py-2 mb-2">
               <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
-              <Col lg={10}>
+              <Col lg={8}>
                 <p className="ms-2 mb-0 fw-semibold">
                   <a href="#" className="text-decoration-none text-black Profile">
                     Charles Icay
@@ -236,14 +246,14 @@ const Home = () => {
                   Senior Animator
                 </p>
                 <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
-                  <BsPlusLg className="me-2 fw-bold text-black" />
+                  <BsPlusLg className=" fw-bold text-black" />
                   <span className="fw-semibold">Follow</span>
                 </Button>
               </Col>
             </Row>
             <Row className="d-flex  py-2 ">
               <Col lg={2} className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></Col>
-              <Col lg={10}>
+              <Col lg={8}>
                 <p className="ms-2 mb-0 fw-semibold">
                   <a href="#" className="text-decoration-none text-black Profile">
                     Hoorakhsh Studios
@@ -253,7 +263,7 @@ const Home = () => {
                   Company &#x2022; Animation and Post
                 </p>
                 <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                  <BsPlusLg className="me-2 fw-bold text-black" />
+                  <BsPlusLg className=" fw-bold text-black" />
                   <span className="fw-semibold">Follow</span>
                 </Button>
               </Col>
@@ -263,30 +273,44 @@ const Home = () => {
               <BsArrowRight />
             </p>
           </Row>
-          <Row className="border border-2 rounded-3 mt-3">
+          <Row className="border border-2 rounded-3 mx-0 mt-3 bg-white">
             <p className="my-2 fw-medium text-secondary">Try LinkedIn on the Windows App</p>
           </Row>
           <div className="d-flex flex-wrap justify-content-center text-secondary mt-3" style={{ fontSize: "90%" }}>
-            <span className="me-3 mb-1">About</span>
-            <span className="me-3 mb-1">Accessibility</span>
-            <span className="me-2 mb-1">Help Center</span>
+            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              About
+            </a>
+            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              Accessibility
+            </a>
+            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              Help Center
+            </a>
 
-            <span className="me-3 mb-1">
+            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
               Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
-            </span>
-            <span className="me-4 mb-1">Ad Choices</span>
+            </a>
+            <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
+              Ad Choices
+            </a>
 
-            <span className="me-2 mb-1">Advertising</span>
-            <span className="me-2 mb-1">
+            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              Advertising
+            </a>
+            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
               Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
-            </span>
+            </a>
 
-            <span className="me-3 mb-1">Get the LinkedIn app</span>
-            <span className="me-2 mb-1">More</span>
-            <span className=" d-flex mt-2 text-dark justify-content-center align-items-center">
+            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              Get the LinkedIn app
+            </a>
+            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              More
+            </a>
+            <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
               <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
               LinkedIn Corporation &copy; 2024
-            </span>
+            </a>
           </div>
         </Col>
       </Row>

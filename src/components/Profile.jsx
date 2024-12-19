@@ -1,10 +1,12 @@
 import { Col, Row } from "react-bootstrap";
+import linkedin from "../assets/images/linkedin.png";
 import ProfileSection from "./ProfileSection";
 import SuggestedForYou from "./SuggestedForYou";
 import Analytics from "./Analytics";
 import Experience from "./Experience";
 import FormComponent from "./FormComponent";
 import SidebarComponent from "./SidebarComponent";
+import { BsCaretDownFill } from "react-icons/bs";
 
 const Profile = () => {
   return (
@@ -27,6 +29,86 @@ const Profile = () => {
           <SidebarComponent />
         </Col>
       </Row>
+      <div className="justify-content-center ms-4 mb-3">
+        <a
+          href="#"
+          className="  mt-2 text-black fw-normal text-decoration-none justify-content-center align-items-center"
+          style={{ fontSize: "12px" }}
+        >
+          <img
+            src={linkedin}
+            alt="linkedin logo"
+            style={{ width: "5%", height: "50%" }}
+          />
+          LinkedIn Corporation &copy; 2024
+        </a>
+        <a
+          href="#"
+          className="mx-3 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          About
+        </a>
+        <a
+          href="#"
+          className="me-3 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Accessibility
+        </a>
+        <a
+          href="#"
+          className="me-2 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Help Center
+        </a>
+
+        <a
+          href="#"
+          className="me-3 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
+        </a>
+        <a
+          href="#"
+          className="me-4 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Ad Choices
+        </a>
+
+        <a
+          href="#"
+          className="me-2 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Advertising
+        </a>
+        <a
+          href="#"
+          className="me-2 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
+        </a>
+
+        <a
+          href="#"
+          className="me-3 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          Get the LinkedIn app
+        </a>
+        <a
+          href="#"
+          className="me-2 mb-1 text-black text-decoration-none text-secondary"
+          style={{ fontSize: "12px" }}
+        >
+          More
+        </a>
+      </div>
     </div>
   );
 };

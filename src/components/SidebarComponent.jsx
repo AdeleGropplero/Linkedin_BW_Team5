@@ -66,7 +66,10 @@ const SidebarComponent = () => {
             <h4 className="mt-3  mb-3 fs-5">More profiles for you</h4>
           </div>
           <div className="d-flex">
-            <div className="rounded-circle bg-black" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black flex-shrink-0"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
                 <a href="#" className="text-decoration-none text-black Profile">
@@ -85,10 +88,16 @@ const SidebarComponent = () => {
         <hr className="my-0" />
         <div className=" mt-3 mb-2  ">
           <div className="d-flex">
-            <div className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black flex-shrink-0"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black Profile ">
+                <a
+                  href="#"
+                  className="text-decoration-none text-black Profile "
+                >
                   Andrea Ceccarelli
                 </a>
                 <span className="text-muted"> · 3°+</span>
@@ -103,7 +112,9 @@ const SidebarComponent = () => {
         </div>
       </div>
       <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
-        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">
+          Show all
+        </Button>
       </div>
 
       {/*-----------------------------------------------------------*/}
@@ -115,10 +126,16 @@ const SidebarComponent = () => {
             <p className="text-muted">From your industry</p>
           </div>
           <div className="d-flex">
-            <div className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black flex-shrink-0"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className="ms-2 mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black mb-0 Profile">
+                <a
+                  href="#"
+                  className="text-decoration-none text-black mb-0 Profile"
+                >
                   Andrea Ceccarelli
                 </a>
                 <span className="text-muted"> · 3°+</span>
@@ -134,7 +151,10 @@ const SidebarComponent = () => {
         <hr className="my-0" />
         <div className=" mt-3 mb-2 ">
           <div className="d-flex">
-            <div className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }}></div>
+            <div
+              className="rounded-circle bg-black flex-shrink-0"
+              style={{ height: "48px", width: "48px" }}
+            ></div>
             <div>
               <p className=" ms-2 mb-0 fw-semibold ">
                 <a href="#" className="text-decoration-none text-black Profile">
@@ -152,7 +172,9 @@ const SidebarComponent = () => {
         </div>
       </div>
       <div className="d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
-        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">Show all</Button>
+        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">
+          Show all
+        </Button>
       </div>
     </>
   );
