@@ -9,18 +9,23 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.profile.data?._id);
+
   useEffect(() => {
-    if (experienceData) {
-      setFormData({
-        role: experienceData.role || "",
-        company: experienceData.company || "",
-        startDate: experienceData.startDate || "",
-        endDate: experienceData.endDate || "",
-        description: experienceData.description || "",
-        area: experienceData.area || ""
-      });
+    if (isOpen) {
+      if (experienceData) {
+        setFormData({
+          role: experienceData.role || "",
+          company: experienceData.company || "",
+          startDate: experienceData.startDate || "",
+          endDate: experienceData.endDate || "",
+          description: experienceData.description || "",
+          area: experienceData.area || ""
+        });
+      } else {
+        setFormData({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
+      }
     }
-  }, [experienceData]);
+  }, [isOpen, experienceData]);
 
   const handleChange = (event) => {
     const name = event.target.name;

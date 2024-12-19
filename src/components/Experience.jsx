@@ -16,7 +16,7 @@ const Experience = () => {
   const [selectedExperience, setSelectedExperience] = useState(null);
 
   const openModal = () => {
-    setSelectedExperience({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
+    setSelectedExperience(null);
     setIsModalOpen(true);
   };
 
