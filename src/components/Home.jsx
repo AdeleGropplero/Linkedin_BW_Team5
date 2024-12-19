@@ -18,8 +18,10 @@ import {
   BsImageFill,
   BsPlusLg,
   BsRepeat,
-  BsSendFill
+  BsSendFill,
+  BsTrashFill
 } from "react-icons/bs";
+import { deleteExperience } from "../redux/actions/deletePost";
 
 const Home = () => {
   // Load data from Redux
@@ -43,6 +45,11 @@ const Home = () => {
       dispatch(fetchAllPosts());
       setPostText("");
     }
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteExperience(id));
+    dispatch(fetchAllPosts());
   };
   //
   return (
@@ -153,7 +160,7 @@ const Home = () => {
 
           {/* ****************POST AREA **************************** */}
 
-          {allPosts?.slice(-10).map((post) => (
+          {allPosts?.slice(-20).map((post) => (
             <div key={post._id} className=" border border-2 rounded-3 bg-white mb-3">
               <div className="d-flex align-items-center">
                 {/* immagine profilo utente che pubblica */}
@@ -193,7 +200,7 @@ const Home = () => {
                 <BsHandThumbsUp className="ms-3" />
                 <span className="text-secondary">1</span>
               </div>
-              <Row className="mt-2">
+              <Row className="my-2 ">
                 <Col className="d-flex align-items-center">
                   <BsHandThumbsUp className="ms-5" />
                   <span className="ms-2 me-0 pe-0">Like</span>
@@ -209,6 +216,11 @@ const Home = () => {
                 <Col className="d-flex align-items-center">
                   <BsSendFill className="ms-3" />
                   <span className="ms-2 me-5">Send</span>
+                </Col>
+                <Col className="d-flex align-items-center">
+                  <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                    <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} /> Delete
+                  </button>
                 </Col>
               </Row>
             </div>

@@ -1,5 +1,6 @@
 const initialState = {
   allPosts: [],
+
   allPostsLoading: false,
   allPostsError: null
 };
@@ -40,6 +41,20 @@ export const postsReducer = (state = initialState, action) => {
       };
 
     case "NEW_POST_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
+    //////////////////////////////////////////
+
+    case "DELETE_POST_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "DELETE_POST_SUCCESS":
+      return {
+        ...state,
+        allPosts: Array.isArray(state.allPosts) ? state.allPosts.filter((post) => post._id !== action.payload._id) : []
+      };
+
+    case "DELETE_POST_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
     default:
