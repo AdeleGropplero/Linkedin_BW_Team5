@@ -3,6 +3,7 @@ import profileReducer from "./reducers/profileReducer";
 import { thunk } from "redux-thunk";
 import experienceReducer from "./reducers/experienceReducer";
 import ExperienceReducer2 from "./reducers/ExperienceReducers2";
+import postsReducer from "./reducers/postsReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import localStorage from "redux-persist/lib/storage";
 
@@ -13,7 +14,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   profile: profileReducer,
   experiences: experienceReducer,
-  experiences2: ExperienceReducer2
+  experiences2: ExperienceReducer2,
+  posts: postsReducer
 });
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);

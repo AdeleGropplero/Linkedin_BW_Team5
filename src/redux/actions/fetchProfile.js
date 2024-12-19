@@ -10,7 +10,7 @@ export const fetchProfile = (userId) => async (dispatch) => {
     const response = await fetch(url, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}` // توکن معتبر
+        Authorization: `Bearer ${token}`
       }
     });
 
