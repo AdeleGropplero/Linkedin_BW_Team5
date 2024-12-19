@@ -5,9 +5,22 @@ import { fetchProfile } from "../redux/actions/fetchProfile";
 import { searchProfiles } from "../redux/actions/searchProfiles";
 import { changeUser } from "../redux/actions/changrUser";
 import prime from "../assets/prime.svg";
+import { useLocation } from "react-router-dom";
+import { fetchJobs } from "../redux/actions/jobsActions";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [jobSearchQuery, setJobSearchQuery] = useState("");
+
+  // Handle job search on input change
+  const handleJobSearchChange = (e) => {
+    const query = e.target.value;
+    setJobSearchQuery(query);
+    if (query.trim() !== "") {
+      dispatch(fetchJobs(query)); // Dispatch search action for real-time updates
+    }
+  };
 
   // Load data from Redux
   const profile = useSelector((state) => state.profile.data);
@@ -118,6 +131,20 @@ const NavBar = () => {
               </div>
             )}
           </Form>
+          {/* Job Search Bar */}
+          {location.pathname === "/jobs" && (
+            <Form className="d-flex ms-3">
+              <FormControl
+                type="search"
+                placeholder="Search jobs..."
+                className="me-2"
+                aria-label="Search Jobs"
+                style={{ width: "280px" }}
+                value={jobSearchQuery}
+                onChange={handleJobSearchChange} // Handle real-time search
+              />
+            </Form>
+          )}
 
           {/* Navigation Links */}
           <Nav className="d-flex ms-auto mb-2 mb-md-0">

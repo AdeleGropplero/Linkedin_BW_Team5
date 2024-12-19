@@ -13,6 +13,9 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
+import Jobs from "./components/jobs";
+import Company from "./components/Company";
+import { Category } from "@mui/icons-material";
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:company" element={<Company />} />
+          <Route path="/jobs/:category" element={<Category />} />
         </Routes>
       </Container>
     </BrowserRouter>
