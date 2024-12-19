@@ -65,30 +65,26 @@ export const uploadImage =
   };
 
 //////////////////////
-export const updateExperience =
-  (userId, expId, updatedData) => async (dispatch) => {
-    dispatch({ type: "UPDATE_EXPERIENCE_REQUEST" });
+export const updateExperience = (userId, expId, updatedData) => async (dispatch) => {
+  dispatch({ type: "UPDATE_EXPERIENCE_REQUEST" });
 
-    try {
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(updatedData)
-        }
-      );
+  try {
+    const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+    });
 
-      if (!response.ok) {
-        throw new Error("Failed to update experience");
-      }
-
-      const data = await response.json();
-      dispatch({ type: "UPDATE_EXPERIENCE_SUCCESS", payload: data });
-    } catch (error) {
-      dispatch({ type: "UPDATE_EXPERIENCE_FAILURE", payload: error.message });
+    if (!response.ok) {
+      throw new Error("Failed to update experience");
     }
-  };
+
+    const data = await response.json();
+    dispatch({ type: "UPDATE_EXPERIENCE_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({ type: "UPDATE_EXPERIENCE_FAILURE", payload: error.message });
+  }
+};

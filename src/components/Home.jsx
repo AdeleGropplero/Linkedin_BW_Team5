@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import prime from "../assets/prime.svg";
+import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
   BsBookmarkFill,
@@ -19,12 +20,13 @@ import {
   BsRepeat,
   BsSendFill
 } from "react-icons/bs";
+
 const Home = () => {
   // Load data from Redux
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.profile.data);
-  const allPosts = useSelector((state) => state.posts.allPosts[0]);
+  const allPosts = useSelector((state) => state.posts.allPosts[1]);
 
   console.log("allPosts", allPosts);
 
@@ -32,6 +34,10 @@ const Home = () => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
   }, [dispatch]);
+
+  const handlePost = () => {
+    dispatch(newPost());
+  };
   //
   return (
     <Container>
@@ -122,6 +128,11 @@ const Home = () => {
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
               </Col>
+              <Col>
+                <Button className="btn btn-ptimary " onClick={handlePost}>
+                  Pubblica
+                </Button>
+              </Col>
             </Row>
           </div>
           <div className="d-flex justify-content-between">
@@ -158,16 +169,6 @@ const Home = () => {
               <p className="ms-3">{post.text}</p>
               <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                 <div className="d-flex align-items-center">
-                  <Button className="bg-transparent py-0 border-0 border mt-3">
-                    <div>
-                      <img
-                        id="allPosts_image-home-center"
-                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                        src={post.user?.image || "https://via.placeholder.com/35"}
-                        alt="profile image"
-                      />
-                    </div>
-                  </Button>
                   <div>
                     <h1 className="fs-6 mb-1">
                       {post.user?.name || "name"} {post.user?.surname || "surname"}
