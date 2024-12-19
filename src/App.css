@@ -183,7 +183,7 @@ slick-dots li button:before,
 #profile_image-home {
   max-width: 130px;
   max-height: 130px;
-  margin-top: -65px;
+  margin-top: -60px;
 }
 #post_image-home-center {
   max-width: 65px;
@@ -198,13 +198,8 @@ slick-dots li button:before,
   #edit-profile-area {
     border-radius: 15px;
     max-width: 290px;
-    margin: auto;
   }
 }
-
-@media screen and (max-width: 992px) {
-}
-
 @media screen and (max-width: 700px) {
   .slider-container {
     max-width: 390px;
