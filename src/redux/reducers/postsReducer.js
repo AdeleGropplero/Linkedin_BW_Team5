@@ -24,6 +24,21 @@ export const postsReducer = (state = initialState, action) => {
         allPostsLoading: false,
         allPostsError: action.payload
       };
+    ////////////////////////////////////////////
+
+    case "NEW_POST_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "NEW_POST_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+
+        allPosts: [...state.allPosts, action.payload]
+      };
+
+    case "NEW_POST_FAILURE":
+      return { ...state, loading: false, error: action.payload };
 
     default:
       return state;
