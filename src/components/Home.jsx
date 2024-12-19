@@ -313,41 +313,46 @@ const Home = () => {
           <Row className="border border-2 rounded-3 mx-0 mt-3 bg-white">
             <p className="my-2 fw-medium text-secondary">Try LinkedIn on the Windows App</p>
           </Row>
-          <div className="d-flex flex-wrap justify-content-center text-secondary mt-3" style={{ fontSize: "90%" }}>
-            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
-              About
-            </a>
-            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
-              Accessibility
-            </a>
-            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
-              Help Center
-            </a>
+          <div
+            className="d-flex flex-wrap justify-content-center text-secondary mt-3 position-sticky "
+            style={{ fontSize: "90%", top: "71px", zIndex: "1050" }}
+          >
+            <div>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                About
+              </a>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Accessibility
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Help Center
+              </a>
 
-            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
-              Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
-            </a>
-            <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
-              Ad Choices
-            </a>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
+              </a>
+              <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
+                Ad Choices
+              </a>
 
-            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
-              Advertising
-            </a>
-            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
-              Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
-            </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Advertising
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
+              </a>
 
-            <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
-              Get the LinkedIn app
-            </a>
-            <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
-              More
-            </a>
-            <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
-              <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
-              LinkedIn Corporation &copy; 2024
-            </a>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Get the LinkedIn app
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                More
+              </a>
+              <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
+                <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
+                LinkedIn Corporation &copy; 2024
+              </a>
+            </div>
           </div>
         </Col>
       </Row>

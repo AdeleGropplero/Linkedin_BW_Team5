@@ -65,7 +65,7 @@ const NavBar = () => {
   }, [query, searchResults]);
 
   return (
-    <Navbar bg="white" expand="md" className=" border-bottom px-md-5 w-100">
+    <Navbar bg="white" expand="md" className="position-sticky top-0 border-bottom px-md-5 w-100" style={{ zIndex: 99 }}>
       <Container fluid>
         {/* Logo */}
         <Navbar.Brand href="/">
