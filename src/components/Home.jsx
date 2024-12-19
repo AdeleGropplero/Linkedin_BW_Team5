@@ -24,7 +24,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.profile.data);
-  const allPosts = useSelector((state) => state.posts.allPosts[0]);
+  const allPosts = useSelector((state) => state.posts.allPosts);
 
   console.log("allPosts", allPosts);
 
@@ -133,7 +133,7 @@ const Home = () => {
           </div>
           {/* ****************POST AREA **************************** */}
 
-          {allPosts.slice(0, 20).map((post) => (
+          {allPosts[0].slice(-20).map((post) => (
             <div key={post._id} className=" border border-2 rounded-3">
               <div className="d-flex align-items-center">
                 {/* immagine profilo utente che pubblica */}

@@ -13,6 +13,7 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
+import Jobs from "./components/jobs";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/jobs" element={<Jobs />} />
         </Routes>
       </Container>
     </BrowserRouter>

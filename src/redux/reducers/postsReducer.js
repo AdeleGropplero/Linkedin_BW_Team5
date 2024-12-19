@@ -13,6 +13,7 @@ export const postsReducer = (state = initialState, action) => {
         allPostsError: null
       };
     case "FETCH_ALL_POSTS_SUCCESS":
+      console.log(action.payload);
       return {
         ...state,
         allPostsLoading: false,
