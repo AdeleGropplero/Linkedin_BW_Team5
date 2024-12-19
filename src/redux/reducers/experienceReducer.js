@@ -18,12 +18,16 @@ export const experienceReducer = (state = initialState, action) => {
     case "FETCH_EXPERIENCE_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
+    //////////////////////////////////////////////
+
     case "UPLOAD_IMAGE_REQUEST":
       return { ...state, loading: true, error: null };
     case "UPLOAD_IMAGE_SUCCESS":
       return { ...state, loading: false, imageData: action.payload };
     case "UPLOAD_IMAGE_FAILURE":
       return { ...state, loading: false, error: action.payload };
+
+    ////////////////////////////////////////////
 
     case "UPDATE_EXPERIENCE_REQUEST":
       return { ...state, loading: true, error: null };
@@ -39,6 +43,8 @@ export const experienceReducer = (state = initialState, action) => {
     case "UPDATE_EXPERIENCE_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
+    ///////////////////////////////////////
+
     case "FETCH_EXPERIENCES_REQUEST":
       return { ...state, loading: true, error: null };
 
@@ -48,12 +54,30 @@ export const experienceReducer = (state = initialState, action) => {
     case "FETCH_EXPERIENCES_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
+    /////////////////////////////////////////////
+
     case "FETCH_ALL_EXPERIENCES_REQUEST":
       return { ...state, allExperienceLoading: true, allExperienceError: null };
     case "FETCH_ALL_EXPERIENCES_SUCCESS":
       return { ...state, allExperienceLoading: false, allExperience: [...state.allExperience, action.payload] };
     case "FETCH_ALL_EXPERIENCES_FAILURE":
       return { ...state, allExperienceLoading: false, allExperienceError: action.payload };
+
+    ////////////////////////////////////////
+
+    case "DELETE_EXPERIENCE_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "DELETE_EXPERIENCE_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+
+        allExperience: state.allExperience.filter((experience) => experience._id !== action.payload._id)
+      };
+
+    case "DELETE_EXPERIENCE_FAILURE":
+      return { ...state, loading: false, error: action.payload };
 
     default:
       return state;

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchExperiences } from "../redux/actions/experienceActions";
 import { BsTrashFill } from "react-icons/bs";
+import { deleteExperience } from "../redux/actions/deleteExperience";
 
 const Experience = () => {
   const experiences = useSelector((state) => state.experiences.experiences);
@@ -37,6 +38,19 @@ const Experience = () => {
   const openModalExperience = (experience) => {
     setSelectedExperience(experience);
     setIsModalOpen(true);
+    dispatch(fetchExperiences(userId));
+  };
+
+  // const expId = useSelector((state) => state.experiences.expId);
+  // useEffect(() => {
+  //   if (expId) {
+  //     console.log(expId);
+  //     dispatch(deleteExperience(expId));
+  //   }
+  // }, [dispatch, expId]);
+
+  const handleDelete = (e) => {
+    dispatch(deleteExperience(userId, e._id));
     dispatch(fetchExperiences(userId));
   };
 
@@ -93,7 +107,7 @@ const Experience = () => {
               </div>
             </div>
             <div className=" ms-auto mt-3 me-2 rounded-circle" style={{ height: "48px", width: "50px" }}>
-              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+              <button style={{ background: "none", border: "none", cursor: "pointer" }} onClick={() => handleDelete(experience)}>
                 <BsTrashFill size={24} color="red" />
               </button>
             </div>
