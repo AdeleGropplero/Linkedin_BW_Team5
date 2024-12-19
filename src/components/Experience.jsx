@@ -13,13 +13,16 @@ const Experience = () => {
   console.log("Experiences: ", experiences);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState(null);
 
   const openModal = () => {
+    setSelectedExperience({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedExperience(null);
   };
 
   const dispatch = useDispatch();
@@ -33,31 +36,16 @@ const Experience = () => {
     }
   }, [dispatch, userId]);
 
-  const [selectedExperience, setSelectedExperience] = useState(null);
-
   const openModalExperience = (experience) => {
     setSelectedExperience(experience);
     setIsModalOpen(true);
     dispatch(fetchExperiences(userId));
   };
 
-  // const expId = useSelector((state) => state.experiences.expId);
-  // useEffect(() => {
-  //   if (expId) {
-  //     console.log(expId);
-  //     dispatch(deleteExperience(expId));
-  //   }
-  // }, [dispatch, expId]);
-
   const handleDelete = (e) => {
     dispatch(deleteExperience(userId, e._id));
     dispatch(fetchExperiences(userId));
   };
-
-  /*  const closeModalExperiense = () => {
-    setIsModalOpen(false);
-    setSelectedExperience(null);
-  }; */
 
   return (
     <>

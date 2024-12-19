@@ -7,6 +7,7 @@ import { fetchExperiences, updateExperience } from "../redux/actions/experienceA
 const FormComponent = ({ isOpen, isClose, experienceData }) => {
   const [formData, setFormData] = useState({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
   const dispatch = useDispatch();
+
   const userId = useSelector((state) => state.profile.data?._id);
   useEffect(() => {
     if (experienceData) {
@@ -33,7 +34,7 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("experienceData", experienceData);
     try {
       if (experienceData) {
         await dispatch(updateExperience(userId, experienceData._id, formData));
@@ -41,6 +42,8 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
         await dispatch(postExperience(formData, userId));
       }
 
+      experienceData = { role: "", company: "", startDate: "", endDate: "", description: "", area: "" };
+      setFormData({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
       isClose();
       dispatch(fetchExperiences(userId));
     } catch (error) {
@@ -50,12 +53,18 @@ const FormComponent = ({ isOpen, isClose, experienceData }) => {
 
   return (
     <div className="modal show">
-      <Modal show={isOpen} onHide={isClose}>
+      <Modal
+        show={isOpen}
+        onHide={() => {
+          isClose();
+          dispatch(fetchExperiences(userId));
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{experienceData ? "Edit Experience" : "Add Experience"}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body className="mx-auto">
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="role">
               <Form.Label>Role</Form.Label>
