@@ -1,30 +1,25 @@
-/* import { useState } from "react"; */
-import { useSelector } from "react-redux";
-/* import { fetchJobs } from "../redux/actions/jobsActions"; */
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobsByCompany } from "../redux/actions/jobsActions";
+import { Link, useParams } from "react-router-dom";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
-const Jobs = () => {
-  /*  const [searchQuery, setSearchQuery] = useState(""); */
-  /*   const dispatch = useDispatch(); */
+const Company = () => {
+  const { company } = useParams();
   const { jobs, isLoading, error } = useSelector((state) => state.jobs);
+  const dispatch = useDispatch();
 
-  /*  const handleSearch = (e) => {
-    e.preventDefault();
-    dispatch(fetchJobs(searchQuery));
-  }; */
-  /* 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (company) {
+      dispatch(fetchJobsByCompany(company));
+    }
+  }, [dispatch, company]);
 
-  const handleNavigate = (x) => {
-    navigate(`/jobs/${x}`);
-  };
- */
   return (
     <Container className="bg-white mt-3">
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
-          <h1>Jobs</h1>
+          <h1>Jobs at {company}</h1>
 
           {isLoading && <p>Loading...</p>}
           {error && <p style={{ color: "red" }}>{error}</p>}
@@ -37,11 +32,7 @@ const Jobs = () => {
                       <Card.Title>{job.title}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">{job.salary}</Card.Subtitle>
                       <Card.Text>
-                        <Link to={`/jobs/${job.category}`}>
-                          <strong>Category:</strong>
-                          {job.category}
-                        </Link>
-                        <br />
+                        <strong>Category:</strong> {job.category} <br />
                         <strong>Location:</strong> {job.candidate_required_location}
                       </Card.Text>
                       <Card.Text>
@@ -61,4 +52,4 @@ const Jobs = () => {
   );
 };
 
-export default Jobs;
+export default Company;

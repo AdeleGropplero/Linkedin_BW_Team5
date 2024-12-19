@@ -35,3 +35,33 @@ export const fetchJobs =
       dispatch(fetchJobsFailure(error.message));
     }
   };
+
+export const fetchJobsByCompany = (companyName) => async (dispatch) => {
+  dispatch(fetchJobsStart());
+  try {
+    const response = await fetch(`https://strive-benchmark.herokuapp.com/api/jobs?company=${companyName}`);
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(fetchJobsSuccess(data.data));
+    } else {
+      dispatch(fetchJobsFailure("error during fetch"));
+    }
+  } catch (error) {
+    dispatch(fetchJobsFailure(error.message));
+  }
+};
+
+export const fetchJobsByCategory = (category) => async (dispatch) => {
+  dispatch(fetchJobsStart());
+  try {
+    const response = await fetch(`https://strive-benchmark.herokuapp.com/api/jobs?category=${category}&limit=10`);
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(fetchJobsSuccess(data.data));
+    } else {
+      dispatch(fetchJobsFailure("error during fetch"));
+    }
+  } catch (error) {
+    dispatch(fetchJobsFailure(error.message));
+  }
+};
