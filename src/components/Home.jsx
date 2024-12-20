@@ -365,12 +365,12 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
+                <p className="ms-3 mt-3">{post.text}</p>
                 {post.image && <img src={post.image} alt="Post Image" style={{ width: "100%", height: "auto" }} />}
-                <p className="ms-3">{post.text}</p>
 
                 {/* Comment Submit*/}
 
-                <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+                {/* <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                   <div className="d-flex align-items-center">
                     <div>
                       <h1 className="fs-6 mb-1">
@@ -382,7 +382,7 @@ const Home = () => {
                     </div>
                   </div>
                   <p className="ms-3">{post.user?.bio || "bio"}</p>
-                </div>
+                </div> */}
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center mt-2">
                     <BsHandThumbsUp className="ms-3" />
