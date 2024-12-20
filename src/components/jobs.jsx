@@ -37,7 +37,7 @@ const Jobs = () => {
                       <Card.Title>{job.title}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">{job.salary}</Card.Subtitle>
                       <Card.Text>
-                        <Link to={`/jobs/${job.category}`}>
+                        <Link to={`/jobs/category/${job.category}`}>
                           <strong>Category:</strong>
                           {job.category}
                         </Link>
@@ -45,7 +45,7 @@ const Jobs = () => {
                         <strong>Location:</strong> {job.candidate_required_location}
                       </Card.Text>
                       <Card.Text>
-                        <Link to={`/jobs/${job.company_name}`}>{job.company_name}</Link>
+                        <Link to={`/jobs/company/${job.company_name}`}>{job.company_name}</Link>
                       </Card.Text>
                       <Button variant="primary" as={Link} to={job.url}>
                         More info

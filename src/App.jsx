@@ -15,8 +15,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Jobs from "./components/jobs";
 import Company from "./components/Company";
-import { Category } from "@mui/icons-material";
-
+import Category from "./components/Category";
 function App() {
   return (
     <BrowserRouter
@@ -31,8 +30,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/jobs" element={<Jobs />} />
-          <Route path="/jobs/:company" element={<Company />} />
-          <Route path="/jobs/:category" element={<Category />} />
+          <Route path="/jobs/company/:company" element={<Company />} />
+          <Route path="/jobs/category/:category" element={<Category />} />
         </Routes>
       </Container>
     </BrowserRouter>

@@ -36,7 +36,7 @@ const Company = () => {
                         <strong>Location:</strong> {job.candidate_required_location}
                       </Card.Text>
                       <Card.Text>
-                        <Link to={`/jobs/${job.company_name}`}>{job.company_name}</Link>
+                        <Link to={`/jobs/company/${job.company_name}`}>{job.company_name}</Link>
                       </Card.Text>
                       <Button variant="primary" as={Link} to={job.url}>
                         More info
