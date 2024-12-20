@@ -1,6 +1,6 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
 
-export const deleteExperience = (postId) => async (dispatch) => {
+export const deletePost = (postId) => async (dispatch) => {
   dispatch({ type: "DELETE_POST_REQUEST" });
   try {
     const response = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
@@ -12,7 +12,7 @@ export const deleteExperience = (postId) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update experience");
+      throw new Error("Failed to delete post");
     }
 
     const data = await JSON.parse(response);

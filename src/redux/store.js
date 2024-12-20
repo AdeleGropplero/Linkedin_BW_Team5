@@ -7,6 +7,7 @@ import postsReducer from "./reducers/postsReducer";
 import { persistStore, persistReducer } from "redux-persist";
 import localStorage from "redux-persist/lib/storage";
 import jobsReducer from "./reducers/jobReducer";
+import commentsReducer from "./reducers/commentsReducer";
 
 const persistConfig = {
   storage: localStorage,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   experiences: experienceReducer,
   experiences2: ExperienceReducer2,
   posts: postsReducer,
-  jobs: jobsReducer
+  jobs: jobsReducer,
+  comment: commentsReducer
 });
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);

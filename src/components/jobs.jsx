@@ -5,15 +5,7 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import linkedin from "../assets/images/linkedin.png";
-import {
-  BsArrowRight,
-  BsBookmarkFill,
-  BsCaretDownFill,
-  BsFileEarmarkTextFill,
-  BsListUl,
-  BsPencilSquare,
-  BsShieldCheck
-} from "react-icons/bs";
+import { BsArrowRight, BsBookmarkFill, BsCaretDownFill, BsFileEarmarkTextFill, BsListUl, BsPencilSquare, BsShieldCheck } from "react-icons/bs";
 import prime from "../assets/prime.svg";
 import { BiX } from "react-icons/bi";
 
@@ -48,16 +40,8 @@ const Jobs = () => {
               <BsBookmarkFill className="me-2" />
               My Jobs
             </div>
-            <div
-              className="d-flex align-items-center fw-medium py-3"
-              style={{ marginLeft: "-2px" }}
-            >
-              <img
-                src={prime}
-                alt=""
-                style={{ width: "20px", height: "20px" }}
-                className="my-1 mb-1 me-2"
-              />
+            <div className="d-flex align-items-center fw-medium py-3" style={{ marginLeft: "-2px" }}>
+              <img src={prime} alt="" style={{ width: "20px", height: "20px" }} className="my-1 mb-1 me-2" />
               My Career Insights
             </div>
             <div className="d-flex align-items-center fw-medium py-3">
@@ -83,56 +67,38 @@ const Jobs = () => {
                 Create an alert for a job title, a company, or key
                 <br /> words.
               </p>
-              <Button className="rounded-pill fw-medium px-3 py-1 mb-2">
-                Create alert
-              </Button>
+              <Button className="rounded-pill fw-medium px-3 py-1 mb-2">Create alert</Button>
             </div>
             <BiX className="mt-3 me-2 fs-4" />
           </div>
 
           <div className="d-flex justify-content-between bg-white border border-2 rounded-3 mb-3">
             <div className="ms-2">
-              <h5 className="mb-0 mt-3">
-                Show recruiters you are open to work
-              </h5>
+              <h5 className="mb-0 mt-3">Show recruiters you are open to work</h5>
               <p className="text-secondary pb-1" style={{ fontSize: "14px" }}>
-                Add your preferences to let recruiters knw that you are open to
-                relevant job opportunities.
+                Add your preferences to let recruiters knw that you are open to relevant job opportunities.
               </p>
               <div className="w-100">
-                <Button
-                  href="/profile"
-                  className="bg-transparent py-0 px-0 border-0 border"
-                >
+                <Button href="/profile" className="bg-transparent py-0 px-0 border-0 border">
                   <div className="d-flex align-items-center">
                     <img
                       id="post_image-home-center"
                       className=" w-75 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={
-                        profileData?.image || "https://via.placeholder.com/35"
-                      }
+                      src={profileData?.image || "https://via.placeholder.com/35"}
                       alt="profile image"
                     />
                     <div className="text-start ps-3">
-                      <p
-                        className="text-black p-0 m-0 fw-medium"
-                        style={{ fontSize: "11px" }}
-                      >
+                      <p className="text-black p-0 m-0 fw-medium" style={{ fontSize: "11px" }}>
                         Open to work
                       </p>
-                      <p
-                        className="text-dark m-0"
-                        style={{ fontSize: "11px", width: "200px" }}
-                      >
+                      <p className="text-dark m-0" style={{ fontSize: "11px", width: "200px" }}>
                         You control who can view this
                       </p>
                     </div>
                   </div>
                 </Button>
               </div>
-              <Button className="rounded-pill fw-medium px-3 py-1 my-3">
-                Get started
-              </Button>
+              <Button className="rounded-pill fw-medium px-3 py-1 my-3">Get started</Button>
             </div>
             <BiX className="mt-3 me-2 fs-4" />
           </div>
@@ -143,10 +109,7 @@ const Jobs = () => {
               <p className="text-secondary m-0" style={{ fontSize: "14px" }}>
                 Filmmaker
               </p>
-              <p
-                className="text-secondary pb-2 lead"
-                style={{ fontSize: "14px" }}
-              >
+              <p className="text-secondary pb-2 lead" style={{ fontSize: "14px" }}>
                 Italy
               </p>
             </div>
@@ -160,13 +123,8 @@ const Jobs = () => {
               alt="profile image"
             />
             <div>
-              <p>
-                See the full list of jobs where you would be a top applicant
-              </p>
-              <Button
-                className="rounded-pill border border-0 text-dark px-3 py-1"
-                style={{ backgroundColor: "#f7c477" }}
-              >
+              <p>See the full list of jobs where you would be a top applicant</p>
+              <Button className="rounded-pill border border-0 text-dark px-3 py-1" style={{ backgroundColor: "#f7c477" }}>
                 Try Premium for €0
               </Button>
             </div>
@@ -203,22 +161,17 @@ const Jobs = () => {
                   <Card key={job._id} className="mb-3 bg-light">
                     <Card.Body>
                       <Card.Title>{job.title}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">
-                        {job.salary}
-                      </Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">{job.salary}</Card.Subtitle>
                       <Card.Text>
-                        <Link to={`/jobs/${job.category}`}>
+                        <Link to={`/jobs/category/${job.category}`}>
                           <strong>Category:</strong>
                           {job.category}
                         </Link>
                         <br />
-                        <strong>Location:</strong>{" "}
-                        {job.candidate_required_location}
+                        <strong>Location:</strong> {job.candidate_required_location}
                       </Card.Text>
                       <Card.Text>
-                        <Link to={`/jobs/${job.company_name}`}>
-                          {job.company_name}
-                        </Link>
+                        <Link to={`/jobs/company/${job.company_name}`}>{job.company_name}</Link>
                       </Card.Text>
                       <Button variant="primary" as={Link} to={job.url}>
                         More info
@@ -238,9 +191,7 @@ const Jobs = () => {
             <p className="fw-semibold">I want to impruve my resume</p>
           </div>
           <p>
-            Explore our curated guide of expert-led courses, such as how to
-            improveyour resume and grow your network to help you land your next
-            opportunity.
+            Explore our curated guide of expert-led courses, such as how to improveyour resume and grow your network to help you land your next opportunity.
           </p>
           <span className="text-secondary fw-medium">
             Show more <BsArrowRight className="text-dark" />
@@ -250,74 +201,38 @@ const Jobs = () => {
             style={{ fontSize: "90%", top: "71px", zIndex: "1050" }}
           >
             <div>
-              <a
-                href="#"
-                className="me-3 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
                 About
               </a>
-              <a
-                href="#"
-                className="me-3 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
                 Accessibility
               </a>
-              <a
-                href="#"
-                className="me-2 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
                 Help Center
               </a>
 
-              <a
-                href="#"
-                className="me-3 mb-1 text-decoration-none text-secondary"
-              >
-                Privacy &amp; Terms{" "}
-                <BsCaretDownFill style={{ fontSize: "90%" }} />
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
               </a>
-              <a
-                href="#"
-                className="me-4 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
                 Ad Choices
               </a>
 
-              <a
-                href="#"
-                className="me-2 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
                 Advertising
               </a>
-              <a
-                href="#"
-                className="me-2 mb-1 text-decoration-none text-secondary"
-              >
-                Business Services{" "}
-                <BsCaretDownFill style={{ fontSize: "90%" }} />
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
               </a>
 
-              <a
-                href="#"
-                className="me-3 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
                 Get the LinkedIn app
               </a>
-              <a
-                href="#"
-                className="me-2 mb-1 text-decoration-none text-secondary"
-              >
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
                 More
               </a>
-              <a
-                href="#"
-                className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center"
-              >
-                <img
-                  src={linkedin}
-                  alt="linkedin logo"
-                  style={{ width: "20%", height: "80%" }}
-                />
+              <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
+                <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
                 LinkedIn Corporation &copy; 2024
               </a>
             </div>

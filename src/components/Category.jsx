@@ -6,11 +6,13 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 const Category = () => {
   const { category } = useParams();
+  console.log("Category param:", category);
   const { jobs, isLoading, error } = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (category) {
+      console.log("Dispatching fetchJobsByCategory with:", category);
       dispatch(fetchJobsByCategory(category));
     }
   }, [dispatch, category]);
@@ -19,7 +21,7 @@ const Category = () => {
     <Container className="bg-white mt-3">
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
-          <h1>Jobs in this {category}</h1>
+          <h1>Jobs in {category}</h1>
 
           {isLoading && <p>Loading...</p>}
           {error && <p style={{ color: "red" }}>{error}</p>}
@@ -36,7 +38,7 @@ const Category = () => {
                         <strong>Location:</strong> {job.candidate_required_location}
                       </Card.Text>
                       <Card.Text>
-                        <Link to={`/jobs/${job.company_name}`}>{job.company_name}</Link>
+                        <Link to={`./jobs/${job.company_name}`}>{job.company_name}</Link>
                       </Card.Text>
                       <Button variant="primary" as={Link} to={job.url}>
                         More info
