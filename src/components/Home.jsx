@@ -1,7 +1,7 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
 const token_comment = import.meta.env.VITE_AUTH_TOKEN_2;
 
-import { Accordion, Button, Col, Container, Form, FormControl, Modal, Row } from "react-bootstrap";
+import { Accordion, Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
