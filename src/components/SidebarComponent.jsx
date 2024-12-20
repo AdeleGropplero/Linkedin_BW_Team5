@@ -84,10 +84,10 @@ const SidebarComponent = () => {
             <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
             <div className="ms-2">
               <p className="mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black">
+                <a href="#" className=" Profile text-decoration-none text-black">
                   {profile.name}
                 </a>
-                <span className="text-muted"> · {profile.connectionDegree}</span>
+                <span className="text-muted"> · 3°+{profile.connectionDegree}</span>
               </p>
               <p>{profile.profession}</p>
               <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
@@ -108,7 +108,7 @@ const SidebarComponent = () => {
                   <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
                   <div className="ms-2">
                     <p className="mb-0 fw-semibold">
-                      <a href="#" className="text-decoration-none text-black">
+                      <a href="#" className="Profile text-decoration-none text-black">
                         {profile.name} {profile.surname}
                       </a>
                       <span className="text-muted"> · 3°+ {profile.connectionDegree}</span>
@@ -138,10 +138,10 @@ const SidebarComponent = () => {
             <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
             <div className="ms-2">
               <p className="mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black">
+                <a href="#" className="Profile text-decoration-none text-black">
                   {profile.name}
                 </a>
-                <span className="text-muted"> · {profile.connectionDegree}</span>
+                <span className="text-muted"> · 3°+ {profile.connectionDegree}</span>
               </p>
               <p>{profile.profession}</p>
               <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
@@ -162,7 +162,7 @@ const SidebarComponent = () => {
                   <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
                   <div className="ms-2">
                     <p className="mb-0 fw-semibold">
-                      <a href="#" className="text-decoration-none text-black">
+                      <a href="#" className=" Profile text-decoration-none text-black">
                         {profile.name} {profile.surname}
                       </a>
                       <span className="text-muted"> · 3°+ {profile.connectionDegree}</span>
