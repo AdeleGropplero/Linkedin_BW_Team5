@@ -2,14 +2,14 @@ const token = import.meta.env.VITE_AUTH_TOKEN;
 const token_comment = import.meta.env.VITE_AUTH_TOKEN_2;
 
 import { Accordion, Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
-import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
+
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
-import { deleteExperience } from "../redux/actions/deleteExperience";
+import { deletePost } from "../redux/actions/deletePost";
 import prime from "../assets/prime.svg";
 // import { newPost } from "../redux/actions/newPost";
 import {
@@ -26,7 +26,7 @@ import {
   BsSendFill,
   BsTrashFill
 } from "react-icons/bs";
-import { deleteExperience } from "../redux/actions/deletePost";
+
 import { addComment, fetchAllComments } from "../redux/actions/commentsActions";
 import FormHomeComponent from "./FormHomeComponent";
 
@@ -59,7 +59,7 @@ const Home = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    dispatch(deleteExperience(id));
+    dispatch(deletePost(id));
     dispatch(fetchAllPosts());
   };
 
