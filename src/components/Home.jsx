@@ -30,6 +30,7 @@ import {
 
 import { addComment, fetchAllComments } from "../redux/actions/commentsActions";
 import FormHomeComponent from "./FormHomeComponent";
+import SidebarComponent from "./SidebarComponent";
 
 const Home = () => {
   // Load data from Redux
@@ -450,7 +451,7 @@ const Home = () => {
             );
           })}
         </Col>
-        <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
+        {/* <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
           <Row className="border border-2 rounded-3 ps-2 pt-2 m-0 bg-white">
             <h5>Add to your feed</h5>
             <Row className="d-flex   py-2  mb-2">
@@ -512,6 +513,51 @@ const Home = () => {
           <Row className="border border-2 rounded-3 mx-0 mt-3 bg-white">
             <p className="my-2 fw-medium text-secondary">Try LinkedIn on the Windows App</p>
           </Row>
+          <div
+            className="d-flex flex-wrap justify-content-center text-secondary mt-3 position-sticky "
+            style={{ fontSize: "90%", top: "75px", zIndex: "1050" }}
+          >
+            <div>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                About
+              </a>
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Accessibility
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Help Center
+              </a>
+
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
+              </a>
+              <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
+                Ad Choices
+              </a>
+
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Advertising
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
+              </a>
+
+              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+                Get the LinkedIn app
+              </a>
+              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+                More
+              </a>
+              <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
+                <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
+                LinkedIn Corporation &copy; 2024
+              </a>
+            </div>
+          </div>
+        </Col> */}
+        <Col lg={3}>
+          <SidebarComponent />
+
           <div
             className="d-flex flex-wrap justify-content-center text-secondary mt-3 position-sticky "
             style={{ fontSize: "90%", top: "75px", zIndex: "1050" }}
