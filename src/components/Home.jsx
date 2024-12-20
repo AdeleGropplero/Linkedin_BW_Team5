@@ -284,14 +284,14 @@ const Home = () => {
                     <span className="ms-2 me-0 pe-0">Like</span>
                   </Col>
                   <Col className="d-flex align-items-center">
-                    <Accordion>
+                    <Accordion className="border-none">
                       <Accordion.Item eventKey="0">
                         <Accordion.Header>
                           <div className="d-flex">
                             <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                              <BsChatRightDots className="ms-3" />
-                              <span className="ms-2 me-0 pe-0">Comment</span>
+                              <BsChatRightDots />
                             </button>
+                            <span className="mx-1">Comment</span>
                           </div>
                         </Accordion.Header>
                         <Accordion.Body>
