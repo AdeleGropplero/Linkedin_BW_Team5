@@ -427,7 +427,7 @@ const Home = () => {
                                   onChange={(e) => handleCommentChange(post._id, e.target.value)}
                                   style={{ width: "80%" }}
                                 />
-                                <Button className="mt-2 ms-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                                <Button className=" ms-3" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
                                   Submit
                                 </Button>
                               </div>
