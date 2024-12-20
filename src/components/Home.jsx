@@ -315,7 +315,7 @@ const Home = () => {
           </Row>
           <div
             className="d-flex flex-wrap justify-content-center text-secondary mt-3 position-sticky "
-            style={{ fontSize: "90%", top: "71px", zIndex: "1050" }}
+            style={{ fontSize: "90%", top: "75px", zIndex: "1050" }}
           >
             <div>
               <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
