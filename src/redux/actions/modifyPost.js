@@ -1,7 +1,7 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
 
-export const updateExperience = (postId, updateText) => async (dispatch) => {
-  dispatch({ type: "UPDATE_EXPERIENCE_REQUEST" });
+export const updatePost = (postId, updateText) => async (dispatch) => {
+  dispatch({ type: "UPDATE_POST_REQUEST" });
 
   try {
     const newPost = {
@@ -17,12 +17,12 @@ export const updateExperience = (postId, updateText) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update experience");
+      throw new Error("Failed to update Post");
     }
 
     const data = await response.json();
-    dispatch({ type: "UPDATE_EXPERIENCE_SUCCESS", payload: data });
+    dispatch({ type: "UPDATE_POST_SUCCESS", payload: data });
   } catch (error) {
-    dispatch({ type: "UPDATE_EXPERIENCE_FAILURE", payload: error.message });
+    dispatch({ type: "UPDATE_POST_FAILURE", payload: error.message });
   }
 };

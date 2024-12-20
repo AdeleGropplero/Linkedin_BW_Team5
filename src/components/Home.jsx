@@ -11,6 +11,7 @@ import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import { deletePost } from "../redux/actions/deletePost";
 import prime from "../assets/prime.svg";
+import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
@@ -90,6 +91,12 @@ const Home = () => {
       }));
     }
   };
+
+  const handleUpdate = (postId, updateText) => {
+    dispatch(updatePost(postId, updateText));
+  };
+
+  //modale per visualizzare commenti
 
   /* const handleFetchComments = (postId) => {
     console.log(postId);
@@ -223,7 +230,7 @@ const Home = () => {
                   <div className="d-flex align-items-center ms-auto me-3">
                     {userId === post.user._id && (
                       <div className="  me-2 pb-2 ms-auto">
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                        <button onClick={() => handleUpdate(postId, updateText)} style={{ background: "none", border: "none", cursor: "pointer" }}>
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -275,53 +282,63 @@ const Home = () => {
                   </div>
                   <p className="ms-3">{post.user?.bio || "bio"}</p>
                 </div>
-                <div className="d-flex align-items-center mt-2">
-                  <BsHandThumbsUp className="ms-3" />
-                  <span className="text-secondary">1</span>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex align-items-center mt-2">
+                    <BsHandThumbsUp className="ms-3" />
+                    <span className="text-secondary">1</span>
+                  </div>
+                  <div>
+                    <button className=" Profile" style={{ background: "none", border: "none", cursor: "pointer" }}>
+                      All Comments
+                    </button>
+                  </div>
                 </div>
-                <Row className="mt-2">
-                  <Col className="d-flex align-items-center">
-                    <BsHandThumbsUp className="ms-5" />
-                    <span className="ms-2 me-0 pe-0">Like</span>
-                  </Col>
-                  <Col className="d-flex align-items-center">
-                    <Accordion className="border-none">
-                      <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                          <div className="d-flex">
-                            <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                              <BsChatRightDots />
-                            </button>
-                            <span className="mx-1">Comment</span>
-                          </div>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                          <div className="mt-2">
-                            <Form>
-                              <FormControl
-                                type="text"
-                                placeholder="Write a comment..."
-                                value={commentText[post._id] || ""}
-                                onChange={(e) => handleCommentChange(post._id, e.target.value)}
-                              />
-                              <Button className="mt-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
-                                Submit
-                              </Button>
-                            </Form>
-                          </div>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-                  </Col>
-                  <Col className="d-flex align-items-center">
-                    <BsRepeat className="ms-3" />
-                    <span className="ms-2 me-0 pe-0">Repost</span>
-                  </Col>
-                  <Col className="d-flex align-items-center">
-                    <BsSendFill className="ms-3" />
-                    <span className="ms-2 me-5">Send</span>
-                  </Col>
-                </Row>
+                <Container fluid>
+                  <Row className="mt-2 w-100">
+                    <Col>
+                      <Accordion className="flex-fill m-0 p-0">
+                        <Accordion.Item eventKey="0">
+                          <Accordion.Header>
+                            <Col className="d-flex align-items-center">
+                              <BsHandThumbsUp className="ms-3" />
+                              <span className="ms-2 me-0 pe-0">Like</span>
+                            </Col>
+
+                            <Col className="d-flex align-items-center">
+                              <BsRepeat className="ms-3" />
+                              <span className="ms-2 me-0 pe-0">Repost</span>
+                            </Col>
+                            <Col className="d-flex align-items-center">
+                              <BsSendFill className="ms-3" />
+                              <span className="ms-2 me-5">Send</span>
+                            </Col>
+                            <Col className="d-flex flex-grow-1">
+                              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                <BsChatRightDots />
+                              </button>
+                              <span className="mx-1">Comment</span>
+                            </Col>
+                          </Accordion.Header>
+                          <Accordion.Body>
+                            <div className="mt-2">
+                              <Form>
+                                <FormControl
+                                  type="text"
+                                  placeholder="Write a comment..."
+                                  value={commentText[post._id] || ""}
+                                  onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                                />
+                                <Button className="mt-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                                  Submit
+                                </Button>
+                              </Form>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </Col>
+                  </Row>
+                </Container>
               </div>
             );
           })}
