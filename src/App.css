@@ -189,6 +189,13 @@ slick-dots li button:before,
   max-width: 65px;
   max-height: 65px;
 }
+
+/* HOME PAGE MODAL */
+#profile-image-modal {
+  max-width: 70px;
+  max-height: 70px;
+}
+
 /* MEDIA QUERY ON PROFILE SECTION */
 @media screen and (min-width: 992px) and (max-width: 1400px) {
   .slider-container {

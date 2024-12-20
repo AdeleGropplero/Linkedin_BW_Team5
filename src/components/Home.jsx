@@ -2,14 +2,16 @@ const token = import.meta.env.VITE_AUTH_TOKEN;
 const token_comment = import.meta.env.VITE_AUTH_TOKEN_2;
 
 import { Accordion, Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
+import { deleteExperience } from "../redux/actions/deleteExperience";
 import prime from "../assets/prime.svg";
-import { newPost } from "../redux/actions/newPost";
+// import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
   BsBookmarkFill,
@@ -26,6 +28,7 @@ import {
 } from "react-icons/bs";
 import { deleteExperience } from "../redux/actions/deletePost";
 import { addComment, fetchAllComments } from "../redux/actions/commentsActions";
+import FormHomeComponent from "./FormHomeComponent";
 
 const Home = () => {
   // Load data from Redux
@@ -34,27 +37,32 @@ const Home = () => {
   const profileData = useSelector((state) => state.profile.data);
   const allPosts = useSelector((state) => state.posts.allPosts);
   const userId = useSelector((state) => state.profile.data?._id);
+
   console.log("allPosts", allPosts);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const openModal = () => {
+    setSelectedPost(null);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
 
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
   }, [dispatch]);
 
-  const [postText, setPostText] = useState("");
-
-  const handlePost = () => {
-    if (postText !== "") {
-      dispatch(newPost(postText));
-      dispatch(fetchAllPosts());
-      setPostText("");
-    }
-  };
-
   const handleDelete = (id) => {
     dispatch(deleteExperience(id));
     dispatch(fetchAllPosts());
   };
+
   //
 
   ///////////Comment Section By Mahdi ////////////
@@ -97,7 +105,7 @@ const Home = () => {
             {/* div completo */}
             <div>
               <div className="d-flex justify-content-center h-50">
-                <Button className="bg-transparent border-0 border">
+                <Button href="/profile" className="bg-transparent border-0 border">
                   <div>
                     <img
                       id="profile_image-home"
@@ -142,11 +150,11 @@ const Home = () => {
           <div className="border border-2 rounded-3 bg-white  py-3">
             <div className="d-flex mt-2 align-items-center">
               <div className="d-flex justify-content-start h-50">
-                <Button className="bg-transparent py-0 border-0 border">
+                <Button href="/profile" className="bg-transparent py-0 border-0 border">
                   <div>
                     <img
                       id="post_image-home-center"
-                      className="w-70 h-70 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                      className="align-bottom z-10 shadow object-fit-contain rounded-circle"
                       src={profileData?.image || "https://via.placeholder.com/35"}
                       alt="profile image"
                     />
@@ -159,10 +167,9 @@ const Home = () => {
                   placeholder="Start a post, try writing with AI"
                   className="me-2 h-100m d-fklex rounded-pill border border-2"
                   aria-label="Search"
-                  style={{ width: "100%" }}
-                  value={postText}
-                  onChange={(e) => setPostText(e.target.value)}
+                  onClick={openModal}
                 />
+                <FormHomeComponent isOpen={isModalOpen} isClose={closeModal} postData={selectedPost} />
               </Form>
             </div>
             <Row className="mt-3">
@@ -170,18 +177,13 @@ const Home = () => {
                 <BsImageFill className="text-primary fs-5" />
                 <span className="ms-2">Media</span>
               </Col>
-              <Col className="d-flex align-items-center p-0  pe-5 m-0">
-                <BsChatRightText className="fs-5 fw-semibold text-warning" />
+              <Col className="d-flex align-items-center p-0 m-0">
+                <BsChatRightText className="fs-6 fw-semibold text-warning" />
                 <span className="ms-2">Contribute expertise</span>
               </Col>
-              <Col className="d-flex align-items-center ps-5">
+              <Col className="d-flex align-items-center ps-5" onClick={openModal}>
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
-              </Col>
-              <Col>
-                <Button className="btn btn-ptimary " onClick={handlePost}>
-                  Pubblica
-                </Button>
               </Col>
             </Row>
           </div>
@@ -192,7 +194,6 @@ const Home = () => {
               <BsCaretDownFill className="text-black" />
             </p>
           </div>
-
           {/* ****************POST AREA **************************** */}
 
           {allPosts?.slice(-10).map((post) => {
