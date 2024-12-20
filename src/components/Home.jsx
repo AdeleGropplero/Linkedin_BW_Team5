@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import prime from "../assets/prime.svg";
+// import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
   BsBookmarkFill,
@@ -24,8 +25,7 @@ import {
   BsImageFill,
   BsPlusLg,
   BsRepeat,
-  BsSendFill,
-  BsTrashFill
+  BsSendFill
 } from "react-icons/bs";
 import FormHomeComponent from "./FormHomeComponent";
 
@@ -34,7 +34,9 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const profileData = useSelector((state) => state.profile.data);
-  const allPosts = useSelector((state) => state.posts.allPosts[0]);
+  const allPosts = useSelector((state) => state.posts.allPosts);
+
+  console.log("allPosts", allPosts);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -49,29 +51,11 @@ const Home = () => {
     setSelectedPost(null);
   };
 
-  const allPosts = useSelector((state) => state.posts.allPosts);
-  const userId = useSelector((state) => state.profile.data?._id);
-  console.log("allPosts", allPosts);
-
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
   }, [dispatch]);
 
-  const [postText, setPostText] = useState("");
-
-  const handlePost = () => {
-    if (postText !== "") {
-      dispatch(newPost(postText));
-      dispatch(fetchAllPosts());
-      setPostText("");
-    }
-  };
-
-  const handleDelete = (id) => {
-    dispatch(deleteExperience(id));
-    dispatch(fetchAllPosts());
-  };
   //
   return (
     <Container>
@@ -91,7 +75,10 @@ const Home = () => {
             {/* div completo */}
             <div>
               <div className="d-flex justify-content-center h-50">
-                <Button className="bg-transparent border-0 border">
+                <Button
+                  href="/profile"
+                  className="bg-transparent border-0 border"
+                >
                   <div>
                     <img
                       id="profile_image-home"
@@ -149,7 +136,10 @@ const Home = () => {
           <div className="border border-2 rounded-3 bg-white  py-3">
             <div className="d-flex mt-2 align-items-center">
               <div className="d-flex justify-content-start h-50">
-                <Button className="bg-transparent py-0 border-0 border">
+                <Button
+                  href="/profile"
+                  className="bg-transparent py-0 border-0 border"
+                >
                   <div>
                     <img
                       id="post_image-home-center"
@@ -166,26 +156,16 @@ const Home = () => {
                 <FormControl
                   type="search"
                   placeholder="Start a post, try writing with AI"
-                  className="me-2 h-100m d-flex rounded-pill border border-2"
+                  className="me-2 h-100m d-fklex rounded-pill border border-2"
                   aria-label="Search"
-                  style={{ width: "100%" }}
-                  value={postText}
-                  onChange={(e) => setPostText(e.target.value)}
-                />
-              </Form>
-              <div className="ms-4">
-                <Button
-                  className="btn btn-ptimary rounded-pill px-4 py-2"
                   onClick={openModal}
-                >
-                  Publish a text
-                </Button>
+                />
                 <FormHomeComponent
                   isOpen={isModalOpen}
                   isClose={closeModal}
-                  experienceData={selectedPost}
+                  postData={selectedPost}
                 />
-              </div>
+              </Form>
             </div>
             <Row className="mt-3">
               <Col className="d-flex align-items-center ms-4 p-0">
@@ -196,7 +176,10 @@ const Home = () => {
                 <BsChatRightText className="fs-6 fw-semibold text-warning" />
                 <span className="ms-2">Contribute expertise</span>
               </Col>
-              <Col className="d-flex align-items-center ps-5">
+              <Col
+                className="d-flex align-items-center ps-5"
+                onClick={openModal}
+              >
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
               </Col>
@@ -209,48 +192,33 @@ const Home = () => {
               <BsCaretDownFill className="text-black" />
             </p>
           </div>
-
           {/* ****************POST AREA **************************** */}
 
-          {allPosts?.slice(-20).map((post) => (
-            <div
-              key={post._id}
-              className=" border border-2 rounded-3 bg-white mb-3"
-            >
-              <div className="d-flex align-items-center">
-                {/* immagine profilo utente che pubblica */}
-                <Button className="bg-transparent py-0 border-0 border mt-3">
-                  <div>
-                    <img
-                      id="post_image-home-center"
-                      className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={post.user?.image || "https://via.placeholder.com/35"}
-                      alt="profile image"
-                    />
-                  </div>
-                </Button>
-                {/* nome  e cognome dell'utente */}
-                <div>
-                  <h1 className="fs-6 mb-1">{post.username}</h1>
-                  <h5
-                    className=" lead fw-normal text-secondary p-0 mb-1"
-                    style={{ fontSize: "12px" }}
-                  >
-                    {post.user?.title || "title"}
-                  </h5>
-                </div>
-              </div>
-              <p className="ms-3">{post.text}</p>
+          {allPosts
+            .slice(0, 5)
+            // .filter((post) => post._id !== "6764272d9906100015b678ab")
+            .map((post) => (
               <div
-                className="border border-2 justify-content-center"
-                style={{ width: "95%", marginInline: "auto" }}
+                key={post._id}
+                className=" border border-2 rounded-3 bg-white mb-3"
               >
                 <div className="d-flex align-items-center">
+                  {/* immagine profilo utente che pubblica */}
+                  <Button className="bg-transparent py-0 border-0 border mt-3">
+                    <div>
+                      <img
+                        id="post_image-home-center"
+                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                        src={
+                          post.user?.image || "https://via.placeholder.com/35"
+                        }
+                        alt="profile image"
+                      />
+                    </div>
+                  </Button>
+                  {/* nome  e cognome dell'utente */}
                   <div>
-                    <h1 className="fs-6 mb-1">
-                      {post.user?.name || "name"}{" "}
-                      {post.user?.surname || "surname"}
-                    </h1>
+                    <h1 className="fs-6 mb-1">{post.username}</h1>
                     <h5
                       className=" lead fw-normal text-secondary p-0 mb-1"
                       style={{ fontSize: "12px" }}
@@ -259,51 +227,51 @@ const Home = () => {
                     </h5>
                   </div>
                 </div>
-                <p className="ms-3">{post.user?.bio || "bio"}</p>
+                <p className="ms-3">{post.text}</p>
+                <div
+                  className="border border-2 justify-content-center"
+                  style={{ width: "95%", marginInline: "auto" }}
+                >
+                  <div className="d-flex align-items-center">
+                    <div>
+                      <h1 className="fs-6 my-1 ms-2">
+                        {post.user?.name || "name"}{" "}
+                        {post.user?.surname || "surname"}
+                      </h1>
+                      <h5
+                        className=" lead fw-normal text-secondary p-0 mb-1 ms-2"
+                        style={{ fontSize: "12px" }}
+                      >
+                        {post.user?.title || "title"}
+                      </h5>
+                    </div>
+                  </div>
+                  <p className="ms-3">{post.user?.bio || "bio"}</p>
+                </div>
+                <div className="d-flex align-items-center mt-2">
+                  <BsHandThumbsUp className="ms-3" />
+                  <span className="text-secondary">1</span>
+                </div>
+                <Row className="mt-2">
+                  <Col className="d-flex align-items-center">
+                    <BsHandThumbsUp className="ms-5" />
+                    <span className="ms-2 me-0 pe-0">Like</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsChatRightDots className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Comment</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsRepeat className="ms-3" />
+                    <span className="ms-2 me-0 pe-0">Repost</span>
+                  </Col>
+                  <Col className="d-flex align-items-center">
+                    <BsSendFill className="ms-3" />
+                    <span className="ms-2 me-5">Send</span>
+                  </Col>
+                </Row>
               </div>
-              <div className="d-flex align-items-center mt-2">
-                <BsHandThumbsUp className="ms-3" />
-                <span className="text-secondary">1</span>
-              </div>
-              <Row className="my-2 ">
-                <Col className="d-flex align-items-center">
-                  <BsHandThumbsUp className="ms-5" />
-                  <span className="ms-2 me-0 pe-0">Like</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsChatRightDots className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Comment</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsRepeat className="ms-3" />
-                  <span className="ms-2 me-0 pe-0">Repost</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  <BsSendFill className="ms-3" />
-                  <span className="ms-2 me-5">Send</span>
-                </Col>
-                <Col className="d-flex align-items-center">
-                  {userId === post.user._id && (
-                    <button
-                      style={{
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer"
-                      }}
-                    >
-                      <BsTrashFill
-                        className=""
-                        size={24}
-                        color="red"
-                        onClick={() => handleDelete(post._id)}
-                      />{" "}
-                      Delete
-                    </button>
-                  )}
-                </Col>
-              </Row>
-            </div>
-          ))}
+            ))}
         </Col>
         <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
           <Row className="border border-2 rounded-3 ps-2 pt-2 m-0 bg-white">

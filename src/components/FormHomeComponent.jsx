@@ -1,125 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postExperience } from "../redux/actions/postExperience";
+// import { postExperience } from "../redux/actions/postExperience";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import { newPost } from "../redux/actions/newPost";
+import { BsEmojiSmile, BsImageFill, BsPlusLg } from "react-icons/bs";
+import { BiCalendarWeek } from "react-icons/bi";
 
 const FormHomeComponent = ({ isOpen, isClose, postData }) => {
   const profileData = useSelector((state) => state.profile.data);
-  const [formData, setFormData] = useState({
-    role: ""
-  });
+
+  const [postText, setPostText] = useState("");
+
+  const handlePost = () => {
+    if (postText !== "") {
+      dispatch(newPost(postText));
+      setPostText("");
+    }
+  };
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.profile.data?._id);
-  ////
-  const [file, setFile] = useState(null);
-
-  // const handleFileChange = (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   console.log("Selected File: ", selectedFile);
-  //   setFile(selectedFile);
-  // };
-
-  useEffect(() => {
-    if (isOpen) {
-      if (postData) {
-        setFormData({
-          role: postData.role || ""
-        });
-      } else {
-        setFormData({
-          role: ""
-        });
-      }
-    }
-  }, [isOpen, postData]);
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  console.log("userIdd: ", userId);
-
-  /* console.error("Error: userId is missing!"); */
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const uploadImageLocally = async (file, userId, expId) => {
-    try {
-      const formData = new FormData();
-      formData.append("experience", file);
-
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`
-          },
-          body: formData
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-      console.log("Image uploaded successfully:", data);
-      return data;
-    } catch (error) {
-      console.error("Error uploading image:", error.message);
-    }
-  };
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("postData", postData);
-    console.log("Form Data: ", formData);
-    console.log("File: ", file);
-    try {
-      ////////
-      let newExperienceId = null;
-      ///////
-      if (postData) {
-        await dispatch(newPost(userId, postData._id, formData));
-        newExperienceId = postData._id;
-      } else {
-        const newExperience = await dispatch(postExperience(formData, userId));
-        newExperienceId = newExperience._id;
-      }
-
-      // image upload
-      if (file && newExperienceId) {
-        await uploadImageLocally(file, userId, newExperienceId); // local function
-        console.log("Image uploaded successfully");
-        dispatch(fetchAllPosts(userId));
-      }
-
-      postData = {
-        role: "",
-        company: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-        area: ""
-      };
-      setFormData({
-        role: "",
-        company: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-        area: ""
-      });
-      setFile(null); //file reset
-      isClose();
-      dispatch(fetchAllPosts(userId));
-    } catch (error) {
-      console.error("Error in submitting form:", error.message);
-    }
-  };
 
   return (
     <div className="modal show">
@@ -131,7 +31,7 @@ const FormHomeComponent = ({ isOpen, isClose, postData }) => {
           dispatch(fetchAllPosts(userId));
         }}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="me-3">
           <Modal.Title style={{ width: "700px" }}>
             <div className="d-flex ms-3 align-items-center">
               <img
@@ -151,22 +51,36 @@ const FormHomeComponent = ({ isOpen, isClose, postData }) => {
             </div>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ width: "900px" }}>
-          <Form onSubmit={handleSubmit} className="">
-            <Form.Group controlId="role" className="mb-3 rounded-0">
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="postText" className="mb-3 rounded-0">
               <Form.Control
+                as="textarea"
                 type="text"
-                name="role"
+                name="postText"
                 placeholder="Di cosa vorresti parlare?"
-                value={formData.role}
-                onChange={handleChange}
+                value={postText}
+                onChange={(e) => setPostText(e.target.value)}
                 required
+                className="border border-2 w-100"
               />
             </Form.Group>
           </Form>
-          <Button variant="primary" type="submit" className="mt-3">
-            {postData ? "Update" : "Submit"}
-          </Button>
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <BsImageFill className="text-secondary fs-5 mx-2 " />
+              <BsEmojiSmile className="text-secondary fs-5 mx-2" />
+              <BiCalendarWeek className="text-secondary fs-5 mx-2" />
+              <BsPlusLg className=" fw-bold text-black mx-2" />
+            </div>
+            <Button
+              type="submit"
+              className=" bg-transparent text-secondary border border-0 fs-5"
+              onClick={handlePost}
+            >
+              {postData ? "Update" : "Pubblica"}
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
     </div>
