@@ -11,6 +11,7 @@ import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import { deletePost } from "../redux/actions/deletePost";
 import prime from "../assets/prime.svg";
+import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
@@ -89,6 +90,10 @@ const Home = () => {
         [postId]: ""
       }));
     }
+  };
+
+  const handleUpdate = (postId, updateText) => {
+    dispatch(updatePost(postId, updateText));
   };
 
   //modale per visualizzare commenti
@@ -225,7 +230,7 @@ const Home = () => {
                   <div className="d-flex align-items-center ms-auto me-3">
                     {userId === post.user._id && (
                       <div className="  me-2 pb-2 ms-auto">
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                        <button onClick={() => handleUpdate(postId, updateText)} style={{ background: "none", border: "none", cursor: "pointer" }}>
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
