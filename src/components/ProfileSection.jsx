@@ -1,5 +1,4 @@
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
-import background from "../assets/images/background_image.jpeg";
 import icona_lavoro from "../assets/images/icona_lavoro.svg";
 import { BiCamera } from "react-icons/bi";
 import { PiPlusCircle } from "react-icons/pi";
@@ -75,10 +74,31 @@ const ProfileSection = () => {
     dispatch(fetchProfile());
   }, [dispatch]);
   //
+  const [cityImage, setCityImage] = useState(null);
+  useEffect(() => {
+    fetch(
+      `https://api.unsplash.com/search/photos?query=Milano&client_id=fmNv3PVFbgIhDFDqo98i_B6c6XtE9sS1VUa-Cl1cxm0&per_page=1&orientation=landscape`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results && data.results.length > 0) {
+          setCityImage(data.results[0].urls.regular);
+        }
+        console.log("cityimageeee", cityImage);
+      });
+  }, []);
+
   return (
-    <Container id="main-section-profile" className="position-relative border border-2 mt-3 bg-white">
+    <Container
+      id="main-section-profile"
+      className="position-relative border border-2 mt-3 bg-white"
+    >
       {/* immagine profilo e sfondo */}
-      <img id="background_image" src={background} alt="background image" />
+      {cityImage ? (
+        <img id="background_image" src={cityImage} alt="background image" />
+      ) : (
+        <p>Loading image...</p>
+      )}
       {/* div completo */}
       <div>
         <div className="d-flex justify-content-between h-50">
@@ -101,7 +121,10 @@ const ProfileSection = () => {
               alt="profile image"
             />
 
-            <PiPlusCircle className="fs-1 plus-circle-icon text-primary bg-light rounded-circle btn p-0" onClick={handleShow} />
+            <PiPlusCircle
+              className="fs-1 plus-circle-icon text-primary bg-light rounded-circle btn p-0"
+              onClick={handleShow}
+            />
           </div>
 
           <Modal show={show} onHide={handleClose}>
@@ -114,7 +137,12 @@ const ProfileSection = () => {
                   {/* Input field */}
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>Upload Image</Form.Label>
-                    <Form.Control type="file" accept="image/*" onChange={handleFileChange} className="form-control" />
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="form-control"
+                    />
                   </Form.Group>
                 </Form>
               </div>
@@ -123,7 +151,12 @@ const ProfileSection = () => {
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="danger" onClick={handleDelete} className="ms-2" disabled={loading}>
+              <Button
+                variant="danger"
+                onClick={handleDelete}
+                className="ms-2"
+                disabled={loading}
+              >
                 {loading ? "Deleting..." : "Delete Image"}
               </Button>
               <Button variant="primary" onClick={handleUpload} disabled={!file}>
@@ -143,7 +176,9 @@ const ProfileSection = () => {
           className="rounded-pill rounded-md-circle py-1 d-flex align-items-center text-dark fw-bolder border-none border position-absolute"
         >
           <BiCamera className="me-lg-2" />
-          <div className="d-none d-lg-block d-xl-block">Enhange cover image</div>
+          <div className="d-none d-lg-block d-xl-block">
+            Enhange cover image
+          </div>
         </Button>
 
         {/* le 2 colonne dei dettagli profilo */}
@@ -152,20 +187,32 @@ const ProfileSection = () => {
             <h1 className="fs-4 mb-1">
               {profileData?.name || "Me"} {profileData?.surname || "Me"}
             </h1>
-            <h5 className="fs-5 fw-normal p-0 mb-1">{profileData?.title || "Me"}</h5>
+            <h5 className="fs-5 fw-normal p-0 mb-1">
+              {profileData?.title || "Me"}
+            </h5>
           </Col>
           <Col lg={4} className="p-0">
             <div className="d-flex align-items-center">
-              <img className="d-none d-lg-block d-xl-block" id="icons" src={icona_lavoro} alt="icona di default del lavoro dell'utente" />
+              <img
+                className="d-none d-lg-block d-xl-block"
+                id="icons"
+                src={icona_lavoro}
+                alt="icona di default del lavoro dell'utente"
+              />
               <h6 className="ms-1 ps-2 pt-2">Nucleode SRL</h6>
             </div>
           </Col>
         </Row>
         <Row className="ps-4">
           <div>
-            <h5 className="fs-6 fw-normal text-secondary d-inline-block pe-2 ">{profileData?.area || "Me"}</h5>
+            <h5 className="fs-6 fw-normal text-secondary d-inline-block pe-2 ">
+              {profileData?.area || "Me"}
+            </h5>
             <span className="fs-6 text-secondary">&#183;</span>
-            <a id="text-hover" className="fs-6 text-primary ms-2 text-decoration-none fw-medium">
+            <a
+              id="text-hover"
+              className="fs-6 text-primary ms-2 text-decoration-none fw-medium"
+            >
               Contact info
             </a>
           </div>
@@ -173,11 +220,19 @@ const ProfileSection = () => {
       </div>
       <div className="ps-3 mt-3">
         {/* buttons */}
-        <Button className="rounded-pill me-2 px-4 py-1 fw-medium">Open to</Button>
-        <Button id="button-hover" className="text-hover rounded-pill me-2 bg-transparent text-primary px-3 py-1 fw-semibold">
+        <Button className="rounded-pill me-2 px-4 py-1 fw-medium">
+          Open to
+        </Button>
+        <Button
+          id="button-hover"
+          className="text-hover rounded-pill me-2 bg-transparent text-primary px-3 py-1 fw-semibold"
+        >
           Add profile section
         </Button>
-        <Button id="button-hover" className="text-hover rounded-pill me-2 bg-transparent text-primary px-3 py-1 fw-semibold">
+        <Button
+          id="button-hover"
+          className="text-hover rounded-pill me-2 bg-transparent text-primary px-3 py-1 fw-semibold"
+        >
           Enhance profile
         </Button>
         <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
@@ -188,7 +243,10 @@ const ProfileSection = () => {
       {/* some area to edit and upload things to your profile */}
       <div className="slider-container my-3 mb-4 mx-auto">
         <Slider {...settings}>
-          <Row id="edit-profile-area" className="rounded-3 ms-2 py-2 d-flex justify-content-between ">
+          <Row
+            id="edit-profile-area"
+            className="rounded-3 ms-2 py-2 d-flex justify-content-between "
+          >
             <Col xl={9} lg={9} md={9} sm={9} xs={9}>
               <p className="m-0 fw-semibold">Open to work</p>
               <p className="m-0">Full Stack Engineer roles</p>
@@ -235,7 +293,10 @@ const ProfileSection = () => {
             </Col>
           </Row>
 
-          <Row id="edit-profile-area" className="rounded-3 mx-2 py-2 d-flex justify-content-between">
+          <Row
+            id="edit-profile-area"
+            className="rounded-3 mx-2 py-2 d-flex justify-content-between"
+          >
             <Col xl={9} lg={9} md={9} sm={7} xs={9}>
               <p className="m-0 fw-semibold ">Open to work</p>
               <p className="m-0">Full Stack Engineer roles</p>
