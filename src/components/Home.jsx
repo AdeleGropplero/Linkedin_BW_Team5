@@ -14,7 +14,7 @@ import prime from "../assets/prime.svg";
 // import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
-  BsArrowRight,
+  // BsArrowRight,
   BsBookmarkFill,
   BsCaretDownFill,
   BsChatRightDots,
@@ -22,7 +22,7 @@ import {
   BsFileRichtext,
   BsHandThumbsUp,
   BsImageFill,
-  BsPlusLg,
+  // BsPlusLg,
   BsRepeat,
   BsSendFill,
   BsTrashFill
