@@ -18,7 +18,7 @@ const Category = () => {
   }, [dispatch, category]);
 
   return (
-    <Container className="bg-white mt-3">
+    <Container className=" mt-3">
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
           <h1>Jobs in {category}</h1>
@@ -29,20 +29,48 @@ const Category = () => {
           <div>
             {jobs.length > 0
               ? jobs.map((job) => (
-                  <Card key={job._id} className="mb-3 bg-light">
+                  <Card key={job._id} className="mb-3 bg-white">
                     <Card.Body>
-                      <Card.Title>{job.title}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">{job.salary}</Card.Subtitle>
-                      <Card.Text>
-                        <strong>Category:</strong> {job.category} <br />
-                        <strong>Location:</strong> {job.candidate_required_location}
-                      </Card.Text>
-                      <Card.Text>
-                        <Link to={`./jobs/${job.company_name}`}>{job.company_name}</Link>
-                      </Card.Text>
-                      <Button variant="primary" as={Link} to={job.url}>
-                        More info
-                      </Button>
+                      <div className="d-flex justify-conten-between">
+                        <Col lg={10}>
+                          <Card.Title className="text-primary">
+                            {job.title}
+                          </Card.Title>
+                          <Card.Subtitle className="mb-2 text-muted">
+                            {job.salary}
+                          </Card.Subtitle>
+                          <Card.Text>
+                            <div>
+                              <strong>Category:</strong>{" "}
+                              <span className="ms-2">{job.category}</span>{" "}
+                            </div>
+                            <strong>Location:</strong>
+                            <span className="ms-2">
+                              {job.candidate_required_location}
+                            </span>
+                          </Card.Text>
+                          <Card.Text>
+                            <Link
+                              className="text-decoration-none"
+                              to={`../jobs/company/${job.company_name}`}
+                            >
+                              <strong className="text-dark">Company:</strong>
+                              <span className=" fw-semibold ms-2">
+                                {job.company_name}
+                              </span>
+                            </Link>
+                          </Card.Text>
+                        </Col>
+                        <Col lg={3} className="align-content-end">
+                          <Button
+                            className="bg-secondary border-0 rounded-pill px-3"
+                            as={Link}
+                            to={job.url}
+                          >
+                            More info
+                          </Button>
+                        </Col>
+                      </div>
                     </Card.Body>
                   </Card>
                 ))
