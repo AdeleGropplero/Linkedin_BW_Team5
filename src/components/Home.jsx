@@ -14,7 +14,7 @@ import prime from "../assets/prime.svg";
 // import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
-  BsArrowRight,
+  // BsArrowRight,
   BsBookmarkFill,
   BsCaretDownFill,
   BsChatRightDots,
@@ -22,7 +22,7 @@ import {
   BsFileRichtext,
   BsHandThumbsUp,
   BsImageFill,
-  BsPlusLg,
+  // BsPlusLg,
   BsRepeat,
   BsSendFill,
   BsTrashFill
@@ -55,6 +55,11 @@ const Home = () => {
     setSelectedPost(null);
   };
 
+  const openModalPost = (post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+    dispatch(fetchAllPosts());
+  };
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
@@ -164,12 +169,12 @@ const Home = () => {
   //   dispatch(updatePost(postId, updateText));
   // };
 
-  //modale per visualizzare commenti
+  // // modale per visualizzare commenti
 
-  /* const handleFetchComments = (postId) => {
-    console.log(postId);
-    dispatch(fetchComments(postId, token_comment));
-  }; */
+  // const handleFetchComments = (postId) => {
+  //   console.log(postId);
+  //   dispatch(fetchComments(postId, token_comment));
+  // };
   return (
     <Container>
       <Row>
