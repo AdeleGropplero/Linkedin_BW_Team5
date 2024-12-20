@@ -165,7 +165,7 @@ const Jobs = () => {
                           </Card.Text>
                         </Col>
                         <Col lg={3} className="align-content-end">
-                          <Button className="bg-secondary border-0 rounded-pill px-3" as={Link} to={job.url}>
+                          <Button className=" me-2 bg-secondary border-0 rounded-pill px-3" as={Link} to={job.url}>
                             More info
                           </Button>
                         </Col>
