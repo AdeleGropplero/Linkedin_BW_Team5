@@ -126,6 +126,7 @@ const Home = () => {
       setShowModal(false);
       setMediaText("");
       setMediaFile(null);
+      dispatch(fetchAllPosts());
     } catch (error) {
       console.error("Error submitting media:", error);
       alert("Failed to submit media.");
@@ -314,64 +315,67 @@ const Home = () => {
           </div>
           {/* ****************POST AREA **************************** */}
 
-          {allPosts?.slice(-10).map((post) => {
-            const postComments = allComments.filter((comment) => comment.elementId === post._id);
+          {allPosts
+            ?.slice(-10)
+            .reverse()
+            .map((post) => {
+              const postComments = allComments.filter((comment) => comment.elementId === post._id);
 
-            return (
-              <div key={post._id} className="border border-2 rounded-3 bg-white mb-3">
-                <div className="d-flex align-items-center">
-                  {/* immagine profilo utente che pubblica */}
-                  <Button className="bg-transparent py-0 border-0 border mt-3">
-                    <div>
-                      <img
-                        id="post_image-home-center"
-                        className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                        src={post.user?.image || "https://via.placeholder.com/35"}
-                        alt="profile image"
-                      />
-                    </div>
-                  </Button>
-                  {/* nome  e cognome dell'utente */}
-                  <div>
-                    <h1 className="fs-6 mb-1">{post.username}</h1>
-                    <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
-                      {post.user?.title || "title"}
-                    </h5>
-                  </div>
-                  <div className="d-flex align-items-center ms-auto me-3">
-                    {userId === post.user._id && (
-                      <div className="  me-2 pb-2 ms-auto">
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth="0"
-                            viewBox="0 0 512 512"
-                            className="fs-4 mt-2"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                          </svg>
-                        </button>
+              return (
+                <div key={post._id} className="border border-2 rounded-3 bg-white mb-3">
+                  <div className="d-flex align-items-center">
+                    {/* immagine profilo utente che pubblica */}
+                    <Button className="bg-transparent py-0 border-0 border mt-3">
+                      <div>
+                        <img
+                          id="post_image-home-center"
+                          className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
+                          src={post.user?.image || "https://via.placeholder.com/35"}
+                          alt="profile image"
+                        />
                       </div>
-                    )}
+                    </Button>
+                    {/* nome  e cognome dell'utente */}
                     <div>
+                      <h1 className="fs-6 mb-1">{post.username}</h1>
+                      <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
+                        {post.user?.title || "title"}
+                      </h5>
+                    </div>
+                    <div className="d-flex align-items-center ms-auto me-3">
                       {userId === post.user._id && (
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                          <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} />
-                        </button>
+                        <div className="  me-2 pb-2 ms-auto">
+                          <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                            <svg
+                              stroke="currentColor"
+                              fill="currentColor"
+                              strokeWidth="0"
+                              viewBox="0 0 512 512"
+                              className="fs-4 mt-2"
+                              height="1em"
+                              width="1em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+                            </svg>
+                          </button>
+                        </div>
                       )}
+                      <div>
+                        {userId === post.user._id && (
+                          <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                            <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} />
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="ms-3 mt-3">{post.text}</p>
-                {post.image && <img src={post.image} alt="Post Image" style={{ width: "100%", height: "auto" }} />}
+                  <p className="ms-3 mt-3">{post.text}</p>
+                  {post.image && <img src={post.image} alt="Post Image" style={{ width: "100%", height: "auto" }} />}
 
-                {/* Comment Submit*/}
+                  {/* Comment Submit*/}
 
-                {/* <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+                  {/* <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                   <div className="d-flex align-items-center">
                     <div>
                       <h1 className="fs-6 mb-1">
@@ -384,72 +388,72 @@ const Home = () => {
                   </div>
                   <p className="ms-3">{post.user?.bio || "bio"}</p>
                 </div> */}
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex align-items-center mt-2">
-                    <BsHandThumbsUp className="ms-3" />
-                    <span className="text-secondary">1</span>
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex align-items-center mt-2">
+                      <BsHandThumbsUp className="ms-3" />
+                      <span className="text-secondary">1</span>
+                    </div>
+                    <div></div>
                   </div>
-                  <div></div>
+
+                  <Row className="mt-2 mx-0 px-0 w-100 border-0">
+                    <Col>
+                      <Accordion className="accordion border-0 w-100 m-0 p-0 bg-white">
+                        <Accordion.Item eventKey="0" className="accordion bg-white">
+                          <Accordion.Header className="accordion bg-white">
+                            <Col className="d-flex align-items-center">
+                              <BsHandThumbsUp className="ms-3" />
+                              <span className="ms-2 me-0 pe-0">Like</span>
+                            </Col>
+
+                            <Col className="d-flex align-items-center">
+                              <BsRepeat className="ms-3" />
+                              <span className="ms-2 me-0 pe-0">Repost</span>
+                            </Col>
+                            <Col className="d-flex align-items-center">
+                              <BsSendFill className="ms-3" />
+                              <span className="ms-2 me-5">Send</span>
+                            </Col>
+                            <Col className="d-flex flex-grow-1">
+                              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                <BsChatRightDots />
+                              </button>
+                              <span className="mx-1">Comment</span>
+                            </Col>
+                          </Accordion.Header>
+                          <Accordion.Body className="accordion bg-white">
+                            <div className="mt-2">
+                              <Form>
+                                <div className="d-flex align-items-center">
+                                  <FormControl
+                                    type="text"
+                                    placeholder="Write a comment..."
+                                    value={commentText[post._id] || ""}
+                                    onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                                    style={{ width: "80%" }}
+                                  />
+                                  <Button className=" ms-3" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                                    Submit
+                                  </Button>
+                                </div>
+                                {/* Comment Show*/}
+                                <div className="mt-3">
+                                  {postComments.map((comment) => (
+                                    <div key={comment._id} className="border-bottom py-2">
+                                      <p>{comment.comment}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </Form>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </Col>
+                  </Row>
                 </div>
-
-                <Row className="mt-2 mx-0 px-0 w-100 border-0">
-                  <Col>
-                    <Accordion className="accordion border-0 w-100 m-0 p-0 bg-white">
-                      <Accordion.Item eventKey="0" className="accordion bg-white">
-                        <Accordion.Header className="accordion bg-white">
-                          <Col className="d-flex align-items-center">
-                            <BsHandThumbsUp className="ms-3" />
-                            <span className="ms-2 me-0 pe-0">Like</span>
-                          </Col>
-
-                          <Col className="d-flex align-items-center">
-                            <BsRepeat className="ms-3" />
-                            <span className="ms-2 me-0 pe-0">Repost</span>
-                          </Col>
-                          <Col className="d-flex align-items-center">
-                            <BsSendFill className="ms-3" />
-                            <span className="ms-2 me-5">Send</span>
-                          </Col>
-                          <Col className="d-flex flex-grow-1">
-                            <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                              <BsChatRightDots />
-                            </button>
-                            <span className="mx-1">Comment</span>
-                          </Col>
-                        </Accordion.Header>
-                        <Accordion.Body className="accordion bg-white">
-                          <div className="mt-2">
-                            <Form>
-                              <div className="d-flex align-items-center">
-                                <FormControl
-                                  type="text"
-                                  placeholder="Write a comment..."
-                                  value={commentText[post._id] || ""}
-                                  onChange={(e) => handleCommentChange(post._id, e.target.value)}
-                                  style={{ width: "80%" }}
-                                />
-                                <Button className=" ms-3" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
-                                  Submit
-                                </Button>
-                              </div>
-                              {/* Comment Show*/}
-                              <div className="mt-3">
-                                {postComments.map((comment) => (
-                                  <div key={comment._id} className="border-bottom py-2">
-                                    <p>{comment.comment}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            </Form>
-                          </div>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-                  </Col>
-                </Row>
-              </div>
-            );
-          })}
+              );
+            })}
         </Col>
         {/* <Col lg={3} className="mt-3 d-none d-lg-block d-xl-block p-0 ps-3">
           <Row className="border border-2 rounded-3 ps-2 pt-2 m-0 bg-white">
