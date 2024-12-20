@@ -57,6 +57,22 @@ export const postsReducer = (state = initialState, action) => {
     case "DELETE_POST_FAILURE":
       return { ...state, loading: false, error: action.payload };
 
+    ////////////////////////////////////////////
+
+    case "UPDATE_POST_REQUEST":
+      return { ...state, loading: true, error: null };
+
+    case "UPDATE_POST_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+
+        allPosts: state.allPosts.map((post) => (post._id === action.payload._id ? action.payload : post))
+      };
+
+    case "UPDATE_POST_FAILURE":
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
