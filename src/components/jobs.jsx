@@ -28,10 +28,10 @@ const Jobs = () => {
  */
 
   return (
-    <Container className="bg-white mt-3">
+    <Container className=" mt-3">
       <Row className="justify-content-center">
         <Col lg={3}>
-          <div className="border border-2 rounded-3 ps-3">
+          <div className="border border-2 rounded-3 ps-3 bg-white">
             <div className="d-flex align-items-center fw-medium py-3">
               <BsListUl className="me-2" />
               Preferences
@@ -49,10 +49,7 @@ const Jobs = () => {
               Interview prep
             </div>
           </div>
-          <Button
-            className="bg-transparent text-primary rounded-pill w-100 mt-3 py-2 d-flex align-items-center justify-content-center"
-            style={{ fontSize: "13px" }}
-          >
+          <Button className="bg-white text-primary rounded-pill w-100 mt-3 py-2 d-flex align-items-center justify-content-center" style={{ fontSize: "13px" }}>
             <BsPencilSquare className="me-2" />
             Start hiring with AI
           </Button>
