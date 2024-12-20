@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProfiles } from "../redux/actions/fetchAllProfiles";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../App.css";
 
-import { Button } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 
 const SidebarComponent = () => {
+  const dispatch = useDispatch();
+  const profiles = useSelector((state) => state.profile?.allProfiles || []);
+  console.log("SideBar :", profiles);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const initialProfiles = profiles.slice(0, 3);
+  const remainingProfiles = profiles.slice(3);
+
+  useEffect(() => {
+    dispatch(fetchAllProfiles());
+  }, [dispatch]);
   return (
     <>
       <div className="d-flex flex-column rounded bg-white border pt-3 pb-0 ps-3 pe-3 mb-3 shadow-sm mt-3 ">
@@ -60,121 +75,109 @@ const SidebarComponent = () => {
 
       {/*-----------------------------------------------------------*/}
 
-      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 ">
-        <div className="  mb-4  ">
-          <div>
-            <h4 className="mt-3  mb-3 fs-5">More profiles for you</h4>
-          </div>
-          <div className="d-flex">
-            <div
-              className="rounded-circle bg-black flex-shrink-0"
-              style={{ height: "48px", width: "48px" }}
-            ></div>
-            <div>
-              <p className="ms-2 mb-0 fw-semibold">
-                <a href="#" className="text-decoration-none text-black Profile">
-                  Andrea Ceccarelli
+      <div className="d-flex flex-column rounded bg-white border p-3 mb-3 shadow-sm mt-3">
+        <h4 className="mb-3 fs-5">More Profiles for You</h4>
+
+        {/* 3 profili prima*/}
+        {remainingProfiles.slice(8, 11).map((profile) => (
+          <div key={profile._id} className="d-flex mb-3">
+            <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
+            <div className="ms-2">
+              <p className="mb-0 fw-semibold">
+                <a href="#" className="text-decoration-none text-black">
+                  {profile.name}
                 </a>
-                <span className="text-muted"> · 3°+</span>
+                <span className="text-muted"> · {profile.connectionDegree}</span>
               </p>
-              <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                <i className="bi bi-person-fill-add me-2 ms-0 ps-0"></i>
-                <span className="fw-semibold">Connect</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-        <hr className="my-0" />
-        <div className=" mt-3 mb-2  ">
-          <div className="d-flex">
-            <div
-              className="rounded-circle bg-black flex-shrink-0"
-              style={{ height: "48px", width: "48px" }}
-            ></div>
-            <div>
-              <p className="ms-2 mb-0 fw-semibold">
-                <a
-                  href="#"
-                  className="text-decoration-none text-black Profile "
-                >
-                  Andrea Ceccarelli
-                </a>
-                <span className="text-muted"> · 3°+</span>
-              </p>
-              <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
+              <p>{profile.profession}</p>
+              <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
                 <i className="bi bi-person-fill-add me-2"></i>
                 <span className="fw-semibold">Connect</span>
               </Button>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="ShowButton d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
-        <Button className=" bg-transparent border-0 rounded-top-0 w-100 fw-semibold text-dark">
-          Show all
-        </Button>
+        ))}
+
+        {/* gli altri profili*/}
+        <Accordion className="mt-3">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header onClick={() => setIsOpen(!isOpen)}>{isOpen ? "Show Less" : "Show All"}</Accordion.Header>
+            <Accordion.Body>
+              {remainingProfiles.slice(11, 20).map((profile) => (
+                <div key={profile._id} className="d-flex mb-3">
+                  <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
+                  <div className="ms-2">
+                    <p className="mb-0 fw-semibold">
+                      <a href="#" className="text-decoration-none text-black">
+                        {profile.name} {profile.surname}
+                      </a>
+                      <span className="text-muted"> · 3°+ {profile.connectionDegree}</span>
+                    </p>
+                    <p>{profile.title}</p>
+                    <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
+                      <i className="bi bi-person-fill-add me-2"></i>
+                      <span className="fw-semibold">Connect</span>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </div>
 
       {/*-----------------------------------------------------------*/}
+      <div className="d-flex flex-column rounded bg-white border p-3 mb-3 shadow-sm mt-3">
+        <div>
+          <h4 className="mt-3  mb-0 fs-5">People You May Know</h4>
+          <p className="text-muted">From your industry</p>
+        </div>
+        {/* 3 profili prima*/}
+        {initialProfiles.map((profile) => (
+          <div key={profile._id} className="d-flex mb-3">
+            <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
+            <div className="ms-2">
+              <p className="mb-0 fw-semibold">
+                <a href="#" className="text-decoration-none text-black">
+                  {profile.name}
+                </a>
+                <span className="text-muted"> · {profile.connectionDegree}</span>
+              </p>
+              <p>{profile.profession}</p>
+              <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
+                <i className="bi bi-person-fill-add me-2"></i>
+                <span className="fw-semibold">Connect</span>
+              </Button>
+            </div>
+          </div>
+        ))}
 
-      <div className="d-flex flex-column rounded-top bg-white border p-3 mb-0 ">
-        <div className="  mb-4  ">
-          <div>
-            <h4 className="mt-3  mb-0 fs-5">People You May Know</h4>
-            <p className="text-muted">From your industry</p>
-          </div>
-          <div className="d-flex">
-            <div
-              className="rounded-circle bg-black flex-shrink-0"
-              style={{ height: "48px", width: "48px" }}
-            ></div>
-            <div>
-              <p className="ms-2 mb-0 fw-semibold">
-                <a
-                  href="#"
-                  className="text-decoration-none text-black mb-0 Profile"
-                >
-                  Andrea Ceccarelli
-                </a>
-                <span className="text-muted"> · 3°+</span>
-              </p>
-              <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span className="fw-semibold">Connect</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-        <hr className="my-0" />
-        <div className=" mt-3 mb-2 ">
-          <div className="d-flex">
-            <div
-              className="rounded-circle bg-black flex-shrink-0"
-              style={{ height: "48px", width: "48px" }}
-            ></div>
-            <div>
-              <p className=" ms-2 mb-0 fw-semibold ">
-                <a href="#" className="text-decoration-none text-black Profile">
-                  Andrea Ceccarelli
-                </a>
-                <span className="text-muted"> · 3°+</span>
-              </p>
-              <p className="ms-2 ">Sales Engineer at Global Services</p>
-              <Button className="ConnectButton bg-white text-secondary  rounded-pill px-3 py-1">
-                <i className="bi bi-person-fill-add me-2 ms-1"></i>
-                <span className="fw-semibold">Connect</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="d-flex justify-content-center mt-0 rounded-bottom border  mb-4 shadow-sm">
-        <Button className="ShowButton border-0 rounded-top-0 w-100 fw-semibold text-dark">
-          Show all
-        </Button>
+        {/* gli altri profili*/}
+        <Accordion className="mt-3">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header onClick={() => setIsOpen(!isOpen)}>{isOpen ? "Show Less" : "Show All"}</Accordion.Header>
+            <Accordion.Body>
+              {remainingProfiles.slice(0, 8).map((profile) => (
+                <div key={profile._id} className="d-flex mb-3">
+                  <img src={profile.image} alt="" className="rounded-circle bg-black flex-shrink-0" style={{ height: "48px", width: "48px" }} />
+                  <div className="ms-2">
+                    <p className="mb-0 fw-semibold">
+                      <a href="#" className="text-decoration-none text-black">
+                        {profile.name} {profile.surname}
+                      </a>
+                      <span className="text-muted"> · 3°+ {profile.connectionDegree}</span>
+                    </p>
+                    <p>{profile.title}</p>
+                    <Button className="ConnectButton bg-white text-secondary rounded-pill px-3 py-1">
+                      <i className="bi bi-person-fill-add me-2"></i>
+                      <span className="fw-semibold">Connect</span>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </div>
     </>
   );
