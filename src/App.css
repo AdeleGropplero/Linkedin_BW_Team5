@@ -217,3 +217,41 @@ slick-dots li button:before,
     max-width: 370px;
   }
 }
+
+.accordion {
+  background-color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.accordion .accordion-button:not(.collapsed) {
+  background-color: white !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.accordion .accordion-item {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.accordion .accordion-body {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+/* .accordion .accordion: {
+  border: 0 !important;
+  box-shadow: none !important;
+} */
+.accordion .accordion-collapse.show {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.accordion:focus {
+  outline: none !important ;
+}
+
+.accordion .accordion-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -24,7 +24,7 @@ export const fetchJobs =
   async (dispatch) => {
     dispatch(fetchJobsStart());
     try {
-      const response = await fetch(`https://strive-benchmark.herokuapp.com/api/jobs?search=${query}`);
+      const response = await fetch(`https://strive-benchmark.herokuapp.com/api/jobs?search=${query}&limit=20`);
       if (response.ok) {
         const data = await response.json();
         dispatch(fetchJobsSuccess(data.data));

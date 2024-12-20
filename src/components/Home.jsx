@@ -11,7 +11,7 @@ import { fetchProfile } from "../redux/actions/fetchProfile";
 import { fetchAllPosts } from "../redux/actions/fetchAllPosts";
 import { deletePost } from "../redux/actions/deletePost";
 import prime from "../assets/prime.svg";
-import updatePost from "../redux/actions/modifyPost";
+// import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
   BsArrowRight,
@@ -65,6 +65,71 @@ const Home = () => {
   };
 
   //
+  /////////////////Media section by Mahdi//////////////////////
+  const [showModal, setShowModal] = useState(false);
+  const [mediaText, setMediaText] = useState("");
+  const [mediaFile, setMediaFile] = useState(null);
+  console.log("mediaText:", mediaText);
+  console.log("mediaFile:", mediaFile);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleSubmitMedia = async () => {
+    if (!mediaText.trim() || !mediaFile) {
+      alert("Please provide both text and an image.");
+      return;
+    }
+
+    try {
+      console.log("Submitting mediaText:", mediaText);
+
+      const responseText = await fetch("https://striveschool-api.herokuapp.com/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ text: mediaText })
+      });
+
+      if (!responseText.ok) {
+        throw new Error("Failed to post text");
+      }
+
+      const postData = await responseText.json();
+      console.log("Full Post Data Response:", postData);
+
+      const postId = postData._id || postData.postId || postData.data?._id;
+      console.log("Extracted Post ID:", postId);
+
+      if (!postId) {
+        throw new Error("Post ID is undefined in the API response");
+      }
+
+      const formData = new FormData();
+      formData.append("post", mediaFile);
+      const responseImage = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      if (!responseImage.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      alert("Media submitted successfully!");
+      setShowModal(false);
+      setMediaText("");
+      setMediaFile(null);
+    } catch (error) {
+      console.error("Error submitting media:", error);
+      alert("Failed to submit media.");
+    }
+  };
 
   ///////////Comment Section By Mahdi ////////////
   useEffect(() => {
@@ -89,12 +154,13 @@ const Home = () => {
         ...prev,
         [postId]: ""
       }));
+      dispatch(fetchAllComments(token));
     }
   };
 
-  const handleUpdate = (postId, updateText) => {
-    dispatch(updatePost(postId, updateText));
-  };
+  // const handleUpdate = (postId, updateText) => {
+  //   dispatch(updatePost(postId, updateText));
+  // };
 
   //modale per visualizzare commenti
 
@@ -182,7 +248,51 @@ const Home = () => {
             <Row className="mt-3">
               <Col className="d-flex align-items-center ms-4 p-0">
                 <BsImageFill className="text-primary fs-5" />
-                <span className="ms-2">Media</span>
+                <span className="ms-2" onClick={handleShowModal} style={{ cursor: "pointer" }}>
+                  Media
+                </span>
+
+                {showModal && (
+                  <div className="modal show" style={{ display: "block" }}>
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title">Add Media</h5>
+                          <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                        </div>
+                        <div className="modal-body">
+                          <form>
+                            <div className="mb-3">
+                              <label htmlFor="mediaText" className="form-label">
+                                Text
+                              </label>
+                              <textarea
+                                id="mediaText"
+                                className="form-control"
+                                value={typeof mediaText === "string" ? mediaText : JSON.stringify(mediaText)}
+                                onChange={(e) => setMediaText(e.target.value)}
+                              ></textarea>
+                            </div>
+                            <div className="mb-3">
+                              <label htmlFor="mediaFile" className="form-label">
+                                Upload Image
+                              </label>
+                              <input type="file" id="mediaFile" className="form-control" onChange={(e) => setMediaFile(e.target.files[0])} />
+                            </div>
+                          </form>
+                        </div>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                            Close
+                          </button>
+                          <button type="button" className="btn btn-primary" onClick={handleSubmitMedia}>
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </Col>
               <Col className="d-flex align-items-center p-0 m-0">
                 <BsChatRightText className="fs-6 fw-semibold text-warning" />
@@ -230,7 +340,7 @@ const Home = () => {
                   <div className="d-flex align-items-center ms-auto me-3">
                     {userId === post.user._id && (
                       <div className="  me-2 pb-2 ms-auto">
-                        <button onClick={() => handleUpdate(postId, updateText)} style={{ background: "none", border: "none", cursor: "pointer" }}>
+                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -255,21 +365,12 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-
-                <p className="ms-3">{post.text}</p>
+                <p className="ms-3 mt-3">{post.text}</p>
+                {post.image && <img src={post.image} alt="Post Image" style={{ width: "100%", height: "auto" }} />}
 
                 {/* Comment Submit*/}
 
-                {/* Comment Show*/}
-                <div className="mt-3">
-                  {postComments.map((comment) => (
-                    <div key={comment._id} className="border-bottom py-2">
-                      <p>{comment.comment}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
+                {/* <div className="border border-2 justify-content-center" style={{ width: "95%", marginInline: "auto" }}>
                   <div className="d-flex align-items-center">
                     <div>
                       <h1 className="fs-6 mb-1">
@@ -281,64 +382,70 @@ const Home = () => {
                     </div>
                   </div>
                   <p className="ms-3">{post.user?.bio || "bio"}</p>
-                </div>
+                </div> */}
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center mt-2">
                     <BsHandThumbsUp className="ms-3" />
                     <span className="text-secondary">1</span>
                   </div>
-                  <div>
-                    <button className=" Profile" style={{ background: "none", border: "none", cursor: "pointer" }}>
-                      All Comments
-                    </button>
-                  </div>
+                  <div></div>
                 </div>
-                <Container fluid>
-                  <Row className="mt-2 w-100">
-                    <Col>
-                      <Accordion className="flex-fill m-0 p-0">
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            <Col className="d-flex align-items-center">
-                              <BsHandThumbsUp className="ms-3" />
-                              <span className="ms-2 me-0 pe-0">Like</span>
-                            </Col>
 
-                            <Col className="d-flex align-items-center">
-                              <BsRepeat className="ms-3" />
-                              <span className="ms-2 me-0 pe-0">Repost</span>
-                            </Col>
-                            <Col className="d-flex align-items-center">
-                              <BsSendFill className="ms-3" />
-                              <span className="ms-2 me-5">Send</span>
-                            </Col>
-                            <Col className="d-flex flex-grow-1">
-                              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                                <BsChatRightDots />
-                              </button>
-                              <span className="mx-1">Comment</span>
-                            </Col>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <div className="mt-2">
-                              <Form>
+                <Row className="mt-2 mx-0 px-0 w-100 border-0">
+                  <Col>
+                    <Accordion className="accordion border-0 w-100 m-0 p-0 bg-white">
+                      <Accordion.Item eventKey="0" className="accordion bg-white">
+                        <Accordion.Header className="accordion bg-white">
+                          <Col className="d-flex align-items-center">
+                            <BsHandThumbsUp className="ms-3" />
+                            <span className="ms-2 me-0 pe-0">Like</span>
+                          </Col>
+
+                          <Col className="d-flex align-items-center">
+                            <BsRepeat className="ms-3" />
+                            <span className="ms-2 me-0 pe-0">Repost</span>
+                          </Col>
+                          <Col className="d-flex align-items-center">
+                            <BsSendFill className="ms-3" />
+                            <span className="ms-2 me-5">Send</span>
+                          </Col>
+                          <Col className="d-flex flex-grow-1">
+                            <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                              <BsChatRightDots />
+                            </button>
+                            <span className="mx-1">Comment</span>
+                          </Col>
+                        </Accordion.Header>
+                        <Accordion.Body className="accordion bg-white">
+                          <div className="mt-2">
+                            <Form>
+                              <div className="d-flex align-items-center">
                                 <FormControl
                                   type="text"
                                   placeholder="Write a comment..."
                                   value={commentText[post._id] || ""}
                                   onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                                  style={{ width: "80%" }}
                                 />
-                                <Button className="mt-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                                <Button className="mt-2 ms-2" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
                                   Submit
                                 </Button>
-                              </Form>
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
-                    </Col>
-                  </Row>
-                </Container>
+                              </div>
+                              {/* Comment Show*/}
+                              <div className="mt-3">
+                                {postComments.map((comment) => (
+                                  <div key={comment._id} className="border-bottom py-2">
+                                    <p>{comment.comment}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </Form>
+                          </div>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
+                  </Col>
+                </Row>
               </div>
             );
           })}
