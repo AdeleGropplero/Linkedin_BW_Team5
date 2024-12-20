@@ -1,7 +1,15 @@
 const token = import.meta.env.VITE_AUTH_TOKEN;
 const token_comment = import.meta.env.VITE_AUTH_TOKEN_2;
 
-import { Accordion, Button, Col, Container, Form, FormControl, Row } from "react-bootstrap";
+import {
+  Accordion,
+  Button,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  Row
+} from "react-bootstrap";
 
 import background from "../assets/images/background_image.jpeg";
 import linkedin from "../assets/images/linkedin.png";
@@ -14,7 +22,7 @@ import prime from "../assets/prime.svg";
 // import updatePost from "../redux/actions/modifyPost";
 // import { newPost } from "../redux/actions/newPost";
 import {
-  BsArrowRight,
+  // BsArrowRight,
   BsBookmarkFill,
   BsCaretDownFill,
   BsChatRightDots,
@@ -22,7 +30,7 @@ import {
   BsFileRichtext,
   BsHandThumbsUp,
   BsImageFill,
-  BsPlusLg,
+  // BsPlusLg,
   BsRepeat,
   BsSendFill,
   BsTrashFill
@@ -55,6 +63,11 @@ const Home = () => {
     setSelectedPost(null);
   };
 
+  const openModalPost = (post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+    dispatch(fetchAllPosts());
+  };
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchAllPosts());
@@ -85,14 +98,17 @@ const Home = () => {
     try {
       console.log("Submitting mediaText:", mediaText);
 
-      const responseText = await fetch("https://striveschool-api.herokuapp.com/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ text: mediaText })
-      });
+      const responseText = await fetch(
+        "https://striveschool-api.herokuapp.com/api/posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ text: mediaText })
+        }
+      );
 
       if (!responseText.ok) {
         throw new Error("Failed to post text");
@@ -110,13 +126,16 @@ const Home = () => {
 
       const formData = new FormData();
       formData.append("post", mediaFile);
-      const responseImage = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData
-      });
+      const responseImage = await fetch(
+        `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          body: formData
+        }
+      );
 
       if (!responseImage.ok) {
         throw new Error("Failed to upload image");
@@ -163,28 +182,41 @@ const Home = () => {
   //   dispatch(updatePost(postId, updateText));
   // };
 
-  //modale per visualizzare commenti
+  // // modale per visualizzare commenti
 
-  /* const handleFetchComments = (postId) => {
-    console.log(postId);
-    dispatch(fetchComments(postId, token_comment));
-  }; */
+  // const handleFetchComments = (postId) => {
+  //   console.log(postId);
+  //   dispatch(fetchComments(postId, token_comment));
+  // };
   return (
     <Container>
       <Row>
         <Col lg={3} className="d-none d-lg-block d-xl-block">
-          <Container id="main-section-profile" className="mt-3 bg-white border border-2 rounded-3">
+          <Container
+            id="main-section-profile"
+            className="mt-3 bg-white border border-2 rounded-3"
+          >
             {/* immagine profilo e sfondo */}
-            <img className="rounded-top-3" id="background_image" src={background} alt="background image" />
+            <img
+              className="rounded-top-3"
+              id="background_image"
+              src={background}
+              alt="background image"
+            />
             {/* div completo */}
             <div>
               <div className="d-flex justify-content-center h-50">
-                <Button href="/profile" className="bg-transparent border-0 border">
+                <Button
+                  href="/profile"
+                  className="bg-transparent border-0 border"
+                >
                   <div>
                     <img
                       id="profile_image-home"
                       className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={profileData?.image || "https://via.placeholder.com/35"}
+                      src={
+                        profileData?.image || "https://via.placeholder.com/35"
+                      }
                       alt="profile image"
                     />
                   </div>
@@ -195,7 +227,9 @@ const Home = () => {
                 <h1 className="fs-5 mb-1">
                   {profileData?.name || "Me"} {profileData?.surname || "Me"}
                 </h1>
-                <h5 className="fs-6 lead fw-normal p-0 mb-1">{profileData?.title || "Me"}</h5>
+                <h5 className="fs-6 lead fw-normal p-0 mb-1">
+                  {profileData?.title || "Me"}
+                </h5>
               </div>
             </div>
             <Row>
@@ -208,14 +242,23 @@ const Home = () => {
               </Col>
             </Row>
             <div>
-              <p className="m-0 ps-2 pt-4 fw-light text-secondary">Boost your career with exclusive tools</p>
+              <p className="m-0 ps-2 pt-4 fw-light text-secondary">
+                Boost your career with exclusive tools
+              </p>
               <p className="m-0 ps-2 fw-medium d-flex align-items-center ">
-                <img src={prime} alt="" style={{ width: "25px", height: "20px" }} className="my-1 mb-1" />
+                <img
+                  src={prime}
+                  alt=""
+                  style={{ width: "25px", height: "20px" }}
+                  className="my-1 mb-1"
+                />
                 Try Premium for $0
               </p>
               <p className="m-0 ps-2 py-4 fw-medium d-flex align-items-center ">
                 <BsBookmarkFill className="text-secondary fs-5" />
-                <span className="ps-2 text-secondary-emphasis">Saved items</span>
+                <span className="ps-2 text-secondary-emphasis">
+                  Saved items
+                </span>
               </p>
             </div>
           </Container>
@@ -224,12 +267,17 @@ const Home = () => {
           <div className="border border-2 rounded-3 bg-white  py-3">
             <div className="d-flex mt-2 align-items-center">
               <div className="d-flex justify-content-start h-50">
-                <Button href="/profile" className="bg-transparent py-0 border-0 border">
+                <Button
+                  href="/profile"
+                  className="bg-transparent py-0 border-0 border"
+                >
                   <div>
                     <img
                       id="post_image-home-center"
                       className="align-bottom z-10 shadow object-fit-contain rounded-circle"
-                      src={profileData?.image || "https://via.placeholder.com/35"}
+                      src={
+                        profileData?.image || "https://via.placeholder.com/35"
+                      }
                       alt="profile image"
                     />
                   </div>
@@ -243,13 +291,21 @@ const Home = () => {
                   aria-label="Search"
                   onClick={openModal}
                 />
-                <FormHomeComponent isOpen={isModalOpen} isClose={closeModal} postData={selectedPost} />
+                <FormHomeComponent
+                  isOpen={isModalOpen}
+                  isClose={closeModal}
+                  postData={selectedPost}
+                />
               </Form>
             </div>
             <Row className="mt-3">
               <Col className="d-flex align-items-center ms-4 p-0">
                 <BsImageFill className="text-primary fs-5" />
-                <span className="ms-2" onClick={handleShowModal} style={{ cursor: "pointer" }}>
+                <span
+                  className="ms-2"
+                  onClick={handleShowModal}
+                  style={{ cursor: "pointer" }}
+                >
                   Media
                 </span>
 
@@ -259,7 +315,11 @@ const Home = () => {
                       <div className="modal-content">
                         <div className="modal-header">
                           <h5 className="modal-title">Add Media</h5>
-                          <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            onClick={handleCloseModal}
+                          ></button>
                         </div>
                         <div className="modal-body">
                           <form>
@@ -270,7 +330,11 @@ const Home = () => {
                               <textarea
                                 id="mediaText"
                                 className="form-control"
-                                value={typeof mediaText === "string" ? mediaText : JSON.stringify(mediaText)}
+                                value={
+                                  typeof mediaText === "string"
+                                    ? mediaText
+                                    : JSON.stringify(mediaText)
+                                }
                                 onChange={(e) => setMediaText(e.target.value)}
                               ></textarea>
                             </div>
@@ -278,15 +342,30 @@ const Home = () => {
                               <label htmlFor="mediaFile" className="form-label">
                                 Upload Image
                               </label>
-                              <input type="file" id="mediaFile" className="form-control" onChange={(e) => setMediaFile(e.target.files[0])} />
+                              <input
+                                type="file"
+                                id="mediaFile"
+                                className="form-control"
+                                onChange={(e) =>
+                                  setMediaFile(e.target.files[0])
+                                }
+                              />
                             </div>
                           </form>
                         </div>
                         <div className="modal-footer">
-                          <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={handleCloseModal}
+                          >
                             Close
                           </button>
-                          <button type="button" className="btn btn-primary" onClick={handleSubmitMedia}>
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleSubmitMedia}
+                          >
                             Submit
                           </button>
                         </div>
@@ -299,7 +378,10 @@ const Home = () => {
                 <BsChatRightText className="fs-6 fw-semibold text-warning" />
                 <span className="ms-2">Contribute expertise</span>
               </Col>
-              <Col className="d-flex align-items-center ps-5" onClick={openModal}>
+              <Col
+                className="d-flex align-items-center ps-5"
+                onClick={openModal}
+              >
                 <BsFileRichtext className="fs-5 fw-semibold text-danger-emphasis" />
                 <span className="ms-2">Write article</span>
               </Col>
@@ -315,10 +397,15 @@ const Home = () => {
           {/* ****************POST AREA **************************** */}
 
           {allPosts?.slice(-10).map((post) => {
-            const postComments = allComments.filter((comment) => comment.elementId === post._id);
+            const postComments = allComments.filter(
+              (comment) => comment.elementId === post._id
+            );
 
             return (
-              <div key={post._id} className="border border-2 rounded-3 bg-white mb-3">
+              <div
+                key={post._id}
+                className="border border-2 rounded-3 bg-white mb-3"
+              >
                 <div className="d-flex align-items-center">
                   {/* immagine profilo utente che pubblica */}
                   <Button className="bg-transparent py-0 border-0 border mt-3">
@@ -326,7 +413,9 @@ const Home = () => {
                       <img
                         id="post_image-home-center"
                         className="w-100 h-100 align-bottom z-10 shadow object-fit-contain rounded-circle"
-                        src={post.user?.image || "https://via.placeholder.com/35"}
+                        src={
+                          post.user?.image || "https://via.placeholder.com/35"
+                        }
                         alt="profile image"
                       />
                     </div>
@@ -334,14 +423,24 @@ const Home = () => {
                   {/* nome  e cognome dell'utente */}
                   <div>
                     <h1 className="fs-6 mb-1">{post.username}</h1>
-                    <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
+                    <h5
+                      className="lead fw-normal text-secondary p-0 mb-1"
+                      style={{ fontSize: "12px" }}
+                    >
                       {post.user?.title || "title"}
                     </h5>
                   </div>
                   <div className="d-flex align-items-center ms-auto me-3">
                     {userId === post.user._id && (
                       <div className="  me-2 pb-2 ms-auto">
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                        <button
+                          style={{
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer"
+                          }}
+                          onClick={() => openModalPost(post)}
+                        >
                           <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -359,15 +458,32 @@ const Home = () => {
                     )}
                     <div>
                       {userId === post.user._id && (
-                        <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                          <BsTrashFill className="" size={24} color="red" onClick={() => handleDelete(post._id)} />
+                        <button
+                          style={{
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer"
+                          }}
+                        >
+                          <BsTrashFill
+                            className=""
+                            size={24}
+                            color="red"
+                            onClick={() => handleDelete(post._id)}
+                          />
                         </button>
                       )}
                     </div>
                   </div>
                 </div>
                 <p className="ms-3 mt-3">{post.text}</p>
-                {post.image && <img src={post.image} alt="Post Image" style={{ width: "100%", height: "auto" }} />}
+                {post.image && (
+                  <img
+                    src={post.image}
+                    alt="Post Image"
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                )}
 
                 {/* Comment Submit*/}
 
@@ -395,7 +511,10 @@ const Home = () => {
                 <Row className="mt-2 mx-0 px-0 w-100 border-0">
                   <Col>
                     <Accordion className="accordion border-0 w-100 m-0 p-0 bg-white">
-                      <Accordion.Item eventKey="0" className="accordion bg-white">
+                      <Accordion.Item
+                        eventKey="0"
+                        className="accordion bg-white"
+                      >
                         <Accordion.Header className="accordion bg-white">
                           <Col className="d-flex align-items-center">
                             <BsHandThumbsUp className="ms-3" />
@@ -411,7 +530,13 @@ const Home = () => {
                             <span className="ms-2 me-5">Send</span>
                           </Col>
                           <Col className="d-flex flex-grow-1">
-                            <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                            <button
+                              style={{
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer"
+                              }}
+                            >
                               <BsChatRightDots />
                             </button>
                             <span className="mx-1">Comment</span>
@@ -425,17 +550,29 @@ const Home = () => {
                                   type="text"
                                   placeholder="Write a comment..."
                                   value={commentText[post._id] || ""}
-                                  onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                                  onChange={(e) =>
+                                    handleCommentChange(
+                                      post._id,
+                                      e.target.value
+                                    )
+                                  }
                                   style={{ width: "80%" }}
                                 />
-                                <Button className=" ms-3" onClick={() => handleCommentSubmit(post._id)} disabled={!commentText[post._id]?.trim()}>
+                                <Button
+                                  className=" ms-3"
+                                  onClick={() => handleCommentSubmit(post._id)}
+                                  disabled={!commentText[post._id]?.trim()}
+                                >
                                   Submit
                                 </Button>
                               </div>
                               {/* Comment Show*/}
                               <div className="mt-3">
                                 {postComments.map((comment) => (
-                                  <div key={comment._id} className="border-bottom py-2">
+                                  <div
+                                    key={comment._id}
+                                    className="border-bottom py-2"
+                                  >
                                     <p>{comment.comment}</p>
                                   </div>
                                 ))}
@@ -563,38 +700,74 @@ const Home = () => {
             style={{ fontSize: "90%", top: "75px", zIndex: "1050" }}
           >
             <div>
-              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-3 mb-1 text-decoration-none text-secondary"
+              >
                 About
               </a>
-              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-3 mb-1 text-decoration-none text-secondary"
+              >
                 Accessibility
               </a>
-              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-2 mb-1 text-decoration-none text-secondary"
+              >
                 Help Center
               </a>
 
-              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
-                Privacy &amp; Terms <BsCaretDownFill style={{ fontSize: "90%" }} />
+              <a
+                href="#"
+                className="me-3 mb-1 text-decoration-none text-secondary"
+              >
+                Privacy &amp; Terms{" "}
+                <BsCaretDownFill style={{ fontSize: "90%" }} />
               </a>
-              <a href="#" className="me-4 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-4 mb-1 text-decoration-none text-secondary"
+              >
                 Ad Choices
               </a>
 
-              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-2 mb-1 text-decoration-none text-secondary"
+              >
                 Advertising
               </a>
-              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
-                Business Services <BsCaretDownFill style={{ fontSize: "90%" }} />
+              <a
+                href="#"
+                className="me-2 mb-1 text-decoration-none text-secondary"
+              >
+                Business Services{" "}
+                <BsCaretDownFill style={{ fontSize: "90%" }} />
               </a>
 
-              <a href="#" className="me-3 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-3 mb-1 text-decoration-none text-secondary"
+              >
                 Get the LinkedIn app
               </a>
-              <a href="#" className="me-2 mb-1 text-decoration-none text-secondary">
+              <a
+                href="#"
+                className="me-2 mb-1 text-decoration-none text-secondary"
+              >
                 More
               </a>
-              <a href="#" className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center">
-                <img src={linkedin} alt="linkedin logo" style={{ width: "20%", height: "80%" }} />
+              <a
+                href="#"
+                className=" d-flex mt-2 text-dark text-decoration-none justify-content-center align-items-center"
+              >
+                <img
+                  src={linkedin}
+                  alt="linkedin logo"
+                  style={{ width: "20%", height: "80%" }}
+                />
                 LinkedIn Corporation &copy; 2024
               </a>
             </div>
