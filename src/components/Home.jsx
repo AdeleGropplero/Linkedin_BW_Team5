@@ -333,7 +333,9 @@ const Home = () => {
                   </Button>
                   {/* nome  e cognome dell'utente */}
                   <div>
-                    <h1 className="fs-6 mb-1">{post.username}</h1>
+                    <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                      <h1 className="Profile cursor-pointer fs-6 mb-1">{post.username}</h1>
+                    </button>
                     <h5 className="lead fw-normal text-secondary p-0 mb-1" style={{ fontSize: "12px" }}>
                       {post.user?.title || "title"}
                     </h5>
