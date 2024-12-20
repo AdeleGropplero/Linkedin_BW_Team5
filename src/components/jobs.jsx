@@ -179,20 +179,23 @@ const Jobs = () => {
               : !isLoading && <p>Job not found</p>}
           </div>
         </Col>
-        <Col lg={3} className="bg-white border border-2 rounded-3 mb-3">
-          <p className="fw-medium mt-3 mb-0">Job seeker guidance</p>
-          <p className="text-secondary pb-2" style={{ fontSize: "14px" }}>
-            Recommended based on your activity
-          </p>
-          <div>
-            <p className="fw-semibold">I want to impruve my resume</p>
+        <Col lg={3}>
+          <div className="  ps-3 bg-white border border-2 rounded-3 mb-3">
+            <p className=" fw-medium mt-2 mb-0">Job seeker guidance</p>
+            <p className="text-secondary pb-2" style={{ fontSize: "14px" }}>
+              Recommended based on your activity
+            </p>
+            <div>
+              <p className="fw-semibold">I want to impruve my resume</p>
+            </div>
+            <p>
+              Explore our curated guide of expert-led courses, such as how to improveyour resume and grow your network to help you land your next opportunity.
+            </p>
+
+            <button className="text-secondary fw-medium mb-2" style={{ background: "none", border: "none", cursor: "pointer" }}>
+              Show more <BsArrowRight className="text-dark" />
+            </button>
           </div>
-          <p>
-            Explore our curated guide of expert-led courses, such as how to improveyour resume and grow your network to help you land your next opportunity.
-          </p>
-          <span className="text-secondary fw-medium">
-            Show more <BsArrowRight className="text-dark" />
-          </span>
           <div
             className="d-flex flex-wrap justify-content-center text-secondary mt-3 position-sticky "
             style={{ fontSize: "90%", top: "71px", zIndex: "1050" }}
